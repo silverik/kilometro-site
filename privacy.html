@@ -19,16 +19,19 @@
 <body>
 <main>
 <h1>Kilòmetro · Norme sulla privacy</h1>
-<div class="meta">Ultimo aggiornamento · 9 settembre 2026</div>
+<div class="meta">Ultimo aggiornamento · 8 ottobre 2026</div>
 
-<p>Kilòmetro è un'app Android per registrare le spese della propria auto. È sviluppata da Daniele Crucitti (di seguito "noi").
+<p>Kilòmetro è un'app per Android e iPhone per registrare le spese della propria auto, moto o scooter. È sviluppata da Daniele Crucitti (di seguito "noi").
 Questa pagina spiega quali dati tratta l'app e dove finiscono. In sintesi: <strong>i dati restano tuoi</strong>, sul tuo telefono e,
-se lo scegli, nel tuo Google Drive. Non abbiamo server, non raccogliamo dati per conto nostro, non mostriamo pubblicità.</p>
+se lo scegli, nel tuo iCloud o nel tuo Google Drive. Non raccogliamo dati per conto nostro e non mostriamo pubblicità. L'unico nostro servizio è
+quello che legge gli scontrini, descritto più sotto: lo usa solo chi attiva quella funzione.</p>
 
 <h2>Dati che l'app tratta</h2>
 <ul>
-  <li><strong>Dati delle auto e delle spese</strong> che inserisci tu: nome e targa dell'auto, chilometri, date, importi, litri, fornitori, note, promemoria e le foto degli scontrini che scatti.</li>
-  <li><strong>Account Google</strong> (indirizzo e-mail e nome), solo se scegli "Accedi con Google": serve a salvare il registro nel tuo Drive e a ritrovarlo sugli altri tuoi telefoni.</li>
+  <li><strong>Dati delle auto e delle spese</strong> che inserisci tu: nome e targa dell'auto, chilometri, date, importi, litri, fornitori, note e promemoria.</li>
+  <li><strong>Account Google</strong> (indirizzo e-mail e nome), solo se scegli "Accedi con Google": serve a salvare il registro nel tuo Drive e a ritrovarlo sugli altri tuoi telefoni.
+      Su iPhone puoi usare invece l'iCloud del tuo Apple ID: l'app non vede chi sei, usa solo lo spazio dell'app nel tuo iCloud.</li>
+  <li><strong>Foto dello scontrino</strong>, solo se usi "Leggi lo scontrino": la foto viene inviata al nostro servizio per essere letta e trasformata nei campi della spesa, poi viene scartata. Non resta sul telefono, non va nel tuo cloud e noi non la conserviamo (dettagli nella sezione dedicata).</li>
   <li><strong>Posizione</strong>, solo se la concedi e solo mentre guardi la mappa dei prezzi: serve a centrare la mappa dove sei. Non viene salvata né inviata a noi; per cercare i distributori in Francia e in Austria l'app manda ai servizi pubblici dei prezzi il centro della zona che stai guardando, non la tua posizione.</li>
   <li><strong>Identificativo del dispositivo generato dall'app</strong> (un codice casuale, non l'IMEI né l'ID pubblicitario): serve a far convergere le modifiche fatte da telefoni diversi.</li>
   <li><strong>Registro diagnostico</strong>: gli errori dell'app vengono annotati in un file sul telefono. Resta lì finché non decidi tu di condividerlo con noi dal pulsante "Condividi log".</li>
@@ -37,11 +40,21 @@ se lo scegli, nel tuo Google Drive. Non abbiamo server, non raccogliamo dati per
 <h2>Dove vanno i dati</h2>
 <ul>
   <li><strong>Sul telefono</strong>, in un database privato dell'app. Funziona anche senza rete.</li>
-  <li><strong>Nel tuo Google Drive</strong>, se accedi con Google: l'app crea la cartella <code>Kilòmetro</code> e vi salva il registro, le foto degli scontrini, le copie di backup e i fogli esportati.
+  <li><strong>Nel tuo Google Drive</strong>, se accedi con Google: l'app crea la cartella <code>Kilòmetro</code> e vi salva il registro, le copie di backup e i fogli esportati.
       Usa il permesso <code>drive.file</code>: vede e modifica solo i file che ha creato lei, non il resto del tuo Drive.
       Il trasferimento avviene su connessione cifrata (HTTPS) direttamente fra il tuo telefono e Google.</li>
-  <li><strong>Da nessun'altra parte.</strong> Non esistono nostri server. Non usiamo servizi di analisi, di pubblicità né di crash reporting.</li>
+  <li><strong>Nel tuo iCloud</strong> (iPhone), se scegli iCloud nella tab Sync: il registro sta nello spazio dell'app nel tuo iCloud Drive, cifrato da Apple, e non passa da noi.</li>
+  <li><strong>Da nessun'altra parte</strong>, con una sola eccezione: la foto dello scontrino, se usi la lettura automatica (sotto). Non usiamo servizi di analisi, di pubblicità né di crash reporting.</li>
 </ul>
+
+<h2>Lettura dello scontrino</h2>
+<p>È una funzione in abbonamento. Quando la usi, la foto dello scontrino viene inviata su connessione cifrata al nostro servizio di lettura,
+che gira su Google Cloud nella regione di Milano, e da lì a un modello di intelligenza artificiale di Anthropic che la trasforma nei campi
+della spesa (data, importo, fornitore, litri, prezzo al litro). Il nostro servizio non salva la foto e non la scrive nei registri; Anthropic
+la tratta secondo i propri termini per le API e può conservarla fino a 30 giorni per ragioni di sicurezza, senza usarla per addestrare modelli.
+Insieme alla foto il servizio riceve la ricevuta dell'abbonamento di Apple o di Google, che serve solo a verificare che l'abbonamento sia attivo
+e a contare le letture (al massimo 5 durante la prova, poi 40 al giorno). Nessun altro dato del registro esce dal telefono. Se non attivi
+la funzione, niente di tutto questo accade.</p>
 
 <h2>Condivisione</h2>
 <p>Il registro resta tuo: l'app non lo condivide con nessuno. Se vuoi passarlo a qualcuno, esporti un file Excel e lo invii tu.
@@ -61,9 +74,9 @@ compresi i requisiti di uso limitato. I dati ottenuti tramite le API di Google s
 
 <h2>Permessi dell'app</h2>
 <ul>
-  <li><strong>Internet</strong>: solo per parlare con Google Drive.</li>
+  <li><strong>Internet</strong>: per parlare con Google Drive o iCloud, per scaricare i prezzi dei carburanti dai servizi pubblici e, se attivi la lettura dello scontrino, per inviare la foto al nostro servizio.</li>
   <li><strong>Notifiche</strong>: per i promemoria di bollo, revisione, assicurazione e tagliando. Facoltative.</li>
-  <li><strong>Fotocamera</strong>: usata tramite l'app fotocamera del telefono per fotografare gli scontrini; Kilòmetro non accede alla fotocamera direttamente.</li>
+  <li><strong>Fotocamera e galleria</strong>: solo per la lettura dello scontrino, quando la avvii tu; la foto serve il tempo della lettura e poi viene scartata.</li>
 </ul>
 
 <h2>Minori</h2>
