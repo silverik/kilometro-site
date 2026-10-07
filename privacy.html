@@ -26,6 +26,11 @@ Questa pagina spiega quali dati tratta l'app e dove finiscono. In sintesi: <stro
 se lo sceglie, nel suo iCloud o nel suo Google Drive. Lo Sviluppatore non raccoglie dati per conto proprio e non mostra pubblicità. L'unico servizio dello Sviluppatore è
 quello che legge gli scontrini, descritto più sotto: lo usa solo chi attiva quella funzione.</p>
 
+<h2>Titolare del trattamento</h2>
+<p>Titolare del trattamento è Daniele Crucitti, sviluppatore dell'app, contattabile all'indirizzo
+<a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>. Non è nominato un responsabile della protezione dei dati, non
+ricorrendone i presupposti di legge (art. 37 del Regolamento (UE) 2016/679).</p>
+
 <h2>Dati che l'app tratta</h2>
 <ul>
   <li><strong>Dati delle auto e delle spese</strong> inseriti dall'Utente: nome e targa dell'auto, chilometri, date, importi, litri, fornitori, note e promemoria.</li>
@@ -70,11 +75,49 @@ Chi ha accesso in scrittura vede le voci e il nome di chi le ha aggiunte. L'Uten
 compresi i requisiti di uso limitato. I dati ottenuti tramite le API di Google servono esclusivamente a salvare e sincronizzare il registro dell'Utente nel Drive dell'Utente.</p>
 
 <h2>Conservazione e cancellazione</h2>
-<p>Istruzioni passo per passo nella pagina <a href="cancellazione.html">Eliminare i dati</a>.</p>
+<p>Istruzioni passo per passo nella pagina <a href="cancellazione.html">Eliminare i dati</a>. Tempi di conservazione:</p>
+<ul>
+  <li>Dati del registro sul dispositivo e nel cloud dell'Utente: finché l'Utente non li elimina; lo Sviluppatore non ne ha copia.</li>
+  <li>Fotografia dello scontrino: il tempo della lettura (secondi); non viene conservata dallo Sviluppatore.</li>
+  <li>Contatori delle letture del servizio: per la durata dell'abbonamento e fino a 90 giorni dopo la sua scadenza.</li>
+  <li>Registri tecnici di accesso del servizio: 30 giorni.</li>
+  <li>Registro diagnostico ed e-mail di assistenza inviati dall'Utente: per il tempo necessario a risolvere il problema, al massimo 12 mesi.</li>
+</ul>
 <ul>
   <li>I dati sul telefono si eliminano disinstallando l'app o da <em>Impostazioni → App → Kilòmetro → Cancella dati</em>.</li>
   <li>I dati su Drive si eliminano cancellando la cartella <code>Kilòmetro</code> dal Google Drive dell'Utente; l'app non ne conserva copie altrove.</li>
   <li>L'Utente può scollegare l'account Google dalla tab Impostazioni dell'app; può revocare il permesso dell'app dalle <a href="https://myaccount.google.com/permissions">impostazioni di sicurezza dell'account Google dell'Utente</a>.</li>
+</ul>
+
+<h2>Finalità e basi giuridiche</h2>
+<ul>
+  <li><strong>Funzionamento dell'app e del registro</strong> (dati dei veicoli e delle spese, promemoria): esecuzione del contratto con l'Utente
+  (art. 6, par. 1, lett. b). I dati restano sul dispositivo e nello spazio cloud dell'Utente.</li>
+  <li><strong>Sincronizzazione su Google Drive o iCloud</strong> (account e-mail e nome per Google Drive): esecuzione del contratto, su scelta dell'Utente.</li>
+  <li><strong>Lettura dello scontrino</strong> (fotografia, ricevuta dell'abbonamento): esecuzione del contratto di abbonamento (lett. b).</li>
+  <li><strong>Mappa dei prezzi</strong> (posizione): consenso dell'Utente tramite il permesso del sistema (lett. a), revocabile dalle impostazioni del telefono.</li>
+  <li><strong>Assistenza tecnica</strong> (registro diagnostico inviato dall'Utente, e-mail): esecuzione del contratto e legittimo interesse dello
+  Sviluppatore a risolvere i problemi segnalati (lett. b e f).</li>
+  <li><strong>Sicurezza e funzionamento del servizio di lettura</strong> (registri di accesso, contatori): legittimo interesse dello Sviluppatore a
+  prevenire abusi e a garantire il servizio (lett. f).</li>
+</ul>
+<p>Lo Sviluppatore non usa i dati per pubblicità, profilazione o decisioni automatizzate che producano effetti giuridici sull'Utente.</p>
+
+<h2>Registri tecnici</h2>
+<p>Lo Sviluppatore non effettua alcun monitoraggio in tempo reale dell'uso dell'app e non raccoglie registri delle attività dell'Utente. Esistono
+soltanto i seguenti registri tecnici.</p>
+<ul>
+  <li><strong>Registro diagnostico dell'app</strong>: è conservato esclusivamente sul dispositivo e contiene soltanto informazioni tecniche (versione
+  dell'app e del sistema operativo, modello del dispositivo, data e ora, messaggi di errore con l'area dell'app interessata). Non contiene le spese
+  registrate, la fotografia dello scontrino né l'identità dell'Utente. Lo Sviluppatore lo riceve unicamente se l'Utente decide di inviarlo con la
+  funzione "Invia il log per e-mail", per la sola finalità di assistenza tecnica; in tal caso lo Sviluppatore tratta il messaggio e l'indirizzo
+  e-mail del mittente per il tempo necessario a risolvere il problema e comunque non oltre 12 mesi.</li>
+  <li><strong>Servizio di lettura dello scontrino</strong>: non conserva la fotografia né i dati letti. Conserva soltanto i contatori delle letture,
+  associati a un identificativo pseudonimo ricavato dalla ricevuta dell'abbonamento (non al nome né all'indirizzo e-mail dell'Utente), e, in caso di
+  errore, un messaggio tecnico privo della fotografia e dei dati letti. La piattaforma che ospita il servizio (Google Cloud, regione di Milano) genera
+  i registri tecnici di accesso propri di qualsiasi servizio internet (data e ora, esito della richiesta, indirizzo di rete del dispositivo), conservati
+  per 30 giorni ai soli fini di sicurezza e funzionamento, sulla base del legittimo interesse dello Sviluppatore (art. 6, par. 1, lett. f, del
+  Regolamento (UE) 2016/679).</li>
 </ul>
 
 <h2>Permessi dell'app</h2>
@@ -83,6 +126,21 @@ compresi i requisiti di uso limitato. I dati ottenuti tramite le API di Google s
   <li><strong>Notifiche</strong>: per i promemoria di bollo, revisione, assicurazione e tagliando. Facoltative.</li>
   <li><strong>Fotocamera e galleria</strong>: solo per la lettura dello scontrino, quando la avvia l'Utente; la foto serve il tempo della lettura e poi viene scartata.</li>
 </ul>
+
+<h2>Sicurezza</h2>
+<p>Le comunicazioni fra l'app, il servizio di lettura e i fornitori avvengono su connessione cifrata (HTTPS/TLS). Il servizio di lettura non conserva
+le fotografie e accetta solo richieste accompagnate dalla chiave dell'app e da una ricevuta di abbonamento valida. L'accesso alla piattaforma che
+ospita il servizio è riservato allo Sviluppatore. Nessun sistema è sicuro in assoluto: in caso di violazione dei dati personali che presenti un
+rischio per i diritti dell'Utente, lo Sviluppatore la notifica al Garante entro 72 ore e, nei casi previsti, la comunica all'Utente (artt. 33 e 34
+del Regolamento (UE) 2016/679).</p>
+
+<h2>Diritti dell'Utente</h2>
+<p>L'Utente può esercitare in qualsiasi momento i diritti di accesso, rettifica, cancellazione, limitazione, portabilità e opposizione
+(artt. 15-22 del Regolamento (UE) 2016/679) e revocare il consenso alla posizione dalle impostazioni del telefono, scrivendo a
+<a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>; lo Sviluppatore risponde entro 30 giorni. Per i dati che stanno solo sul
+dispositivo o nel cloud dell'Utente, l'esercizio dei diritti avviene direttamente nell'app o nel proprio account Google o Apple, perché lo
+Sviluppatore non vi ha accesso. L'Utente può inoltre proporre reclamo al Garante per la protezione dei dati personali
+(<a href="https://www.garanteprivacy.it">www.garanteprivacy.it</a>) o all'autorità del proprio Paese.</p>
 
 <h2>Minori</h2>
 <p>L'app non è rivolta a minori di 18 anni e non raccoglie consapevolmente dati di minori.</p>
