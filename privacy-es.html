@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Kilòmetro · Política de privacidad</title>
+<style>
+  body { margin: 0; background: #16181c; color: #e8ebef; font: 16px/1.65 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 22px 80px; }
+  h1 { font-size: 30px; letter-spacing: -.02em; margin: 0 0 4px; }
+  .meta { color: #7d8794; font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 32px; }
+  h2 { font-size: 19px; margin: 32px 0 8px; }
+  p, li { color: #c7cdd6; }
+  a { color: #3aa6e0; }
+  code { background: #22262c; padding: 1px 5px; border-radius: 5px; font-size: .92em; }
+  .box { border: 1px solid #5a4a1e; background: #2a2314; border-radius: 10px; padding: 14px 16px; color: #e5c77a; }
+</style>
+</head>
+<body>
+<main>
+<h1>Kilòmetro · Política de privacidad</h1>
+<div class="meta">Última actualización · 10 de octubre de 2026</div>
+
+<p class="box">Esta página es una traducción del original italiano, realizada con una herramienta de inteligencia artificial y revisada por el Desarrollador. En caso de diferencias prevalece el texto italiano, disponible aquí: <a href="https://silverik.github.io/kilometro-site/privacy.html">silverik.github.io/kilometro-site/privacy.html</a>. Sus derechos no cambian con el idioma.</p>
+
+<p>Kilòmetro es una app para Android e iPhone para registrar los gastos del propio coche, moto o scooter. Está desarrollada por Daniele Crucitti (en adelante, "el Desarrollador").
+Esta página explica qué datos trata la app y adónde van a parar. En resumen: <strong>los datos siguen siendo del Usuario</strong>, en su teléfono y,
+si así lo elige, en su iCloud o en su Google Drive. El Desarrollador no recoge datos por cuenta propia y no muestra publicidad. El único servicio del Desarrollador es
+el que lee los tiques, descrito más abajo: solo lo usa quien activa esa función.</p>
+
+<h2>Responsable del tratamiento</h2>
+<p>El responsable del tratamiento es Daniele Crucitti, desarrollador de la app, con quien puede contactarse en la dirección
+<a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>. No se ha nombrado un delegado de protección de datos, al no
+concurrir los presupuestos legales (art. 37 del Reglamento (UE) 2016/679).</p>
+
+<h2>Datos que trata la app</h2>
+<ul>
+  <li><strong>Datos de los coches y de los gastos</strong> introducidos por el Usuario: nombre y matrícula del coche, kilómetros, fechas, importes, litros, proveedores, notas y recordatorios.</li>
+  <li><strong>Cuenta de Google</strong> (dirección de correo electrónico y nombre), solo si el Usuario elige "Iniciar sesión con Google": sirve para guardar el registro en el Drive del Usuario y para recuperarlo en sus demás teléfonos.
+      En iPhone, el Usuario puede usar en su lugar el iCloud de su propio Apple ID: la app no ve quién es, usa solo el espacio de la app en su iCloud.</li>
+  <li><strong>Foto del tique</strong>, solo si el Usuario usa "Leer el tique": la foto se envía al servicio para ser leída y transformada en los campos del gasto, y después se descarta. No permanece en el teléfono, no va a su nube y nosotros no la conservamos (detalles en la sección correspondiente).</li>
+  <li><strong>Ubicación</strong>, solo si el Usuario la concede y solo mientras consulta el mapa de precios: sirve para centrar el mapa donde se encuentra el Usuario.
+  Para buscar las estaciones de servicio, la app envía al servicio de precios del país (MIMIT para Italia, data.economie.gouv.fr para Francia, E-Control para
+  Austria) y a los servidores de los mapas (OpenFreeMap) el área del mapa que el Usuario está consultando, junto con la dirección de red del teléfono; cuando el
+  mapa está centrado en el Usuario, esa área corresponde a su zona. La ubicación no se guarda ni se envía al Desarrollador. Cuando el Usuario inicia
+  la navegación, el destino pasa a la app de mapas elegida.</li>
+  <li><strong>Identificador del dispositivo generado por la app</strong> (un código aleatorio, no el IMEI ni el ID de publicidad): sirve para hacer converger las modificaciones realizadas desde teléfonos distintos.</li>
+  <li><strong>Registro de diagnóstico</strong>: los errores de la app se anotan en un archivo en el teléfono. Permanece ahí hasta que el Usuario decide compartirlo con nosotros desde el botón "Compartir log".</li>
+</ul>
+
+<h2>Adónde van los datos</h2>
+<ul>
+  <li><strong>En el teléfono</strong>, en una base de datos privada de la app. Funciona también sin red.</li>
+  <li><strong>En el Google Drive del Usuario</strong>, si inicia sesión con Google: la app crea la carpeta <code>Kilòmetro</code> y guarda en ella el registro, las copias de seguridad y las hojas exportadas.
+      Usa el permiso <code>drive.file</code>: ve y modifica solo los archivos que ella misma ha creado, no el resto del Drive del Usuario.
+      La transferencia se realiza mediante conexión cifrada (HTTPS) directamente entre el teléfono del Usuario y Google.</li>
+  <li><strong>En el iCloud del Usuario</strong> (iPhone), si el Usuario elige iCloud en la pestaña Más: el registro se encuentra en el espacio de la app en iCloud Drive, cifrado por Apple, y no pasa por nosotros.</li>
+  <li><strong>En ningún otro lugar</strong>, con una sola excepción: la foto del tique, si el Usuario usa la lectura automática (más abajo). El Desarrollador no usa servicios de analítica, de publicidad ni de notificación de fallos (crash reporting).</li>
+</ul>
+
+<h2>Lectura del tique</h2>
+<p>Es una función por suscripción, en dos variantes. Con la <strong>Lectura en el teléfono</strong>, la foto es procesada por el modelo de inteligencia
+artificial integrado en el sistema operativo del dispositivo: no sale del dispositivo, no llega al Desarrollador ni a terceros y se descarta en cuanto
+los campos están listos. Con la <strong>Lectura en la nube</strong>, cuando el Usuario la usa, la foto del tique se envía mediante conexión cifrada al servicio
+de lectura del Desarrollador, que se ejecuta en Google Cloud en la región de Milán, y desde allí a un proveedor tercero de servicios de inteligencia artificial que la
+transforma en los campos del gasto (fecha, importe, proveedor, litros, precio por litro). El servicio del Desarrollador no guarda la foto y no la
+escribe en los registros. El proveedor de inteligencia artificial (categoría de destinatarios: proveedores de servicios de inteligencia artificial para
+la lectura del texto de las imágenes, con sede en Estados Unidos) la trata como encargado del tratamiento por cuenta del Desarrollador, según sus
+propios términos: puede conservarla hasta 30 días por razones de seguridad (más tiempo solo en caso de denuncias de abuso) y no la usa para entrenar sus propios modelos; el Desarrollador elige
+solo proveedores que garantizan estas condiciones. La transferencia a Estados Unidos se realiza sobre la base de las cláusulas contractuales tipo aprobadas
+por la Comisión Europea (Decisión de Ejecución (UE) 2021/914), incluidas en el acuerdo de tratamiento de datos con el proveedor; el Usuario puede solicitar una
+copia, y conocer el nombre del proveedor en uso, escribiendo a la dirección que figura al final de esta página. El tique o la factura pueden contener datos personales del Usuario o de terceros (por ejemplo, nombre, número de identificación fiscal, matrícula, dirección): se leen
+solo para cumplimentar el gasto y no se conservan; para los datos de terceros, la base jurídica es el interés legítimo del Desarrollador y del Usuario en
+registrar el gasto (art. 6, apdo. 1, letra f) y esta página sirve como información con arreglo al art. 14, apdo. 5, letra b). Junto con la foto, el servicio recibe el recibo de la suscripción de Apple o de Google, que sirve únicamente para verificar que
+la suscripción está activa y para contar las lecturas (como máximo 5 durante la prueba, después 20 al día). Ningún otro dato del registro sale del teléfono.
+Si el Usuario no activa la función, nada de esto ocurre. Por este motivo, el Usuario debe fotografiar solo tiques: no documentos
+de identidad, tarjetas de pago, personas u otros datos personales.</p>
+
+<h2>Destinatarios y autoridades</h2>
+<p>Además de a los proveedores indicados en esta página, los registros técnicos pueden comunicarse a la autoridad judicial o policial solo previa solicitud
+formal y dentro de los límites legales (art. 6, apdo. 1, letra c). Ningún dato se vende ni se cede a terceros para fines propios.</p>
+
+<h2>Compartición</h2>
+<p>El registro sigue siendo del Usuario: la app no lo comparte con nadie. Quien usa la misma cuenta de Google o Apple en varios teléfonos ve y modifica el
+mismo registro, en tiempo real; cada entrada lleva el nombre de la cuenta que la creó. La revocación de la compartición o el cambio de contraseña impide las
+sincronizaciones futuras, pero no borra las copias ya descargadas en otros teléfonos. Quien quiera pasárselo a alguien exporta un archivo Excel y lo envía personalmente.
+Quien tiene acceso de escritura ve las entradas y el nombre de quien las ha añadido. El Usuario puede revocar la compartición en cualquier momento desde Google Drive.</p>
+
+<h2>Uso de los datos de Google</h2>
+<p>El uso de la información recibida de las API de Google cumple la <a href="https://developers.google.com/terms/api-services-user-data-policy">Política de datos de usuario de los servicios de API de Google</a>,
+incluidos los requisitos de uso limitado. Los datos obtenidos a través de las API de Google sirven exclusivamente para guardar y sincronizar el registro del Usuario en el Drive del Usuario.</p>
+
+<h2>Conservación y supresión</h2>
+<p>Instrucciones paso a paso en la página <a href="cancellazione-es.html">Eliminar los datos</a>. Plazos de conservación:</p>
+<ul>
+  <li>Datos del registro en el dispositivo y en la nube del Usuario: hasta que el Usuario los elimina; el Desarrollador no tiene copia de ellos.</li>
+  <li>Fotografía del tique: el tiempo de la lectura (segundos); el Desarrollador no la conserva.</li>
+  <li>Contadores de las lecturas del servicio: durante la duración de la suscripción y hasta 90 días después de su vencimiento.</li>
+  <li>Registros técnicos de acceso del servicio: 30 días.</li>
+  <li>Registro de diagnóstico y correos electrónicos de asistencia enviados por el Usuario: durante el tiempo necesario para resolver el problema, como máximo 12 meses.</li>
+</ul>
+<ul>
+  <li>Los datos en el teléfono se eliminan desinstalando la app o desde <em>Ajustes → Aplicaciones → Kilòmetro → Borrar datos</em>.</li>
+  <li>Los datos en Drive se eliminan borrando la carpeta <code>Kilòmetro</code> del Google Drive del Usuario; la app no conserva copias en otro lugar.</li>
+  <li>El Usuario puede desvincular la cuenta de Google desde la pestaña Más de la app; puede revocar el permiso de la app desde los <a href="https://myaccount.google.com/permissions">ajustes de seguridad de la cuenta de Google del Usuario</a>.</li>
+</ul>
+
+<h2>Finalidades y bases jurídicas</h2>
+<ul>
+  <li><strong>Funcionamiento de la app y del registro</strong> (datos de los vehículos y de los gastos, recordatorios): ejecución del contrato con el Usuario
+  (art. 6, apdo. 1, letra b). Los datos permanecen en el dispositivo y en el espacio en la nube del Usuario.</li>
+  <li><strong>Sincronización en Google Drive o iCloud</strong> (cuenta de correo electrónico y nombre para Google Drive): ejecución del contrato, a elección del Usuario.</li>
+  <li><strong>Lectura del tique</strong> (fotografía, recibo de la suscripción): ejecución del contrato de suscripción (letra b).</li>
+  <li><strong>Mapa de precios</strong> (ubicación): consentimiento del Usuario mediante el permiso del sistema (letra a), revocable desde los ajustes del teléfono.</li>
+  <li><strong>Asistencia técnica</strong> (registro de diagnóstico enviado por el Usuario, correo electrónico): ejecución del contrato e interés legítimo del
+  Desarrollador en resolver los problemas notificados (letras b y f).</li>
+  <li><strong>Seguridad y funcionamiento del servicio de lectura</strong> (registros de acceso, contadores): interés legítimo del Desarrollador en
+  prevenir abusos y garantizar el servicio (letra f).</li>
+</ul>
+<p>El Desarrollador no usa los datos para publicidad, elaboración de perfiles o decisiones automatizadas que produzcan efectos jurídicos sobre el Usuario.</p>
+
+<h2>Registros técnicos</h2>
+<p>El Desarrollador no realiza ningún seguimiento en tiempo real del uso de la app y no recoge registros de las actividades del Usuario. Existen
+únicamente los siguientes registros técnicos.</p>
+<ul>
+  <li><strong>Registro de diagnóstico de la app</strong>: se conserva exclusivamente en el dispositivo y contiene únicamente información técnica (versión
+  de la app y del sistema operativo, modelo del dispositivo, fecha y hora, mensajes de error con el área de la app afectada). No contiene los gastos
+  registrados, la fotografía del tique ni la identidad del Usuario. El Desarrollador lo recibe únicamente si el Usuario decide enviarlo con la
+  función "Enviar el log por correo electrónico", con la única finalidad de asistencia técnica; en tal caso, el Desarrollador trata el mensaje y la dirección
+  de correo electrónico del remitente durante el tiempo necesario para resolver el problema y, en todo caso, no más de 12 meses.</li>
+  <li><strong>Servicio de lectura del tique</strong>: no conserva la fotografía ni los datos leídos. Conserva únicamente los contadores de las lecturas,
+  asociados a un identificador seudónimo obtenido a partir del recibo de la suscripción (no al nombre ni a la dirección de correo electrónico del Usuario), y, en caso de
+  error, un mensaje técnico sin la fotografía ni los datos leídos. La plataforma que aloja el servicio (Google Cloud, región de Milán) genera
+  los registros técnicos de acceso propios de cualquier servicio de internet (fecha y hora, resultado de la solicitud, dirección de red del dispositivo), conservados
+  durante 30 días únicamente con fines de seguridad y funcionamiento, sobre la base del interés legítimo del Desarrollador (art. 6, apdo. 1, letra f, del
+  Reglamento (UE) 2016/679).</li>
+</ul>
+
+<h2>Permisos de la app</h2>
+<ul>
+  <li><strong>Internet</strong>: para comunicarse con Google Drive o iCloud, para descargar los precios de los carburantes de los servicios públicos y, si el Usuario activa la lectura del tique, para enviar la foto al servicio del Desarrollador.</li>
+  <li><strong>Notificaciones</strong>: para los recordatorios del impuesto de circulación, la inspección técnica, el seguro y la revisión de mantenimiento. Opcionales.</li>
+  <li><strong>Cámara y galería</strong>: solo para la lectura del tique, cuando la inicia el Usuario; la foto se usa durante el tiempo de la lectura y después se descarta.</li>
+</ul>
+
+<h2>Seguridad</h2>
+<p>Las comunicaciones entre la app, el servicio de lectura y los proveedores se realizan mediante conexión cifrada (HTTPS/TLS). El servicio de lectura no conserva
+las fotografías y acepta solo solicitudes acompañadas de la clave de la app y de un recibo de suscripción válido. El acceso a la plataforma que
+aloja el servicio está reservado al Desarrollador. Ningún sistema es seguro en términos absolutos: en caso de violación de la seguridad de los datos personales que entrañe un
+riesgo para los derechos del Usuario, el Desarrollador la notifica al Garante (la autoridad italiana de protección de datos) en un plazo de 72 horas y, en los casos previstos, la comunica al Usuario (arts. 33 y 34
+del Reglamento (UE) 2016/679).</p>
+
+<h2>Derechos del Usuario</h2>
+<p>El Usuario puede ejercer en cualquier momento los derechos de acceso, rectificación, supresión, limitación, portabilidad y oposición
+(arts. 15-22 del Reglamento (UE) 2016/679) y revocar el consentimiento a la ubicación desde los ajustes del teléfono, escribiendo a
+<a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>; el Desarrollador responde en un plazo de 30 días. El servicio de lectura no conoce el nombre del Usuario: para ejercer los derechos sobre los contadores de las lecturas,
+el Usuario debe indicar el identificador del pedido o de la transacción del Store, porque sin él el Desarrollador no puede vincular ningún dato
+al Usuario (art. 11). Para los datos que se encuentran solo en el
+dispositivo o en la nube del Usuario, el ejercicio de los derechos se realiza directamente en la app o en la propia cuenta de Google o Apple, porque el
+Desarrollador no tiene acceso a ellos. El Usuario puede asimismo presentar una reclamación ante el Garante per la protezione dei dati personali
+(<a href="https://www.garanteprivacy.it">www.garanteprivacy.it</a>) o ante la autoridad de su propio país.</p>
+
+<h2>Sitio web</h2>
+<p>El sitio silverik.github.io/kilometro-site no usa cookies ni herramientas de analítica; el servicio que lo aloja (GitHub Pages) registra las direcciones de
+red de los visitantes por razones de seguridad, según sus propias normas.</p>
+
+<h2>Datos de personas fallecidas</h2>
+<p>El Desarrollador no tiene copia del registro. Los familiares pueden dirigirse a Google (administrador de cuentas inactivas) o a Apple (contacto de legado), con
+arreglo al art. 2-terdecies del Codice in materia di protezione dei dati personali (Código italiano de protección de datos personales).</p>
+
+<h2>Menores</h2>
+<p>La app puede ser usada por quienes hayan cumplido 14 años; la suscripción al servicio de lectura está reservada a los mayores de edad o a los controles parentales del
+Store. El Desarrollador no recoge conscientemente datos de menores de 14 años.</p>
+
+<h2>Modificaciones</h2>
+<p>Si esta política cambia, el Desarrollador actualiza esta página y la fecha de la parte superior, y la app lo señala.</p>
+
+<h2>Condiciones de uso</h2>
+<p>Las reglas de la app y de la suscripción a la lectura del tique (precio, prueba, renovación, cancelación, reembolsos, responsabilidad) se encuentran en las <a href="termini-es.html">Condiciones de uso</a>.</p>
+
+<h2>Contacto</h2>
+<p>Para preguntas sobre privacidad y para ejercer los derechos previstos en los artículos 15-22 del Reglamento (UE) 2016/679 (acceso, rectificación, supresión, limitación, portabilidad, oposición), el Usuario puede escribir a <a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>.</p>
+</main>
+</body>
+</html>

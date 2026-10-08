@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Kilòmetro · Politique de confidentialité</title>
+<style>
+  body { margin: 0; background: #16181c; color: #e8ebef; font: 16px/1.65 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 22px 80px; }
+  h1 { font-size: 30px; letter-spacing: -.02em; margin: 0 0 4px; }
+  .meta { color: #7d8794; font-family: ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 32px; }
+  h2 { font-size: 19px; margin: 32px 0 8px; }
+  p, li { color: #c7cdd6; }
+  a { color: #3aa6e0; }
+  code { background: #22262c; padding: 1px 5px; border-radius: 5px; font-size: .92em; }
+  .box { border: 1px solid #5a4a1e; background: #2a2314; border-radius: 10px; padding: 14px 16px; color: #e5c77a; }
+</style>
+</head>
+<body>
+<main>
+<h1>Kilòmetro · Politique de confidentialité</h1>
+<div class="meta">Dernière mise à jour · 10 octobre 2026</div>
+
+<p class="box">Cette page est une traduction de l'original italien, réalisée avec un outil d'intelligence artificielle et relue par le Développeur. En cas de différence, le texte italien fait foi ; il est disponible ici : <a href="https://silverik.github.io/kilometro-site/privacy.html">silverik.github.io/kilometro-site/privacy.html</a>. Vos droits ne changent pas avec la langue.</p>
+
+<p>Kilòmetro est une app pour Android et iPhone permettant d'enregistrer les dépenses de sa voiture, de sa moto ou de son scooter. Elle est développée par Daniele Crucitti (ci-après «&nbsp;le Développeur&nbsp;»).
+Cette page explique quelles données l'app traite et où elles vont. En résumé&nbsp;: <strong>les données restent celles de l'Utilisateur</strong>, sur son téléphone et,
+s'il le choisit, dans son iCloud ou dans son Google Drive. Le Développeur ne collecte pas de données pour son propre compte et n'affiche pas de publicité. Le seul service du Développeur est
+celui qui lit les tickets de caisse, décrit plus bas&nbsp;: seules les personnes qui activent cette fonction l'utilisent.</p>
+
+<h2>Responsable du traitement</h2>
+<p>Le responsable du traitement est Daniele Crucitti, développeur de l'app, joignable à l'adresse
+<a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>. Aucun délégué à la protection des données n'est désigné, les conditions
+légales n'étant pas réunies (art. 37 du règlement (UE) 2016/679).</p>
+
+<h2>Données que l'app traite</h2>
+<ul>
+  <li><strong>Données des voitures et des dépenses</strong> saisies par l'Utilisateur&nbsp;: nom et plaque d'immatriculation de la voiture, kilomètres, dates, montants, litres, fournisseurs, notes et rappels.</li>
+  <li><strong>Compte Google</strong> (adresse e-mail et nom), uniquement si l'Utilisateur choisit «&nbsp;Se connecter avec Google&nbsp;»&nbsp;: il sert à enregistrer le registre dans le Drive de l'Utilisateur et à le retrouver sur ses autres téléphones.
+      Sur iPhone, l'Utilisateur peut utiliser à la place l'iCloud de son propre identifiant Apple&nbsp;: l'app ne voit pas qui il est, elle utilise seulement l'espace de l'app dans son iCloud.</li>
+  <li><strong>Photo du ticket de caisse</strong>, uniquement si l'Utilisateur utilise «&nbsp;Lire le ticket de caisse&nbsp;»&nbsp;: la photo est envoyée au service pour être lue et transformée en champs de la dépense, puis elle est effacée. Elle ne reste pas sur le téléphone, ne va pas dans le cloud de l'Utilisateur et nous ne la conservons pas (détails dans la section dédiée).</li>
+  <li><strong>Position</strong>, uniquement si l'Utilisateur l'accorde et seulement pendant qu'il regarde la carte des prix&nbsp;: elle sert à centrer la carte là où se trouve l'Utilisateur.
+  Pour rechercher les stations-service, l'app envoie au service des prix du pays (MIMIT pour l'Italie, data.economie.gouv.fr pour la France, E-Control pour
+  l'Autriche) et aux serveurs des cartes (OpenFreeMap) la zone de la carte que l'Utilisateur est en train de regarder, ainsi que l'adresse réseau du téléphone&nbsp;; lorsque la
+  carte est centrée sur l'Utilisateur, cette zone correspond à son secteur. La position n'est ni enregistrée ni envoyée au Développeur. Lorsque l'Utilisateur lance
+  la navigation, la destination est transmise à l'application de cartes choisie.</li>
+  <li><strong>Identifiant de l'appareil généré par l'app</strong> (un code aléatoire, ni l'IMEI ni l'identifiant publicitaire)&nbsp;: il sert à faire converger les modifications effectuées depuis des téléphones différents.</li>
+  <li><strong>Journal de diagnostic</strong>&nbsp;: les erreurs de l'app sont consignées dans un fichier sur le téléphone. Il y reste tant que l'Utilisateur ne décide pas de le partager avec nous via le bouton «&nbsp;Partager le journal&nbsp;».</li>
+</ul>
+
+<h2>Où vont les données</h2>
+<ul>
+  <li><strong>Sur le téléphone</strong>, dans une base de données privée de l'app. Cela fonctionne même sans réseau.</li>
+  <li><strong>Dans le Google Drive de l'Utilisateur</strong>, s'il se connecte avec Google&nbsp;: l'app crée le dossier <code>Kilòmetro</code> et y enregistre le registre, les copies de sauvegarde et les feuilles exportées.
+      Elle utilise l'autorisation <code>drive.file</code>&nbsp;: elle ne voit et ne modifie que les fichiers qu'elle a elle-même créés, pas le reste du Drive de l'Utilisateur.
+      Le transfert s'effectue sur une connexion chiffrée (HTTPS) directement entre le téléphone de l'Utilisateur et Google.</li>
+  <li><strong>Dans l'iCloud de l'Utilisateur</strong> (iPhone), si l'Utilisateur choisit iCloud dans l'onglet Plus&nbsp;: le registre se trouve dans l'espace de l'app dans iCloud Drive, chiffré par Apple, et ne passe pas par nous.</li>
+  <li><strong>Nulle part ailleurs</strong>, à une seule exception près&nbsp;: la photo du ticket de caisse, si l'Utilisateur utilise la lecture automatique (ci-dessous). Le Développeur n'utilise pas de services d'analyse, de publicité ni de rapport de plantage.</li>
+</ul>
+
+<h2>Lecture du ticket de caisse</h2>
+<p>C'est une fonction sur abonnement, en deux variantes. Avec la <strong>Lecture sur le téléphone</strong>, la photo est traitée par le modèle d'intelligence
+artificielle intégré au système d'exploitation de l'appareil&nbsp;: elle ne quitte pas l'appareil, ne parvient ni au Développeur ni à des tiers et est effacée dès que
+les champs sont prêts. Avec la <strong>Lecture dans le cloud</strong>, lorsque l'Utilisateur l'utilise, la photo du ticket de caisse est envoyée sur une connexion chiffrée au service
+de lecture du Développeur, qui fonctionne sur Google Cloud dans la région de Milan, et de là à un fournisseur tiers de services d'intelligence artificielle qui la
+transforme en champs de la dépense (date, montant, fournisseur, litres, prix au litre). Le service du Développeur n'enregistre pas la photo et ne
+l'écrit pas dans les journaux. Le fournisseur d'intelligence artificielle (catégorie de destinataires&nbsp;: fournisseurs de services d'intelligence artificielle pour
+la lecture du texte des images, établis aux États-Unis) la traite en tant que sous-traitant pour le compte du Développeur, selon ses
+propres conditions&nbsp;: il peut la conserver jusqu'à 30 jours pour des raisons de sécurité (plus longtemps uniquement en cas de signalements d'abus) et ne l'utilise pas pour entraîner ses propres modèles&nbsp;; le Développeur ne choisit
+que des fournisseurs qui garantissent ces conditions. Le transfert vers les États-Unis a lieu sur la base des clauses contractuelles types approuvées
+par la Commission européenne (décision d'exécution (UE) 2021/914), incluses dans l'accord de traitement des données avec le fournisseur&nbsp;; l'Utilisateur peut en demander
+copie, et connaître le nom du fournisseur utilisé, en écrivant à l'adresse indiquée au bas de cette page. Le ticket de caisse ou la facture peuvent contenir des données personnelles de l'Utilisateur ou de tiers (par exemple nom, codice fiscale (identifiant fiscal italien), plaque d'immatriculation, adresse)&nbsp;: elles sont lues
+uniquement pour remplir la dépense et ne sont pas conservées&nbsp;; pour les données de tiers, la base juridique est l'intérêt légitime du Développeur et de l'Utilisateur à
+enregistrer la dépense (art. 6, par. 1, point f) et cette page vaut information au sens de l'art. 14, par. 5, point b). Avec la photo, le service reçoit le reçu de l'abonnement d'Apple ou de Google, qui sert uniquement à vérifier que
+l'abonnement est actif et à compter les lectures (au maximum 5 pendant l'essai, puis 20 par jour). Aucune autre donnée du registre ne quitte le téléphone.
+Si l'Utilisateur n'active pas la fonction, rien de tout cela ne se produit. C'est pourquoi l'Utilisateur ne doit photographier que des tickets de caisse&nbsp;: pas de documents
+d'identité, de cartes de paiement, de personnes ou d'autres données personnelles.</p>
+
+<h2>Destinataires et autorités</h2>
+<p>Outre les fournisseurs indiqués sur cette page, les journaux techniques peuvent être communiqués à l'autorité judiciaire ou de police uniquement sur demande
+formelle et dans les limites de la loi (art. 6, par. 1, point c). Aucune donnée n'est vendue ni cédée à des tiers pour leurs propres finalités.</p>
+
+<h2>Partage</h2>
+<p>Le registre reste celui de l'Utilisateur&nbsp;: l'app ne le partage avec personne. Les personnes qui utilisent le même compte Google ou Apple sur plusieurs téléphones voient et modifient le
+même registre, en temps réel&nbsp;; chaque entrée porte le nom du compte qui l'a créée. La révocation du partage ou le changement de mot de passe empêche les
+synchronisations futures mais n'efface pas les copies déjà téléchargées sur d'autres téléphones. Pour le transmettre à quelqu'un, l'Utilisateur exporte un fichier Excel et l'envoie personnellement.
+Les personnes ayant un accès en écriture voient les entrées et le nom de la personne qui les a ajoutées. L'Utilisateur peut révoquer le partage à tout moment depuis Google Drive.</p>
+
+<h2>Utilisation des données Google</h2>
+<p>L'utilisation des informations reçues des API Google respecte les <a href="https://developers.google.com/terms/api-services-user-data-policy">Règles relatives aux données utilisateur des services d'API Google</a>,
+y compris les exigences d'utilisation limitée. Les données obtenues via les API Google servent exclusivement à enregistrer et à synchroniser le registre de l'Utilisateur dans le Drive de l'Utilisateur.</p>
+
+<h2>Conservation et suppression</h2>
+<p>Instructions pas à pas sur la page <a href="cancellazione-fr.html">Supprimer les données</a>. Durées de conservation&nbsp;:</p>
+<ul>
+  <li>Données du registre sur l'appareil et dans le cloud de l'Utilisateur&nbsp;: tant que l'Utilisateur ne les supprime pas&nbsp;; le Développeur n'en a pas de copie.</li>
+  <li>Photographie du ticket de caisse&nbsp;: le temps de la lecture (quelques secondes)&nbsp;; elle n'est pas conservée par le Développeur.</li>
+  <li>Compteurs des lectures du service&nbsp;: pendant la durée de l'abonnement et jusqu'à 90 jours après son expiration.</li>
+  <li>Journaux techniques d'accès du service&nbsp;: 30 jours.</li>
+  <li>Journal de diagnostic et e-mails d'assistance envoyés par l'Utilisateur&nbsp;: le temps nécessaire pour résoudre le problème, au maximum 12 mois.</li>
+</ul>
+<ul>
+  <li>Les données sur le téléphone se suppriment en désinstallant l'app ou depuis <em>Paramètres → Applications → Kilòmetro → Effacer les données</em>.</li>
+  <li>Les données sur Drive se suppriment en supprimant le dossier <code>Kilòmetro</code> du Google Drive de l'Utilisateur&nbsp;; l'app n'en conserve pas de copies ailleurs.</li>
+  <li>L'Utilisateur peut déconnecter le compte Google depuis l'onglet Plus de l'app&nbsp;; il peut révoquer l'autorisation de l'app depuis les <a href="https://myaccount.google.com/permissions">paramètres de sécurité du compte Google de l'Utilisateur</a>.</li>
+</ul>
+
+<h2>Finalités et bases juridiques</h2>
+<ul>
+  <li><strong>Fonctionnement de l'app et du registre</strong> (données des véhicules et des dépenses, rappels)&nbsp;: exécution du contrat avec l'Utilisateur
+  (art. 6, par. 1, point b). Les données restent sur l'appareil et dans l'espace cloud de l'Utilisateur.</li>
+  <li><strong>Synchronisation sur Google Drive ou iCloud</strong> (compte e-mail et nom pour Google Drive)&nbsp;: exécution du contrat, au choix de l'Utilisateur.</li>
+  <li><strong>Lecture du ticket de caisse</strong> (photographie, reçu de l'abonnement)&nbsp;: exécution du contrat d'abonnement (point b).</li>
+  <li><strong>Carte des prix</strong> (position)&nbsp;: consentement de l'Utilisateur via l'autorisation du système (point a), révocable depuis les réglages du téléphone.</li>
+  <li><strong>Assistance technique</strong> (journal de diagnostic envoyé par l'Utilisateur, e-mail)&nbsp;: exécution du contrat et intérêt légitime du
+  Développeur à résoudre les problèmes signalés (points b et f).</li>
+  <li><strong>Sécurité et fonctionnement du service de lecture</strong> (journaux d'accès, compteurs)&nbsp;: intérêt légitime du Développeur à
+  prévenir les abus et à garantir le service (point f).</li>
+</ul>
+<p>Le Développeur n'utilise pas les données à des fins de publicité, de profilage ou de décisions automatisées produisant des effets juridiques sur l'Utilisateur.</p>
+
+<h2>Journaux techniques</h2>
+<p>Le Développeur n'effectue aucune surveillance en temps réel de l'utilisation de l'app et ne collecte pas de journaux des activités de l'Utilisateur. Seuls
+les journaux techniques suivants existent.</p>
+<ul>
+  <li><strong>Journal de diagnostic de l'app</strong>&nbsp;: il est conservé exclusivement sur l'appareil et ne contient que des informations techniques (version
+  de l'app et du système d'exploitation, modèle de l'appareil, date et heure, messages d'erreur avec la zone de l'app concernée). Il ne contient ni les dépenses
+  enregistrées, ni la photographie du ticket de caisse, ni l'identité de l'Utilisateur. Le Développeur ne le reçoit que si l'Utilisateur décide de l'envoyer avec la
+  fonction «&nbsp;Envoyer le journal par e-mail&nbsp;», aux seules fins d'assistance technique&nbsp;; dans ce cas, le Développeur traite le message et l'adresse
+  e-mail de l'expéditeur pendant le temps nécessaire pour résoudre le problème et en tout cas pas au-delà de 12 mois.</li>
+  <li><strong>Service de lecture du ticket de caisse</strong>&nbsp;: il ne conserve ni la photographie ni les données lues. Il ne conserve que les compteurs des lectures,
+  associés à un identifiant pseudonyme dérivé du reçu de l'abonnement (ni au nom ni à l'adresse e-mail de l'Utilisateur), et, en cas
+  d'erreur, un message technique dépourvu de la photographie et des données lues. La plateforme qui héberge le service (Google Cloud, région de Milan) génère
+  les journaux techniques d'accès propres à tout service internet (date et heure, résultat de la requête, adresse réseau de l'appareil), conservés
+  pendant 30 jours aux seules fins de sécurité et de fonctionnement, sur la base de l'intérêt légitime du Développeur (art. 6, par. 1, point f, du
+  règlement (UE) 2016/679).</li>
+</ul>
+
+<h2>Autorisations de l'app</h2>
+<ul>
+  <li><strong>Internet</strong>&nbsp;: pour communiquer avec Google Drive ou iCloud, pour télécharger les prix des carburants depuis les services publics et, si l'Utilisateur active la lecture du ticket de caisse, pour envoyer la photo au service du Développeur.</li>
+  <li><strong>Notifications</strong>&nbsp;: pour les rappels de taxe de circulation (bollo), de contrôle technique, d'assurance et de révision. Facultatives.</li>
+  <li><strong>Appareil photo et galerie</strong>&nbsp;: uniquement pour la lecture du ticket de caisse, lorsque l'Utilisateur la lance&nbsp;; la photo sert le temps de la lecture, puis elle est effacée.</li>
+</ul>
+
+<h2>Sécurité</h2>
+<p>Les communications entre l'app, le service de lecture et les fournisseurs s'effectuent sur une connexion chiffrée (HTTPS/TLS). Le service de lecture ne conserve pas
+les photographies et n'accepte que les requêtes accompagnées de la clé de l'app et d'un reçu d'abonnement valide. L'accès à la plateforme qui
+héberge le service est réservé au Développeur. Aucun système n'est absolument sûr&nbsp;: en cas de violation de données personnelles présentant un
+risque pour les droits de l'Utilisateur, le Développeur la notifie au Garante (l'autorité italienne de protection des données personnelles) dans les 72 heures et, dans les cas prévus, la communique à l'Utilisateur (art. 33 et 34
+du règlement (UE) 2016/679).</p>
+
+<h2>Droits de l'Utilisateur</h2>
+<p>L'Utilisateur peut exercer à tout moment les droits d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition
+(art. 15 à 22 du règlement (UE) 2016/679) et révoquer le consentement à la position depuis les réglages du téléphone, en écrivant à
+<a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>&nbsp;; le Développeur répond dans les 30 jours. Le service de lecture ne connaît pas le nom de l'Utilisateur&nbsp;: pour exercer ses droits sur les compteurs des lectures,
+l'Utilisateur doit indiquer l'identifiant de la commande ou de la transaction du Store, car sans celui-ci le Développeur ne peut relier aucune donnée
+à l'Utilisateur (art. 11). Pour les données qui se trouvent uniquement sur
+l'appareil ou dans le cloud de l'Utilisateur, l'exercice des droits s'effectue directement dans l'app ou dans son propre compte Google ou Apple, car le
+Développeur n'y a pas accès. L'Utilisateur peut en outre introduire une réclamation auprès du Garante per la protezione dei dati personali
+(<a href="https://www.garanteprivacy.it">www.garanteprivacy.it</a>) ou auprès de l'autorité de son propre pays.</p>
+
+<h2>Site web</h2>
+<p>Le site silverik.github.io/kilometro-site n'utilise ni cookies ni outils d'analyse&nbsp;; le service qui l'héberge (GitHub Pages) enregistre les adresses
+réseau des visiteurs pour des raisons de sécurité, selon ses propres règles.</p>
+
+<h2>Données de personnes décédées</h2>
+<p>Le Développeur n'a pas de copie du registre. Les proches peuvent s'adresser à Google (gestion du compte inactif) ou à Apple (contact légataire), au
+sens de l'art. 2-terdecies du Codice in materia di protezione dei dati personali (Code italien de la protection des données personnelles).</p>
+
+<h2>Mineurs</h2>
+<p>L'app peut être utilisée par les personnes âgées de 14 ans révolus&nbsp;; l'abonnement au service de lecture est réservé aux personnes majeures ou au contrôle parental du
+Store. Le Développeur ne collecte pas sciemment de données de mineurs de moins de 14 ans.</p>
+
+<h2>Modifications</h2>
+<p>Si la présente politique change, le Développeur met à jour cette page et la date en haut, et l'app le signale.</p>
+
+<h2>Conditions d'utilisation</h2>
+<p>Les règles de l'app et de l'abonnement à la lecture du ticket de caisse (prix, essai, renouvellement, résiliation, remboursements, responsabilité) figurent dans les <a href="termini-fr.html">Conditions d'utilisation</a>.</p>
+
+<h2>Contacts</h2>
+<p>Pour toute question sur la confidentialité et pour exercer les droits prévus aux articles 15 à 22 du règlement (UE) 2016/679 (accès, rectification, effacement, limitation, portabilité, opposition), l'Utilisateur peut écrire à <a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>.</p>
+</main>
+</body>
+</html>
