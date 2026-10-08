@@ -19,7 +19,7 @@
 <body>
 <main>
 <h1>Kilòmetro · Norme sulla privacy</h1>
-<div class="meta">Ultimo aggiornamento · 9 ottobre 2026</div>
+<div class="meta">Ultimo aggiornamento · 10 ottobre 2026</div>
 
 <p>Kilòmetro è un'app per Android e iPhone per registrare le spese della propria auto, moto o scooter. È sviluppata da Daniele Crucitti (di seguito "lo Sviluppatore").
 Questa pagina spiega quali dati tratta l'app e dove finiscono. In sintesi: <strong>i dati restano dell'Utente</strong>, sul suo telefono e,
@@ -37,7 +37,11 @@ ricorrendone i presupposti di legge (art. 37 del Regolamento (UE) 2016/679).</p>
   <li><strong>Account Google</strong> (indirizzo e-mail e nome), solo se l'Utente sceglie "Accedi con Google": serve a salvare il registro nel Drive dell'Utente e a ritrovarlo sugli altri tuoi telefoni.
       Su iPhone l'Utente può usare invece l'iCloud del proprio Apple ID: l'app non vede chi è, usa solo lo spazio dell'app nel suo iCloud.</li>
   <li><strong>Foto dello scontrino</strong>, solo se l'Utente usa "Leggi lo scontrino": la foto viene inviata al servizio per essere letta e trasformata nei campi della spesa, poi viene scartata. Non resta sul telefono, non va nel tuo cloud e noi non la conserviamo (dettagli nella sezione dedicata).</li>
-  <li><strong>Posizione</strong>, solo se l'Utente la concede e solo mentre guarda la mappa dei prezzi: serve a centrare la mappa dove si trova l'Utente. Non viene salvata né inviata a noi; per cercare i distributori in Francia e in Austria l'app manda ai servizi pubblici dei prezzi il centro della zona che stai guardando, non la tua posizione.</li>
+  <li><strong>Posizione</strong>, solo se l'Utente la concede e solo mentre guarda la mappa dei prezzi: serve a centrare la mappa dove si trova l'Utente.
+  Per cercare i distributori l'app invia al servizio dei prezzi del Paese (MIMIT per l'Italia, data.economie.gouv.fr per la Francia, E-Control per
+  l'Austria) e ai server delle mappe (OpenFreeMap) l'area della mappa che l'Utente sta guardando, insieme all'indirizzo di rete del telefono; quando la
+  mappa è centrata sull'Utente quell'area corrisponde alla sua zona. La posizione non viene salvata né inviata allo Sviluppatore. Quando l'Utente avvia
+  la navigazione, la destinazione passa all'app di mappe scelta.</li>
   <li><strong>Identificativo del dispositivo generato dall'app</strong> (un codice casuale, non l'IMEI né l'ID pubblicitario): serve a far convergere le modifiche fatte da telefoni diversi.</li>
   <li><strong>Registro diagnostico</strong>: gli errori dell'app vengono annotati in un file sul telefono. Resta lì finché l'Utente non decide di condividerlo con noi dal pulsante "Condividi log".</li>
 </ul>
@@ -60,16 +64,24 @@ di lettura dello Sviluppatore, che gira su Google Cloud nella regione di Milano,
 trasforma nei campi della spesa (data, importo, fornitore, litri, prezzo al litro). Il servizio dello Sviluppatore non salva la foto e non la
 scrive nei registri. Il fornitore di intelligenza artificiale (categoria di destinatari: fornitori di servizi di intelligenza artificiale per
 la lettura del testo delle immagini, con sede negli Stati Uniti) la tratta come responsabile del trattamento per conto dello Sviluppatore, secondo i
-propri termini: può conservarla per un periodo limitato per ragioni di sicurezza e non la usa per addestrare i propri modelli; lo Sviluppatore sceglie
+propri termini: può conservarla fino a 30 giorni per ragioni di sicurezza (più a lungo solo in caso di segnalazioni di abuso) e non la usa per addestrare i propri modelli; lo Sviluppatore sceglie
 solo fornitori che garantiscono queste condizioni. Il trasferimento negli Stati Uniti avviene sulla base delle clausole contrattuali tipo approvate
 dalla Commissione europea (Decisione di esecuzione (UE) 2021/914), incluse nell'accordo sul trattamento dei dati con il fornitore; l'Utente può chiederne
-copia, e conoscere il nome del fornitore in uso, scrivendo all'indirizzo in fondo a questa pagina. Insieme alla foto il servizio riceve la ricevuta dell'abbonamento di Apple o di Google, che serve solo a verificare che
+copia, e conoscere il nome del fornitore in uso, scrivendo all'indirizzo in fondo a questa pagina. Lo scontrino o la fattura possono contenere dati personali dell'Utente o di terzi (per esempio nome, codice fiscale, targa, indirizzo): vengono letti
+solo per compilare la spesa e non vengono conservati; per i dati di terzi la base giuridica è il legittimo interesse dello Sviluppatore e dell'Utente a
+registrare la spesa (art. 6, par. 1, lett. f) e questa pagina vale come informativa ai sensi dell'art. 14, par. 5, lett. b). Insieme alla foto il servizio riceve la ricevuta dell'abbonamento di Apple o di Google, che serve solo a verificare che
 l'abbonamento sia attivo e a contare le letture (al massimo 5 durante la prova, poi 20 al giorno). Nessun altro dato del registro esce dal telefono.
 Se l'Utente non attiva la funzione, niente di tutto questo accade. Per questo motivo l'Utente deve fotografare solo scontrini: non documenti
 d'identità, carte di pagamento, persone o altri dati personali.</p>
 
+<h2>Destinatari e autorità</h2>
+<p>Oltre ai fornitori indicati in questa pagina, i registri tecnici possono essere comunicati all'autorità giudiziaria o di polizia solo su richiesta
+formale e nei limiti di legge (art. 6, par. 1, lett. c). Nessun dato è venduto o ceduto a terzi per finalità proprie.</p>
+
 <h2>Condivisione</h2>
-<p>Il registro resta dell'Utente: l'app non lo condivide con nessuno. Chi vuole passarlo a qualcuno esporta un file Excel e lo invia personalmente.
+<p>Il registro resta dell'Utente: l'app non lo condivide con nessuno. Chi usa lo stesso account Google o Apple su più telefoni vede e modifica lo
+stesso registro, in tempo reale; ogni voce porta il nome dell'account che l'ha creata. La revoca della condivisione o il cambio di password impedisce le
+sincronizzazioni future ma non cancella le copie già scaricate su altri telefoni. Chi vuole passarlo a qualcuno esporta un file Excel e lo invia personalmente.
 Chi ha accesso in scrittura vede le voci e il nome di chi le ha aggiunte. L'Utente può revocare la condivisione in qualsiasi momento da Google Drive.</p>
 
 <h2>Uso dei dati Google</h2>
@@ -139,13 +151,24 @@ del Regolamento (UE) 2016/679).</p>
 <h2>Diritti dell'Utente</h2>
 <p>L'Utente può esercitare in qualsiasi momento i diritti di accesso, rettifica, cancellazione, limitazione, portabilità e opposizione
 (artt. 15-22 del Regolamento (UE) 2016/679) e revocare il consenso alla posizione dalle impostazioni del telefono, scrivendo a
-<a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>; lo Sviluppatore risponde entro 30 giorni. Per i dati che stanno solo sul
+<a href="mailto:puffettodigitale@gmail.com">puffettodigitale@gmail.com</a>; lo Sviluppatore risponde entro 30 giorni. Il servizio di lettura non conosce il nome dell'Utente: per esercitare i diritti sui contatori delle letture
+l'Utente deve indicare l'identificativo dell'ordine o della transazione dello Store, perché senza di esso lo Sviluppatore non può collegare alcun dato
+all'Utente (art. 11). Per i dati che stanno solo sul
 dispositivo o nel cloud dell'Utente, l'esercizio dei diritti avviene direttamente nell'app o nel proprio account Google o Apple, perché lo
 Sviluppatore non vi ha accesso. L'Utente può inoltre proporre reclamo al Garante per la protezione dei dati personali
 (<a href="https://www.garanteprivacy.it">www.garanteprivacy.it</a>) o all'autorità del proprio Paese.</p>
 
+<h2>Sito web</h2>
+<p>Il sito silverik.github.io/kilometro-site non usa cookie né strumenti di analisi; il servizio che lo ospita (GitHub Pages) registra gli indirizzi di
+rete dei visitatori per ragioni di sicurezza, secondo le proprie norme.</p>
+
+<h2>Dati di persone decedute</h2>
+<p>Lo Sviluppatore non ha copia del registro. I familiari possono rivolgersi a Google (gestione dell'account inattivo) o ad Apple (contatto erede), ai
+sensi dell'art. 2-terdecies del Codice in materia di protezione dei dati personali.</p>
+
 <h2>Minori</h2>
-<p>L'app non è rivolta a minori di 18 anni e non raccoglie consapevolmente dati di minori.</p>
+<p>L'app può essere usata da chi ha compiuto 14 anni; l'abbonamento al servizio di lettura è riservato ai maggiorenni o ai controlli parentali dello
+Store. Lo Sviluppatore non raccoglie consapevolmente dati di minori di 14 anni.</p>
 
 <h2>Modifiche</h2>
 <p>Se queste norme cambiano, lo Sviluppatore aggiorna questa pagina e la data in alto, e l'app lo segnala.</p>
