@@ -20,7 +20,7 @@
 <body>
 <main>
 <h1>Kilòmetro · Politique de confidentialité</h1>
-<div class="meta">Dernière mise à jour · 12 octobre 2026</div>
+<div class="meta">Dernière mise à jour · 14 octobre 2026</div>
 
 <p class="box">Cette page est une traduction de l'original italien, réalisée avec un outil d'intelligence artificielle et relue par le Développeur. En cas de différence, le texte italien fait foi ; il est disponible ici : <a href="https://silverik.github.io/kilometro-site/privacy.html">silverik.github.io/kilometro-site/privacy.html</a>. Vos droits ne changent pas avec la langue.</p>
 
@@ -39,14 +39,14 @@ légales n'étant pas réunies (art. 37 du règlement (UE) 2016/679).</p>
   <li><strong>Données des voitures et des dépenses</strong> saisies par l'Utilisateur&nbsp;: nom et plaque d'immatriculation de la voiture, kilomètres, dates, montants, litres, fournisseurs, notes et rappels.</li>
   <li><strong>Compte Google</strong> (adresse e-mail et nom), uniquement si l'Utilisateur choisit «&nbsp;Se connecter avec Google&nbsp;»&nbsp;: il sert à enregistrer le registre dans le Drive de l'Utilisateur et à le retrouver sur ses autres téléphones.
       Sur iPhone, l'Utilisateur peut utiliser à la place l'iCloud de son propre identifiant Apple&nbsp;: l'app ne voit pas qui il est, elle utilise seulement l'espace de l'app dans son iCloud.</li>
-  <li><strong>Photo du ticket de caisse</strong>, uniquement si l'Utilisateur utilise «&nbsp;Lire le ticket de caisse&nbsp;»&nbsp;: la photo est envoyée au service pour être lue et transformée en champs de la dépense, puis elle est effacée. Elle ne reste pas sur le téléphone, ne va pas dans le cloud de l'Utilisateur et nous ne la conservons pas (détails dans la section dédiée).</li>
+  <li><strong>Photo du ticket de caisse</strong>, uniquement si l'Utilisateur utilise «&nbsp;Lire le ticket de caisse&nbsp;»&nbsp;: avec Premium Cloud (lecture dans le cloud), la photo est envoyée au service du Développeur pour être lue et transformée en champs de la dépense&nbsp;; avec Basic (lecture sur le téléphone), elle ne quitte pas l'appareil. Dans les deux cas, elle est effacée après la lecture&nbsp;: elle ne reste pas sur le téléphone, ne va pas dans le cloud de l'Utilisateur et le Développeur ne la conserve pas (détails dans la section dédiée).</li>
   <li><strong>Position</strong>, uniquement si l'Utilisateur l'accorde et seulement pendant qu'il regarde la carte des prix&nbsp;: elle sert à centrer la carte là où se trouve l'Utilisateur.
   Pour rechercher les stations-service, l'app envoie au service des prix du pays (MIMIT pour l'Italie, data.economie.gouv.fr pour la France, E-Control pour
   l'Autriche) et aux serveurs des cartes (OpenFreeMap) la zone de la carte que l'Utilisateur est en train de regarder, ainsi que l'adresse réseau du téléphone&nbsp;; lorsque la
   carte est centrée sur l'Utilisateur, cette zone correspond à son secteur. La position n'est ni enregistrée ni envoyée au Développeur. Lorsque l'Utilisateur lance
   la navigation, la destination est transmise à l'application de cartes choisie.</li>
   <li><strong>Identifiant de l'appareil généré par l'app</strong> (un code aléatoire, ni l'IMEI ni l'identifiant publicitaire)&nbsp;: il sert à faire converger les modifications effectuées depuis des téléphones différents.</li>
-  <li><strong>Journal de diagnostic</strong>&nbsp;: les erreurs de l'app sont consignées dans un fichier sur le téléphone. Il y reste tant que l'Utilisateur ne décide pas de le partager avec nous via le bouton «&nbsp;Partager le journal&nbsp;».</li>
+  <li><strong>Journal de diagnostic</strong>&nbsp;: les erreurs de l'app sont consignées dans un fichier sur le téléphone. Il y reste tant que l'Utilisateur ne décide pas de le partager avec le Développeur via le bouton «&nbsp;Partager le journal&nbsp;».</li>
 </ul>
 
 <h2>Où vont les données</h2>
@@ -55,14 +55,14 @@ légales n'étant pas réunies (art. 37 du règlement (UE) 2016/679).</p>
   <li><strong>Dans le Google Drive de l'Utilisateur</strong>, s'il se connecte avec Google&nbsp;: l'app crée le dossier <code>Kilòmetro</code> et y enregistre le registre, les copies de sauvegarde et les feuilles exportées.
       Elle utilise l'autorisation <code>drive.file</code>&nbsp;: elle ne voit et ne modifie que les fichiers qu'elle a elle-même créés, pas le reste du Drive de l'Utilisateur.
       Le transfert s'effectue sur une connexion chiffrée (HTTPS) directement entre le téléphone de l'Utilisateur et Google.</li>
-  <li><strong>Dans l'iCloud de l'Utilisateur</strong> (iPhone), si l'Utilisateur choisit iCloud dans l'onglet Plus&nbsp;: le registre se trouve dans l'espace de l'app dans iCloud Drive, chiffré par Apple, et ne passe pas par nous.</li>
-  <li><strong>Nulle part ailleurs</strong>, à une seule exception près&nbsp;: la photo du ticket de caisse, si l'Utilisateur utilise la lecture automatique (ci-dessous). Le Développeur n'utilise pas de services d'analyse, de publicité ni de rapport de plantage.</li>
+  <li><strong>Dans l'iCloud de l'Utilisateur</strong> (iPhone), si l'Utilisateur choisit iCloud dans l'onglet Plus&nbsp;: le registre se trouve dans l'espace de l'app dans iCloud Drive, chiffré par Apple, et ne passe pas par le Développeur.</li>
+  <li><strong>Nulle part ailleurs</strong>, à une seule exception près&nbsp;: la photo du ticket de caisse, si l'Utilisateur utilise Premium Cloud (ci-dessous). Le Développeur n'utilise pas de services d'analyse, de publicité ni de rapport de plantage.</li>
 </ul>
 
 <h2>Lecture du ticket de caisse</h2>
-<p>C'est une fonction sur abonnement, en deux variantes. Avec la <strong>Lecture sur le téléphone</strong>, la photo est traitée par le modèle d'intelligence
+<p>C'est une fonction sur abonnement, en deux variantes. Avec <strong>Basic</strong>, la photo est traitée par le modèle d'intelligence
 artificielle intégré au système d'exploitation de l'appareil&nbsp;: elle ne quitte pas l'appareil, ne parvient ni au Développeur ni à des tiers et est effacée dès que
-les champs sont prêts. Avec la <strong>Lecture dans le cloud</strong>, lorsque l'Utilisateur l'utilise, la photo du ticket de caisse est envoyée sur une connexion chiffrée au service
+les champs sont prêts. Avec <strong>Premium Cloud</strong>, la photo du ticket de caisse est envoyée sur une connexion chiffrée au service
 de lecture du Développeur, qui fonctionne sur Google Cloud dans la région de Milan, et de là à un fournisseur tiers de services d'intelligence artificielle qui la
 transforme en champs de la dépense (date, montant, fournisseur, litres, prix au litre). Le service du Développeur n'enregistre pas la photo et ne
 l'écrit pas dans les journaux. Le fournisseur d'intelligence artificielle (catégorie de destinataires&nbsp;: fournisseurs de services d'intelligence artificielle pour
@@ -141,7 +141,7 @@ les journaux techniques suivants existent.</p>
 
 <h2>Autorisations de l'app</h2>
 <ul>
-  <li><strong>Internet</strong>&nbsp;: pour communiquer avec Google Drive ou iCloud, pour télécharger les prix des carburants depuis les services publics et, si l'Utilisateur active la lecture du ticket de caisse, pour envoyer la photo au service du Développeur.</li>
+  <li><strong>Internet</strong>&nbsp;: pour communiquer avec Google Drive ou iCloud, pour télécharger les prix des carburants depuis les services publics et, si l'Utilisateur utilise Premium Cloud, pour envoyer la photo au service du Développeur.</li>
   <li><strong>Notifications</strong>&nbsp;: pour les rappels de taxe de circulation (bollo), de contrôle technique, d'assurance et de révision. Facultatives.</li>
   <li><strong>Appareil photo et galerie</strong>&nbsp;: uniquement pour la lecture du ticket de caisse, lorsque l'Utilisateur la lance&nbsp;; la photo sert le temps de la lecture, puis elle est effacée.</li>
 </ul>

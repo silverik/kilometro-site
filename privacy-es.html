@@ -20,7 +20,7 @@
 <body>
 <main>
 <h1>Kilòmetro · Política de privacidad</h1>
-<div class="meta">Última actualización · 12 de octubre de 2026</div>
+<div class="meta">Última actualización · 14 de octubre de 2026</div>
 
 <p class="box">Esta página es una traducción del original italiano, realizada con una herramienta de inteligencia artificial y revisada por el Desarrollador. En caso de diferencias prevalece el texto italiano, disponible aquí: <a href="https://silverik.github.io/kilometro-site/privacy.html">silverik.github.io/kilometro-site/privacy.html</a>. Sus derechos no cambian con el idioma.</p>
 
@@ -39,14 +39,14 @@ concurrir los presupuestos legales (art. 37 del Reglamento (UE) 2016/679).</p>
   <li><strong>Datos de los coches y de los gastos</strong> introducidos por el Usuario: nombre y matrícula del coche, kilómetros, fechas, importes, litros, proveedores, notas y recordatorios.</li>
   <li><strong>Cuenta de Google</strong> (dirección de correo electrónico y nombre), solo si el Usuario elige "Iniciar sesión con Google": sirve para guardar el registro en el Drive del Usuario y para recuperarlo en sus demás teléfonos.
       En iPhone, el Usuario puede usar en su lugar el iCloud de su propio Apple ID: la app no ve quién es, usa solo el espacio de la app en su iCloud.</li>
-  <li><strong>Foto del tique</strong>, solo si el Usuario usa "Leer el tique": la foto se envía al servicio para ser leída y transformada en los campos del gasto, y después se descarta. No permanece en el teléfono, no va a su nube y nosotros no la conservamos (detalles en la sección correspondiente).</li>
+  <li><strong>Foto del tique</strong>, solo si el Usuario usa "Leer el tique": con Premium Cloud (lectura en la nube), la foto se envía al servicio del Desarrollador para ser leída y transformada en los campos del gasto; con Basic (lectura en el teléfono), no sale del dispositivo. En ambos casos se descarta tras la lectura: no permanece en el teléfono, no va a la nube del Usuario y el Desarrollador no la conserva (detalles en la sección correspondiente).</li>
   <li><strong>Ubicación</strong>, solo si el Usuario la concede y solo mientras consulta el mapa de precios: sirve para centrar el mapa donde se encuentra el Usuario.
   Para buscar las estaciones de servicio, la app envía al servicio de precios del país (MIMIT para Italia, data.economie.gouv.fr para Francia, E-Control para
   Austria) y a los servidores de los mapas (OpenFreeMap) el área del mapa que el Usuario está consultando, junto con la dirección de red del teléfono; cuando el
   mapa está centrado en el Usuario, esa área corresponde a su zona. La ubicación no se guarda ni se envía al Desarrollador. Cuando el Usuario inicia
   la navegación, el destino pasa a la app de mapas elegida.</li>
   <li><strong>Identificador del dispositivo generado por la app</strong> (un código aleatorio, no el IMEI ni el ID de publicidad): sirve para hacer converger las modificaciones realizadas desde teléfonos distintos.</li>
-  <li><strong>Registro de diagnóstico</strong>: los errores de la app se anotan en un archivo en el teléfono. Permanece ahí hasta que el Usuario decide compartirlo con nosotros desde el botón "Compartir log".</li>
+  <li><strong>Registro de diagnóstico</strong>: los errores de la app se anotan en un archivo en el teléfono. Permanece ahí hasta que el Usuario decide compartirlo con el Desarrollador desde el botón "Compartir log".</li>
 </ul>
 
 <h2>Adónde van los datos</h2>
@@ -55,14 +55,14 @@ concurrir los presupuestos legales (art. 37 del Reglamento (UE) 2016/679).</p>
   <li><strong>En el Google Drive del Usuario</strong>, si inicia sesión con Google: la app crea la carpeta <code>Kilòmetro</code> y guarda en ella el registro, las copias de seguridad y las hojas exportadas.
       Usa el permiso <code>drive.file</code>: ve y modifica solo los archivos que ella misma ha creado, no el resto del Drive del Usuario.
       La transferencia se realiza mediante conexión cifrada (HTTPS) directamente entre el teléfono del Usuario y Google.</li>
-  <li><strong>En el iCloud del Usuario</strong> (iPhone), si el Usuario elige iCloud en la pestaña Más: el registro se encuentra en el espacio de la app en iCloud Drive, cifrado por Apple, y no pasa por nosotros.</li>
-  <li><strong>En ningún otro lugar</strong>, con una sola excepción: la foto del tique, si el Usuario usa la lectura automática (más abajo). El Desarrollador no usa servicios de analítica, de publicidad ni de notificación de fallos (crash reporting).</li>
+  <li><strong>En el iCloud del Usuario</strong> (iPhone), si el Usuario elige iCloud en la pestaña Más: el registro se encuentra en el espacio de la app en iCloud Drive, cifrado por Apple, y no pasa por el Desarrollador.</li>
+  <li><strong>En ningún otro lugar</strong>, con una sola excepción: la foto del tique, si el Usuario usa Premium Cloud (más abajo). El Desarrollador no usa servicios de analítica, de publicidad ni de notificación de fallos (crash reporting).</li>
 </ul>
 
 <h2>Lectura del tique</h2>
-<p>Es una función por suscripción, en dos variantes. Con la <strong>Lectura en el teléfono</strong>, la foto es procesada por el modelo de inteligencia
+<p>Es una función por suscripción, en dos variantes. Con <strong>Basic</strong>, la foto es procesada por el modelo de inteligencia
 artificial integrado en el sistema operativo del dispositivo: no sale del dispositivo, no llega al Desarrollador ni a terceros y se descarta en cuanto
-los campos están listos. Con la <strong>Lectura en la nube</strong>, cuando el Usuario la usa, la foto del tique se envía mediante conexión cifrada al servicio
+los campos están listos. Con <strong>Premium Cloud</strong>, la foto del tique se envía mediante conexión cifrada al servicio
 de lectura del Desarrollador, que se ejecuta en Google Cloud en la región de Milán, y desde allí a un proveedor tercero de servicios de inteligencia artificial que la
 transforma en los campos del gasto (fecha, importe, proveedor, litros, precio por litro). El servicio del Desarrollador no guarda la foto y no la
 escribe en los registros. El proveedor de inteligencia artificial (categoría de destinatarios: proveedores de servicios de inteligencia artificial para
@@ -141,7 +141,7 @@ incluidos los requisitos de uso limitado. Los datos obtenidos a través de las A
 
 <h2>Permisos de la app</h2>
 <ul>
-  <li><strong>Internet</strong>: para comunicarse con Google Drive o iCloud, para descargar los precios de los carburantes de los servicios públicos y, si el Usuario activa la lectura del tique, para enviar la foto al servicio del Desarrollador.</li>
+  <li><strong>Internet</strong>: para comunicarse con Google Drive o iCloud, para descargar los precios de los carburantes de los servicios públicos y, si el Usuario usa Premium Cloud, para enviar la foto al servicio del Desarrollador.</li>
   <li><strong>Notificaciones</strong>: para los recordatorios del impuesto de circulación, la inspección técnica, el seguro y la revisión de mantenimiento. Opcionales.</li>
   <li><strong>Cámara y galería</strong>: solo para la lectura del tique, cuando la inicia el Usuario; la foto se usa durante el tiempo de la lectura y después se descarta.</li>
 </ul>

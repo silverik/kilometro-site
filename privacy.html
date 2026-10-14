@@ -19,7 +19,7 @@
 <body>
 <main>
 <h1>Kilòmetro · Norme sulla privacy</h1>
-<div class="meta">Ultimo aggiornamento · 12 ottobre 2026</div>
+<div class="meta">Ultimo aggiornamento · 14 ottobre 2026</div>
 <p class="meta" style="margin-top:-24px">Lingue · <a href="privacy-en.html">English</a> · <a href="privacy-fr.html">Français</a> · <a href="privacy-es.html">Español</a></p>
 
 <p>Kilòmetro è un'app per Android e iPhone per registrare le spese della propria auto, moto o scooter. È sviluppata da Daniele Crucitti (di seguito "lo Sviluppatore").
@@ -35,32 +35,32 @@ ricorrendone i presupposti di legge (art. 37 del Regolamento (UE) 2016/679).</p>
 <h2>Dati che l'app tratta</h2>
 <ul>
   <li><strong>Dati delle auto e delle spese</strong> inseriti dall'Utente: nome e targa dell'auto, chilometri, date, importi, litri, fornitori, note e promemoria.</li>
-  <li><strong>Account Google</strong> (indirizzo e-mail e nome), solo se l'Utente sceglie "Accedi con Google": serve a salvare il registro nel Drive dell'Utente e a ritrovarlo sugli altri tuoi telefoni.
+  <li><strong>Account Google</strong> (indirizzo e-mail e nome), solo se l'Utente sceglie "Accedi con Google": serve a salvare il registro nel Drive dell'Utente e a ritrovarlo sugli altri telefoni dell'Utente.
       Su iPhone l'Utente può usare invece l'iCloud del proprio Apple ID: l'app non vede chi è, usa solo lo spazio dell'app nel suo iCloud.</li>
-  <li><strong>Foto dello scontrino</strong>, solo se l'Utente usa "Leggi lo scontrino": la foto viene inviata al servizio per essere letta e trasformata nei campi della spesa, poi viene scartata. Non resta sul telefono, non va nel tuo cloud e noi non la conserviamo (dettagli nella sezione dedicata).</li>
+  <li><strong>Foto dello scontrino</strong>, solo se l'Utente usa "Leggi lo scontrino": con Premium Cloud (lettura in cloud) la foto viene inviata al servizio dello Sviluppatore per essere letta e trasformata nei campi della spesa; con Basic (lettura sul telefono) non lascia il dispositivo. In entrambi i casi, finita la lettura, viene scartata: non resta sul telefono, non va nel cloud dell'Utente e lo Sviluppatore non la conserva (dettagli nella sezione dedicata).</li>
   <li><strong>Posizione</strong>, solo se l'Utente la concede e solo mentre guarda la mappa dei prezzi: serve a centrare la mappa dove si trova l'Utente.
   Per cercare i distributori l'app invia al servizio dei prezzi del Paese (MIMIT per l'Italia, data.economie.gouv.fr per la Francia, E-Control per
   l'Austria) e ai server delle mappe (OpenFreeMap) l'area della mappa che l'Utente sta guardando, insieme all'indirizzo di rete del telefono; quando la
   mappa è centrata sull'Utente quell'area corrisponde alla sua zona. La posizione non viene salvata né inviata allo Sviluppatore. Quando l'Utente avvia
   la navigazione, la destinazione passa all'app di mappe scelta.</li>
   <li><strong>Identificativo del dispositivo generato dall'app</strong> (un codice casuale, non l'IMEI né l'ID pubblicitario): serve a far convergere le modifiche fatte da telefoni diversi.</li>
-  <li><strong>Registro diagnostico</strong>: gli errori dell'app vengono annotati in un file sul telefono. Resta lì finché l'Utente non decide di condividerlo con noi dal pulsante "Condividi log".</li>
+  <li><strong>Registro diagnostico</strong>: gli errori dell'app vengono annotati in un file sul telefono. Resta lì finché l'Utente non decide di condividerlo con lo Sviluppatore dal pulsante "Condividi log".</li>
 </ul>
 
 <h2>Dove vanno i dati</h2>
 <ul>
   <li><strong>Sul telefono</strong>, in un database privato dell'app. Funziona anche senza rete.</li>
-  <li><strong>Nel Google Drive dell'Utente</strong>, se accedi con Google: l'app crea la cartella <code>Kilòmetro</code> e vi salva il registro, le copie di backup e i fogli esportati.
+  <li><strong>Nel Google Drive dell'Utente</strong>, se l'Utente accede con Google: l'app crea la cartella <code>Kilòmetro</code> e vi salva il registro, le copie di backup e i fogli esportati.
       Usa il permesso <code>drive.file</code>: vede e modifica solo i file che ha creato lei, non il resto del Drive dell'Utente.
       Il trasferimento avviene su connessione cifrata (HTTPS) direttamente fra il telefono dell'Utente e Google.</li>
-  <li><strong>Nell'iCloud dell'Utente</strong> (iPhone), se l'Utente sceglie iCloud nella tab Altro: il registro sta nello spazio dell'app nell'iCloud Drive, cifrato da Apple, e non passa da noi.</li>
-  <li><strong>Da nessun'altra parte</strong>, con una sola eccezione: la foto dello scontrino, se l'Utente usa la lettura automatica (sotto). Lo Sviluppatore non usa servizi di analisi, di pubblicità né di crash reporting.</li>
+  <li><strong>Nell'iCloud dell'Utente</strong> (iPhone), se l'Utente sceglie iCloud nella tab Altro: il registro sta nello spazio dell'app nell'iCloud Drive, cifrato da Apple, e non passa dallo Sviluppatore.</li>
+  <li><strong>Da nessun'altra parte</strong>, con una sola eccezione: la foto dello scontrino, se l'Utente usa Premium Cloud (sotto). Lo Sviluppatore non usa servizi di analisi, di pubblicità né di crash reporting.</li>
 </ul>
 
 <h2>Lettura dello scontrino</h2>
-<p>È una funzione in abbonamento, in due varianti. Con la <strong>Lettura sul telefono</strong> la foto è elaborata dal modello di intelligenza
+<p>È una funzione in abbonamento, in due varianti. Con <strong>Basic</strong> la foto è elaborata dal modello di intelligenza
 artificiale integrato nel sistema operativo del dispositivo: non lascia il dispositivo, non arriva allo Sviluppatore né a terzi e viene scartata appena
-i campi sono pronti. Con la <strong>Lettura in cloud</strong>, quando l'Utente la usa, la foto dello scontrino viene inviata su connessione cifrata al servizio
+i campi sono pronti. Con <strong>Premium Cloud</strong> la foto dello scontrino viene inviata su connessione cifrata al servizio
 di lettura dello Sviluppatore, che gira su Google Cloud nella regione di Milano, e da lì a un fornitore terzo di servizi di intelligenza artificiale che la
 trasforma nei campi della spesa (data, importo, fornitore, litri, prezzo al litro). Il servizio dello Sviluppatore non salva la foto e non la
 scrive nei registri. Il fornitore di intelligenza artificiale (categoria di destinatari: fornitori di servizi di intelligenza artificiale per
@@ -139,7 +139,7 @@ soltanto i seguenti registri tecnici.</p>
 
 <h2>Permessi dell'app</h2>
 <ul>
-  <li><strong>Internet</strong>: per parlare con Google Drive o iCloud, per scaricare i prezzi dei carburanti dai servizi pubblici e, se l'Utente attiva la lettura dello scontrino, per inviare la foto al servizio dello Sviluppatore.</li>
+  <li><strong>Internet</strong>: per parlare con Google Drive o iCloud, per scaricare i prezzi dei carburanti dai servizi pubblici e, se l'Utente usa Premium Cloud, per inviare la foto al servizio dello Sviluppatore.</li>
   <li><strong>Notifiche</strong>: per i promemoria di bollo, revisione, assicurazione e tagliando. Facoltative.</li>
   <li><strong>Fotocamera e galleria</strong>: solo per la lettura dello scontrino, quando la avvia l'Utente; la foto serve il tempo della lettura e poi viene scartata.</li>
 </ul>

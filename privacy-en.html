@@ -20,7 +20,7 @@
 <body>
 <main>
 <h1>Kilòmetro · Privacy Policy</h1>
-<div class="meta">Last updated · 12 October 2026</div>
+<div class="meta">Last updated · 14 October 2026</div>
 
 <p class="box">This page is a translation of the Italian original, made with an artificial-intelligence tool and reviewed by the Developer. In case of differences, the Italian text prevails and is available here: <a href="https://silverik.github.io/kilometro-site/privacy.html">silverik.github.io/kilometro-site/privacy.html</a>. Your rights do not change with the language.</p>
 
@@ -39,7 +39,7 @@ legal conditions for one are not met (Art. 37 of Regulation (EU) 2016/679).</p>
   <li><strong>Car and expense data</strong> entered by the User: car name and number plate, kilometres, dates, amounts, litres, suppliers, notes and reminders.</li>
   <li><strong>Google account</strong> (e-mail address and name), only if the User chooses "Sign in with Google": it serves to save the logbook in the User's Drive and to find it again on the User's other phones.
       On iPhone the User can instead use the iCloud of their own Apple ID: the app does not see who they are, it only uses the app's space in their iCloud.</li>
-  <li><strong>Receipt photo</strong>, only if the User uses "Read receipt": the photo is sent to the service to be read and turned into the fields of the expense, then it is discarded. It does not stay on the phone, it does not go into the User's cloud and the Developer does not keep it (details in the dedicated section).</li>
+  <li><strong>Receipt photo</strong>, only if the User uses "Read receipt": with Premium Cloud (cloud reading) the photo is sent to the Developer's service to be read and turned into the fields of the expense; with Basic (on-phone reading) it does not leave the device. In both cases it is discarded once read: it does not stay on the phone, it does not go into the User's cloud and the Developer does not keep it (details in the dedicated section).</li>
   <li><strong>Location</strong>, only if the User grants it and only while viewing the price map: it serves to centre the map where the User is.
   To search for fuel stations the app sends to the price service of the country (MIMIT (the Italian Ministry of Enterprises and Made in Italy) for Italy, data.economie.gouv.fr for France, E-Control for
   Austria) and to the map servers (OpenFreeMap) the area of the map that the User is viewing, together with the phone's network address; when the
@@ -56,13 +56,13 @@ legal conditions for one are not met (Art. 37 of Regulation (EU) 2016/679).</p>
       It uses the <code>drive.file</code> permission: it sees and modifies only the files it created itself, not the rest of the User's Drive.
       The transfer takes place over an encrypted connection (HTTPS) directly between the User's phone and Google.</li>
   <li><strong>In the User's iCloud</strong> (iPhone), if the User chooses iCloud in the More tab: the logbook is kept in the app's space in iCloud Drive, encrypted by Apple, and does not pass through the Developer.</li>
-  <li><strong>Nowhere else</strong>, with a single exception: the receipt photo, if the User uses automatic reading (below). The Developer does not use analytics, advertising or crash-reporting services.</li>
+  <li><strong>Nowhere else</strong>, with a single exception: the receipt photo, if the User uses Premium Cloud (below). The Developer does not use analytics, advertising or crash-reporting services.</li>
 </ul>
 
 <h2>Receipt reading</h2>
-<p>It is a subscription feature, in two variants. With <strong>On-phone reading</strong> the photo is processed by the artificial-intelligence model
+<p>It is a subscription feature, in two variants. With <strong>Basic</strong> the photo is processed by the artificial-intelligence model
 built into the device's operating system: it does not leave the device, it does not reach the Developer or third parties and it is discarded as soon as
-the fields are ready. With <strong>Cloud reading</strong>, when the User uses it, the receipt photo is sent over an encrypted connection to the Developer's
+the fields are ready. With <strong>Premium Cloud</strong> the receipt photo is sent over an encrypted connection to the Developer's
 reading service, which runs on Google Cloud in the Milan region, and from there to a third-party provider of artificial-intelligence services that
 turns it into the fields of the expense (date, amount, supplier, litres, price per litre). The Developer's service does not save the photo and does not
 write it to the logs. The artificial-intelligence provider (category of recipients: providers of artificial-intelligence services for
@@ -141,7 +141,7 @@ the following technical logs exist.</p>
 
 <h2>App permissions</h2>
 <ul>
-  <li><strong>Internet</strong>: to communicate with Google Drive or iCloud, to download fuel prices from public services and, if the User activates receipt reading, to send the photo to the Developer's service.</li>
+  <li><strong>Internet</strong>: to communicate with Google Drive or iCloud, to download fuel prices from public services and, if the User uses Premium Cloud, to send the photo to the Developer's service.</li>
   <li><strong>Notifications</strong>: for reminders about vehicle tax, roadworthiness inspection, insurance and servicing. Optional.</li>
   <li><strong>Camera and gallery</strong>: only for receipt reading, when the User starts it; the photo is used for the duration of the reading and is then discarded.</li>
 </ul>
