@@ -466,7 +466,7 @@
                     <div class="space-y-2">
                         <div class="flex justify-between text-sm">
                             <label for="slider-km" class="font-semibold text-slate-700">Percorrenza annua</label>
-                            <span id="val-km" class="font-display font-extrabold text-kilo-royal">15.000 km</span>
+                            <span id="val-km" class="font-display font-extrabold whitespace-nowrap text-kilo-royal">15.000 km</span>
                         </div>
                         <input id="slider-km" type="range" min="3000" max="50000" step="1000" value="15000" class="w-full" oninput="updateCalculator()">
                     </div>
@@ -475,7 +475,7 @@
                     <div class="space-y-2">
                         <div class="flex justify-between text-sm">
                             <label id="label-efficiency" for="slider-eff" class="font-semibold text-slate-700">Consumo medio del veicolo (km/L)</label>
-                            <span id="val-eff" class="font-display font-extrabold text-kilo-emerald">16,0 km/L</span>
+                            <span id="val-eff" class="font-display font-extrabold whitespace-nowrap text-kilo-emerald">16,0 km/L</span>
                         </div>
                         <input id="slider-eff" type="range" min="8" max="30" step="0.5" value="16" class="w-full" oninput="updateCalculator()">
                     </div>
@@ -484,16 +484,16 @@
                     <div class="space-y-2">
                         <div class="flex justify-between text-sm">
                             <label id="label-price" for="slider-price" class="font-semibold text-slate-700">Prezzo medio carburante (€/L)</label>
-                            <span id="val-price" class="font-display font-extrabold text-kilo-cyan">1,80 €/L</span>
+                            <span id="val-price" class="font-display font-extrabold whitespace-nowrap text-kilo-cyan">1,80 €/L</span>
                         </div>
-                        <input id="slider-price" type="range" min="0.70" max="2.30" step="0.05" value="1.80" class="w-full" oninput="updateCalculator()">
+                        <input id="slider-price" type="range" min="0.70" max="3.00" step="0.05" value="1.80" class="w-full" oninput="updateCalculator()">
                     </div>
 
                     <!-- Slider 4: Costi Fissi -->
                     <div class="space-y-2">
                         <div class="flex justify-between text-sm">
                             <label for="slider-fixed" class="font-semibold text-slate-700">Spese fisse e manutenzione (RCA, Bollo, Tagliandi)</label>
-                            <span id="val-fixed" class="font-display font-extrabold text-slate-900">1.350 €/anno</span>
+                            <span id="val-fixed" class="font-display font-extrabold whitespace-nowrap text-slate-900">1.350 €/anno</span>
                         </div>
                         <input id="slider-fixed" type="range" min="300" max="4500" step="50" value="1350" class="w-full" oninput="updateCalculator()">
                     </div>
@@ -721,7 +721,7 @@
                 document.getElementById('label-efficiency').textContent = 'Consumo medio del veicolo (km/L)';
                 sliderEff.min = 8; sliderEff.max = 30; sliderEff.step = 0.5; sliderEff.value = 16;
                 document.getElementById('label-price').textContent = 'Prezzo medio carburante (€/L)';
-                sliderPrice.min = 0.70; sliderPrice.max = 2.30; sliderPrice.step = 0.05; sliderPrice.value = 1.80;
+                sliderPrice.min = 0.70; sliderPrice.max = 3.00; sliderPrice.step = 0.05; sliderPrice.value = 1.80;
             } else {
                 btnEv.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-kilo-emerald text-white transition-all';
                 btnTermico.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all';
