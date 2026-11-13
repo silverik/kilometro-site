@@ -79,6 +79,41 @@
             position: relative;
         }
 
+        /* iPhone Duo aperto: cornice orizzontale con la piega al centro */
+        .duo-frame { border-radius: 30px; }
+        .duo-frame .phone-screen { border-radius: 22px; }
+        .duo-frame .phone-screen::after {
+            content: "";
+            position: absolute;
+            top: 0; bottom: 0; left: 50%;
+            width: 2px;
+            transform: translateX(-1px);
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.12), rgba(255, 255, 255, 0.5));
+            pointer-events: none;
+        }
+
+        /* Hero: su telefono il Duo sopra e i due telefoni sotto; da 640 px il Duo davanti e i telefoni dietro ai lati */
+        .hero-stage {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            align-items: start;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .hero-duo { grid-column: 1 / -1; order: -1; }
+        @media (min-width: 640px) {
+            .hero-stage { display: block; position: relative; max-width: 560px; aspect-ratio: 560 / 500; }
+            .hero-device { position: absolute; cursor: pointer; }
+            .hero-android { width: 34%; left: 0; top: 0; transform: rotate(-6deg); z-index: 10; }
+            .hero-iphone { width: 34%; right: 0; top: 0; transform: rotate(6deg); z-index: 20; }
+            .hero-duo { width: 84%; left: 8%; bottom: 0; z-index: 30; }
+            .hero-device[data-active] { transform: scale(1.04); z-index: 40; }
+        }
+        .hero-pill { color: #475569; }
+        .hero-pill:hover { color: #0F172A; }
+        .hero-pill[data-active] { background: #2563EB; color: #FFFFFF; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12); }
+
         /* Custom Range Slider in Light Mode */
         input[type=range] {
             -webkit-appearance: none;
@@ -245,56 +280,48 @@
 
                 <!-- Right Column: Real App Screenshots Showcase in iPhone Frames -->
                 <div class="lg:col-span-6 relative">
-                    <!-- Quick Screen Switcher Pills above phones -->
-                    <div class="flex justify-center mb-5">
+                    <!-- Pillole: portano in primo piano un dispositivo (da 640 px, dove i dispositivi si sovrappongono) -->
+                    <div class="hidden sm:flex justify-center mb-5">
                         <div class="inline-flex bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm gap-1">
-                            <button onclick="highlightHeroScreen(0)" id="hero-tab-0" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-kilo-royal text-white shadow-sm transition-all">
-                                1. Storia Spese
+                            <button onclick="highlightHeroScreen(0)" data-hero="0" aria-pressed="false" class="hero-pill px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">
+                                Android
                             </button>
-                            <button onclick="highlightHeroScreen(1)" id="hero-tab-1" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 transition-all">
-                                2. Report & TCO
+                            <button onclick="highlightHeroScreen(1)" data-hero="1" data-active aria-pressed="true" class="hero-pill px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">
+                                iPhone Duo
                             </button>
-                            <button onclick="highlightHeroScreen(2)" id="hero-tab-2" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 transition-all">
-                                3. Prezzi Energia
+                            <button onclick="highlightHeroScreen(2)" data-hero="2" aria-pressed="false" class="hero-pill px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">
+                                iPhone
                             </button>
                         </div>
                     </div>
 
-                    <!-- 3-Phone Fan Composition with Official Screenshots -->
-                    <div class="relative flex items-center justify-center h-[540px] sm:h-[600px]">
-                        
-                        <!-- Left Phone: 02-report.png -->
-                        <div onclick="highlightHeroScreen(1)" id="hero-phone-1" 
-                             class="cursor-pointer phone-frame w-[220px] sm:w-[250px] absolute -translate-x-24 sm:-translate-x-36 scale-90 -rotate-6 opacity-80 hover:opacity-100 z-10">
+                    <!-- Composizione: Android a sinistra, iPhone Duo aperto al centro, iPhone a destra -->
+                    <div class="hero-stage">
+                        <div onclick="highlightHeroScreen(0)" data-hero="0" class="hero-device hero-android phone-frame">
                             <div class="phone-screen">
-                                <img src="img/02-report.jpg" 
-                                     alt="Schermata Report e Analisi Consumi Kilòmetro" 
+                                <img src="img/report-android.jpg" width="600" height="1333"
+                                     alt="Report di Kilòmetro su Android: spesa totale, costo al km e consumi dell'ultimo anno"
                                      class="w-full h-auto block select-none">
                             </div>
                         </div>
 
-                        <!-- Center Main Phone: 01-storia.png -->
-                        <div onclick="highlightHeroScreen(0)" id="hero-phone-0" 
-                             class="cursor-pointer phone-frame w-[250px] sm:w-[275px] relative z-30 scale-100 rotate-0">
+                        <div onclick="highlightHeroScreen(1)" data-hero="1" data-active class="hero-device hero-duo phone-frame duo-frame">
                             <div class="phone-screen">
-                                <img src="img/01-storia.jpg" 
-                                     alt="Schermata Storia e Cronologia Spese Kilòmetro" 
+                                <img src="img/storia-iphone-duo.jpg" width="1200" height="844"
+                                     alt="Storia di Kilòmetro su iPhone Duo aperto: le spese a sinistra, i totali e le scadenze a destra"
                                      class="w-full h-auto block select-none">
                             </div>
                         </div>
 
-                        <!-- Right Phone: 03-prezzi.png -->
-                        <div onclick="highlightHeroScreen(2)" id="hero-phone-2" 
-                             class="cursor-pointer phone-frame w-[220px] sm:w-[250px] absolute translate-x-24 sm:translate-x-36 scale-90 rotate-6 opacity-80 hover:opacity-100 z-20">
+                        <div onclick="highlightHeroScreen(2)" data-hero="2" class="hero-device hero-iphone phone-frame">
                             <div class="phone-screen">
-                                <img src="img/03-prezzi.jpg" 
-                                     alt="Schermata Prezzi Carburante e Ricariche Kilòmetro" 
+                                <img src="img/prezzi-iphone.jpg" width="600" height="1304"
+                                     alt="Prezzi di Kilòmetro su iPhone: mappa dei distributori con il prezzo del gasolio"
                                      class="w-full h-auto block select-none">
                             </div>
                         </div>
-
                     </div>
-                    <p class="text-center text-xs text-slate-500 mt-2">
+                    <p class="hidden sm:block text-center text-xs text-slate-500 mt-4">
                         👆 Clicca su una schermata per portarla in primo piano
                     </p>
                 </div>
@@ -318,36 +345,36 @@
                 </p>
             </div>
 
-            <!-- 3 Official Screenshots Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                
-                <!-- Screen 1: 01-storia.png -->
-                <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200/90 hover:border-kilo-royal/50 transition-all shadow-sm hover:shadow-xl flex flex-col items-center text-center">
+            <!-- Galleria: Storia sul Duo aperto a tutta larghezza, sotto Report (Android) e Prezzi (iPhone) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+
+                <!-- Storia: iPhone Duo aperto -->
+                <div class="md:col-span-2 bg-slate-50 rounded-3xl p-6 border border-slate-200/90 hover:border-kilo-royal/50 transition-all shadow-sm hover:shadow-xl flex flex-col items-center text-center">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/80 text-kilo-blue text-xs font-bold mb-5">
                         <span>01</span> • Cronologia & Diario
                     </div>
-                    <div class="phone-frame w-[240px] sm:w-[260px] mb-6">
+                    <div class="phone-frame duo-frame w-full max-w-[640px] mb-6">
                         <div class="phone-screen">
-                            <img src="img/01-storia.jpg" 
-                                 alt="Kilòmetro Schermata 01 Storia" 
+                            <img src="img/storia-iphone-duo.jpg" width="1200" height="844"
+                                 alt="Storia di Kilòmetro su iPhone Duo aperto: le spese a sinistra, i totali e le scadenze a destra"
                                  class="w-full h-auto block" loading="lazy">
                         </div>
                     </div>
                     <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Storia Spese, Rifornimenti e Ricariche</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
+                    <p class="text-slate-600 text-sm leading-relaxed max-w-2xl">
                         Visualizza tutti gli eventi del tuo veicolo in ordine cronologico: pieni di carburante, ricariche kWh, manutenzioni, bollo e costi fissi con chilometraggio sempre aggiornato.
                     </p>
                 </div>
 
-                <!-- Screen 2: 02-report.png -->
+                <!-- Report: Android -->
                 <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200/90 hover:border-kilo-cyan/50 transition-all shadow-sm hover:shadow-xl flex flex-col items-center text-center">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100/80 text-cyan-800 text-xs font-bold mb-5">
                         <span>02</span> • Report & Telemetria
                     </div>
                     <div class="phone-frame w-[240px] sm:w-[260px] mb-6">
                         <div class="phone-screen">
-                            <img src="img/02-report.jpg" 
-                                 alt="Kilòmetro Schermata 02 Report" 
+                            <img src="img/report-android.jpg" width="600" height="1333"
+                                 alt="Report di Kilòmetro su Android: spesa totale, costo al km e consumi dell'ultimo anno"
                                  class="w-full h-auto block" loading="lazy">
                         </div>
                     </div>
@@ -357,15 +384,15 @@
                     </p>
                 </div>
 
-                <!-- Screen 3: 03-prezzi.png -->
+                <!-- Prezzi: iPhone -->
                 <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200/90 hover:border-kilo-emerald/50 transition-all shadow-sm hover:shadow-xl flex flex-col items-center text-center">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-800 text-xs font-bold mb-5">
                         <span>03</span> • Andamento Prezzi
                     </div>
                     <div class="phone-frame w-[240px] sm:w-[260px] mb-6">
                         <div class="phone-screen">
-                            <img src="img/03-prezzi.jpg" 
-                                 alt="Kilòmetro Schermata 03 Prezzi" 
+                            <img src="img/prezzi-iphone.jpg" width="600" height="1304"
+                                 alt="Prezzi di Kilòmetro su iPhone: mappa dei distributori con il prezzo del gasolio"
                                  class="w-full h-auto block" loading="lazy">
                         </div>
                     </div>
@@ -708,39 +735,13 @@
 
     <!-- Interactive JavaScript -->
     <script>
-        // 1. Hero 3-Phone Real Screenshot Switcher
+        // 1. Hero: porta in primo piano il dispositivo scelto (pillola e dispositivo condividono data-hero)
         function highlightHeroScreen(activeIndex) {
-            const configs = {
-                0: [
-                    // Phone 0 center, Phone 1 left, Phone 2 right
-                    'cursor-pointer phone-frame w-[250px] sm:w-[275px] relative z-30 scale-100 rotate-0',
-                    'cursor-pointer phone-frame w-[220px] sm:w-[250px] absolute -translate-x-24 sm:-translate-x-36 scale-90 -rotate-6 opacity-80 hover:opacity-100 z-10',
-                    'cursor-pointer phone-frame w-[220px] sm:w-[250px] absolute translate-x-24 sm:translate-x-36 scale-90 rotate-6 opacity-80 hover:opacity-100 z-20'
-                ],
-                1: [
-                    // Phone 0 left, Phone 1 center, Phone 2 right
-                    'cursor-pointer phone-frame w-[220px] sm:w-[250px] absolute -translate-x-24 sm:-translate-x-36 scale-90 -rotate-6 opacity-80 hover:opacity-100 z-10',
-                    'cursor-pointer phone-frame w-[250px] sm:w-[275px] relative z-30 scale-100 rotate-0',
-                    'cursor-pointer phone-frame w-[220px] sm:w-[250px] absolute translate-x-24 sm:translate-x-36 scale-90 rotate-6 opacity-80 hover:opacity-100 z-20'
-                ],
-                2: [
-                    // Phone 0 left, Phone 1 right, Phone 2 center
-                    'cursor-pointer phone-frame w-[220px] sm:w-[250px] absolute -translate-x-24 sm:-translate-x-36 scale-90 -rotate-6 opacity-80 hover:opacity-100 z-10',
-                    'cursor-pointer phone-frame w-[220px] sm:w-[250px] absolute translate-x-24 sm:translate-x-36 scale-90 rotate-6 opacity-80 hover:opacity-100 z-20',
-                    'cursor-pointer phone-frame w-[250px] sm:w-[275px] relative z-30 scale-100 rotate-0'
-                ]
-            };
-
-            const classes = configs[activeIndex];
-            for (let i = 0; i < 3; i++) {
-                document.getElementById('hero-phone-' + i).className = classes[i];
-                const tab = document.getElementById('hero-tab-' + i);
-                if (i === activeIndex) {
-                    tab.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold bg-kilo-royal text-white shadow-sm transition-all';
-                } else {
-                    tab.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 transition-all';
-                }
-            }
+            document.querySelectorAll('[data-hero]').forEach(el => {
+                const on = el.dataset.hero === String(activeIndex);
+                el.toggleAttribute('data-active', on);
+                if (el.tagName === 'BUTTON') el.setAttribute('aria-pressed', on);
+            });
         }
 
         // 2. Interactive Cost per Km Calculator
