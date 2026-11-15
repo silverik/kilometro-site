@@ -1,835 +1,382 @@
-<!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<!doctype html>
+<html lang="it" data-type="software" data-radius="round" data-ground="sky" data-buttons="solid" data-motion>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kilòmetro – spese auto e moto | Costi, consumi e ricariche</title>
-    <meta name="description" content="Kilòmetro – spese auto e moto. Costi, consumi e ricariche sempre sotto controllo. Disponibile su App Store e Google Play.">
-    <link rel="icon" type="image/jpeg" href="img/icona.jpg">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        kilo: {
-                            navy: '#0F172A',
-                            blue: '#1E3A8A',
-                            royal: '#2563EB',
-                            cyan: '#06B6D4',
-                            emerald: '#10B981',
-                            bg: '#F8FAFC'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body {
-            background-color: #F8FAFC;
-            color: #0F172A;
-            overflow-x: hidden;
-        }
-
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-        }
-
-        .hero-pattern {
-            background: 
-                radial-gradient(circle at 15% 20%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 85% 25%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.09) 0%, transparent 60%),
-                #F8FAFC;
-        }
-
-        .app-icon-shadow {
-            box-shadow: 0 12px 30px -6px rgba(30, 58, 138, 0.28), 0 4px 12px -2px rgba(6, 182, 212, 0.2);
-        }
-
-        .phone-frame {
-            background: #0F172A;
-            border-radius: 44px;
-            padding: 10px;
-            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .phone-screen {
-            border-radius: 35px;
-            overflow: hidden;
-            background: #FFFFFF;
-            position: relative;
-        }
-
-        /* iPhone Duo aperto: cornice orizzontale con la piega al centro */
-        .duo-frame { border-radius: 30px; }
-        .duo-frame .phone-screen { border-radius: 22px; }
-        .duo-frame .phone-screen::after {
-            content: "";
-            position: absolute;
-            top: 0; bottom: 0; left: 50%;
-            width: 2px;
-            transform: translateX(-1px);
-            background: linear-gradient(to right, rgba(15, 23, 42, 0.12), rgba(255, 255, 255, 0.5));
-            pointer-events: none;
-        }
-
-        /* Hero: su telefono il Duo sopra e i due telefoni sotto; da 640 px il Duo davanti e i telefoni dietro ai lati */
-        .hero-stage {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            align-items: start;
-            max-width: 420px;
-            margin: 0 auto;
-        }
-        .hero-duo { grid-column: 1 / -1; order: -1; }
-        @media (min-width: 640px) {
-            .hero-stage { display: block; position: relative; max-width: 560px; aspect-ratio: 560 / 500; }
-            .hero-device { position: absolute; cursor: pointer; }
-            .hero-android { width: 34%; left: 0; top: 0; transform: rotate(-6deg); z-index: 10; }
-            .hero-iphone { width: 34%; right: 0; top: 0; transform: rotate(6deg); z-index: 20; }
-            .hero-duo { width: 84%; left: 8%; bottom: 0; z-index: 30; }
-            .hero-device[data-active] { transform: scale(1.04); z-index: 40; }
-        }
-        .hero-pill { color: #475569; }
-        .hero-pill:hover { color: #0F172A; }
-        .hero-pill[data-active] { background: #2563EB; color: #FFFFFF; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12); }
-
-        /* Custom Range Slider in Light Mode */
-        input[type=range] {
-            -webkit-appearance: none;
-            appearance: none;
-            background: transparent;
-            cursor: pointer;
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            background: #E2E8F0;
-            height: 8px;
-            border-radius: 999px;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            margin-top: -6px;
-            background: linear-gradient(135deg, #2563EB, #06B6D4);
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            border: 3px solid #FFFFFF;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
-            transition: transform 0.15s ease;
-        }
-        input[type=range]::-webkit-slider-thumb:hover {
-            transform: scale(1.15);
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kilòmetro: l'app per le spese di auto e moto</title>
+<meta name="description" content="Kilòmetro registra rifornimenti, ricariche, manutenzioni e scadenze di auto, moto e scooter e calcola il costo di ogni chilometro. Gratis su iPhone e Android.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kilòmetro: l'app per le spese di auto e moto">
+<meta property="og:description" content="Rifornimenti, ricariche, manutenzioni e scadenze in un registro solo, con il costo di ogni chilometro. Gratis su iPhone e Android.">
+<meta property="og:image" content="https://kilometroapp.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.png" type="image/png">
+<meta name="theme-color" content="#f5f5f7">
+<link rel="canonical" href="https://kilometroapp.com/">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<style>
+:root {
+  --p-bg: #f5f5f7; --p-surface: #e9e9eb; --p-ink: #1d1d1f; --p-muted: #666668;
+  --p-accent: #006fe8; --p-accent-ink: #ffffff; --p-action: #006fe8; --p-action-ink: #ffffff;
+  --p-inv-bg: #1d1d1f; --p-inv-surface: #29292b; --p-inv-ink: #f5f5f7; --p-inv-muted: #9b9b9d;
+  --p-inv-accent: #006fe8; --p-inv-accent-ink: #ffffff; --p-inv-action: #006fe8; --p-inv-action-ink: #ffffff;
+  --font-display: "Urbanist", system-ui, sans-serif;
+  --font-text: "Urbanist", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+}
+</style>
+<link rel="stylesheet" href="assets/ui/base.css">
+<link rel="stylesheet" href="assets/diagrams/diagram.css">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/pinned-chapters/moment.js">
+<!-- page CSS: only what sits inside a visual, and one --p-h per card group -->
+<style>
+  .nav__logo > img { width: 28px; height: 28px; border-radius: 7px; }
+  /* the app's own screens, in a device edge */
+  .device { padding: 8px; border-radius: 30px; background: #1d1d1f; box-shadow: 0 24px 48px -24px rgb(29 29 31 / .45); }
+  .device > img { display: block; width: 100%; height: auto; border-radius: 22px; }
+  .hero__window > .device { padding: 10px; border-radius: 34px; }
+  .hero__window > .device > img { border-radius: 24px; }
+  /* pinned-chapters: a phone on the lit ground, cut by the frame's foot */
+  #schermate .mo-pc__visual--lit { align-items: flex-start; padding-bottom: 0; overflow: hidden; }
+  #schermate .mo-pc__visual--lit > .device { width: min(300px, 62%); }
+  #funzioni .panel { --p-h: 300px; }
+  @media (max-width: 639px) { #funzioni .panel { --p-h: 156px; } #funzioni .stage { --fade-h: 40px; } }
+  /* the app's own UI, drawn live (the kit's .ui tokens) */
+  .km { --u-accent: #007aff; font-family: var(--font-text); }
+  .km-pad { display: grid; gap: 12px; padding: 14px; }
+  .km-mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--u-muted); }
+  .km-ai { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 10px; background: var(--u-tint); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--u-accent) 30%, transparent); }
+  .km-ai__dot { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--u-accent); color: #fff; font-size: 13px; }
+  .km-ai b { display: block; font-size: 13px; font-weight: 500; line-height: 18px; }
+  .km-ai .km-mono { color: var(--u-accent-text); }
+  .km-rows { margin: 0; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--u-border); background: var(--u-fill); }
+  .km-rows > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 12px; }
+  .km-rows > div + div { border-top: 1px solid var(--u-line); }
+  .km-rows dt { margin: 0; }
+  .km-rows dd { margin: 0; font-size: 15px; font-weight: 500; text-align: right; }
+  .km-rows > .km-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .km-three > div { display: grid; gap: 4px; }
+  .km-three dd { text-align: left; font-size: 17px; }
+  .km-event { display: grid; gap: 10px; padding: 12px 14px; }
+  .km-event + .km-event { border-top: 1px solid var(--u-line); }
+  .km-event__top { display: flex; gap: 10px; align-items: center; }
+  .km-glyph { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: var(--u-tint); color: var(--u-accent); }
+  .km-glyph svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .km-event__name { flex: 1; min-width: 0; font-size: 14px; font-weight: 500; line-height: 20px; }
+  .km-event__sum { text-align: right; font-size: 14px; font-weight: 500; line-height: 20px; }
+  .km-event__sum small { display: block; font: 400 11px/14px var(--font-mono); color: var(--u-muted); }
+  .km-chips { display: flex; gap: 6px; }
+  .km-chips span { flex: 1; padding: 5px 8px; border-radius: 8px; background: var(--u-fill); font: 400 12px/16px var(--font-mono); text-align: center; white-space: nowrap; }
+  .km-due { display: flex; gap: 10px; align-items: center; padding: 12px 14px; }
+  .km-due + .km-due { border-top: 1px solid var(--u-line); }
+  .km-due b { display: block; font-size: 14px; font-weight: 500; line-height: 20px; }
+  .km-due > div { flex: 1; min-width: 0; }
+  .km-due--now { background: #fbe9d7; }
+  .km-due--now b { color: #8a4b00; } .km-due--now .km-mono { color: #9a5a10; }
+  .km-due--now .km-glyph { background: #f6d2ac; color: #8a4b00; }
+  .km-due .km-glyph { background: var(--u-fill); color: var(--u-muted); }
+  .km-see { flex: none; padding: 5px 10px; border-radius: 8px; background: #f6d2ac; color: #8a4b00; font: 500 11px/16px var(--font-mono); letter-spacing: .04em; }
+  /* the calculator: page CSS inside its own visual */
+  .calc { display: grid; gap: var(--s-5); margin-top: var(--s-6); }
+  .calc__mode { display: flex; gap: var(--s-2); border: 0; padding: 0; margin: 0; }
+  .calc__mode label { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s-4); border: 1px solid var(--line); border-radius: var(--r-btn); font-weight: 500; cursor: pointer; }
+  .calc__mode input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .calc__mode label:has(input:checked) { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .calc__mode label:has(input:focus-visible) { outline: 2px solid var(--action); outline-offset: 2px; }
+  .calc__row { display: grid; grid-template-columns: 1fr auto; gap: var(--s-1) var(--s-4); align-items: baseline; }
+  .calc__row label { font-weight: 500; }
+  .calc__row output { font-family: var(--font-mono); font-size: var(--t-body); }
+  .calc__row input { grid-column: 1 / -1; width: 100%; height: 44px; margin: 0; accent-color: var(--action); cursor: pointer; }
+  .calc-out { display: grid; align-content: start; gap: var(--s-5); padding: var(--s-7); border-radius: var(--r-lg); background: var(--ground-bg); color: var(--ground-ink); }
+  .calc-out__big { font: var(--display-weight) var(--t-h2)/1.05 var(--font-display); letter-spacing: var(--display-tracking); }
+  .calc-out__big small { font: 400 var(--t-lead)/1 var(--font-text); letter-spacing: 0; }
+  .calc-out dl { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); margin: 0; }
+  .calc-out dl > div { padding: var(--s-4); border-radius: var(--r-md); background: var(--ground-surface); }
+  .calc-out dt { font-size: var(--t-small); }
+  .calc-out dd { margin: 0; font: 500 var(--t-lead)/1.4 var(--font-text); }
+  .calc-bar { display: flex; height: 12px; border-radius: 99px; overflow: hidden; background: var(--ground-surface); }
+  .calc-bar > i { display: block; height: 100%; background: var(--ground-ink); }
+  .calc-bar > i + i { background: var(--p-accent); }
+  .calc-key { display: flex; justify-content: space-between; gap: var(--s-4); font-size: var(--t-small); }
+  @media (max-width: 1023px) { .calc-out { margin-top: var(--s-6); padding: var(--s-6); } }
+  @media (max-width: 639px) { .calc { gap: var(--s-3); margin-top: var(--s-5); } .calc-out { padding: var(--s-5); gap: var(--s-4); } }
+</style>
 </head>
-<body class="antialiased selection:bg-kilo-royal selection:text-white">
+<body>
+<!-- type: software
+     deal: hero centred, nav nav-centre (nav-cards dealt first: one product, no line-up to show), close close-type,
+           footer footer-statement, rhythm space, buttons solid, mark the client's own icon, ground sky,
+           effect grain-gradient in the hero's frame, card grounds the lit ground plain (no card effect fits)
+     palette: the app's own colours (start.mjs brand): #f5f5f7 ground, #1d1d1f ink, the app's blue for actions
+     moments: pinned-chapters in #schermate -->
 
-    <!-- STICKY NAVBAR CON ICONA UFFICIALE -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo & Official App Icon -->
-            <a href="#" class="flex items-center gap-3.5 group">
-                <picture class="shrink-0">
-                    <source srcset="img/icona.webp" type="image/webp">
-                    <img src="img/icona.jpg" 
-                         alt="Icona ufficiale Kilòmetro" 
-                         class="w-11 h-11 rounded-[12px] app-icon-shadow group-hover:scale-105 transition-transform object-cover border border-slate-200/80">
-                </picture>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span class="font-display font-extrabold text-xl tracking-tight text-slate-900">Kilòmetro</span>
-                        <span class="hidden sm:inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200">iOS & Android</span>
-                    </div>
-                    <p class="text-xs text-slate-500 font-medium hidden sm:block">Spese auto e moto • Costi, consumi e ricariche</p>
-                </div>
-            </a>
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Vai al contenuto</a>
+    <a class="nav__logo" href="#top"><img src="img/icona.webp" alt="" width="28" height="28">Kilòmetro</a>
+    <nav class="nav__links" aria-label="Principale">
+      <div class="nav__item"><a class="nav__link" href="#schermate">Schermate</a></div>
+      <div class="nav__item"><a class="nav__link" href="#funzioni">Funzioni</a></div>
+      <div class="nav__item"><a class="nav__link" href="#calcolatore">Calcolatore</a></div>
+      <div class="nav__item"><a class="nav__link" href="#domande">Domande</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
 
-            <!-- Desktop Menu -->
-            <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
-                <a href="#schermate" class="hover:text-kilo-royal transition-colors">Schermate Reali</a>
-                <a href="#funzionalita" class="hover:text-kilo-royal transition-colors">Funzionalità</a>
-                <a href="#calcolatore" class="hover:text-kilo-royal transition-colors">Calcolatore €/Km</a>
-                <a href="#faq" class="hover:text-kilo-royal transition-colors">FAQ</a>
-            </nav>
+<main id="top">
+  <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text">
+      <div class="hero__c">
+        <a class="pill" href="#domande"><span>iPhone Duo</span><span class="muted">Due colonne sul display aperto</span></a>
+        <h1 id="hero-h">Le spese di auto e moto in un'app</h1>
+        <p class="hero__lead">Kilòmetro registra rifornimenti, ricariche, manutenzioni e scadenze e calcola il costo di ogni chilometro. Gratis su iPhone e Android, in quattro lingue.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone</a><a class="btn btn--secondary" href="https://play.google.com/store/apps/details?id=it.kilometro.app">Scarica per Android</a></div>
+      </div>
+      <div class="hero__window" data-fx="grain-gradient" data-fx-seed="7" role="img" aria-label="La Storia di Kilòmetro su iPhone Duo aperto: l'elenco delle spese a sinistra, i totali dell'anno e le scadenze a destra">
+        <div class="ly-piece device" aria-hidden="true"><img src="img/storia-iphone-duo.jpg" alt="" width="1200" height="844" fetchpriority="high"></div>
+      </div>
+    </div></div>
+  </section>
 
-            <!-- Store Download Buttons -->
-            <div class="flex items-center gap-2.5">
-                <a href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597" target="_blank" rel="noopener noreferrer" 
-                   class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm px-3.5 py-2.5 rounded-xl shadow-sm transition-all hover:-translate-y-0.5">
-                    <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/>
-                    </svg>
-                    <span class="hidden sm:inline">App Store</span>
-                    <span class="sm:hidden">iOS</span>
-                </a>
-                <a href="https://play.google.com/store/apps/details?id=it.kilometro.app" target="_blank" rel="noopener noreferrer" 
-                   class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 font-semibold text-xs sm:text-sm px-3.5 py-2.5 rounded-xl shadow-sm transition-all hover:-translate-y-0.5">
-                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none">
-                        <path d="M3.609 1.814L13.792 12 3.61 22.186a1.96 1.96 0 01-.497-1.314V3.128c0-.505.19-.964.496-1.314z" fill="#06B6D4"/>
-                        <path d="M17.256 8.536L13.792 12l3.464 3.464 3.903-2.23c.79-.451.79-1.565 0-2.017l-3.903-2.681z" fill="#FBBF24"/>
-                        <path d="M13.792 12L3.61 22.186c.445.494 1.176.623 1.825.252l11.821-6.974L13.792 12z" fill="#F43F5E"/>
-                        <path d="M17.256 8.536L5.435 1.562C4.785 1.19 4.054 1.32 3.61 1.814L13.792 12l3.464-3.464z" fill="#10B981"/>
-                    </svg>
-                    <span class="hidden sm:inline">Google Play</span>
-                    <span class="sm:hidden">Android</span>
-                </a>
-            </div>
+  <!-- pinned-chapters: two screens, one step per screen of the app -->
+  <section class="section" id="schermate" style="--h: 2" data-moment="pinned-chapters" aria-labelledby="schermate-h">
+    <div class="wrap mo-pc__grid">
+      <div class="mo-pc__text">
+        <h2 id="schermate-h">Report e prezzi dei carburanti</h2>
+        <ol class="mo-pc__steps">
+          <li class="mo-pc__step">
+            <h3>Il Report conta ogni chilometro</h3>
+            <p>Spesa totale, chilometri, consumo e costo al chilometro, per mese, trimestre o anno. Il grafico indica il mese migliore e il peggiore.</p>
+            <figure class="mo-pc__visual mo-pc__visual--lit"><div class="device"><img src="img/report-android.jpg" alt="Il Report su Android: 2.262 € in un anno, 10.077 km, 0,218 € al chilometro" width="600" height="1333" loading="lazy"></div></figure>
+          </li>
+          <li class="mo-pc__step">
+            <h3>I Prezzi mostrano i distributori vicini</h3>
+            <p>La mappa riporta i prezzi di benzina, diesel, GPL e metano intorno a te, dai dati pubblici del ministero. Verde dove costa meno.</p>
+            <figure class="mo-pc__visual mo-pc__visual--lit"><div class="device"><img src="img/prezzi-iphone.jpg" alt="La mappa dei Prezzi su iPhone: i distributori di Roma con il prezzo del diesel" width="600" height="1304" loading="lazy"></div></figure>
+          </li>
+        </ol>
+      </div>
+      <div class="mo-pc__visuals frame"></div>
+    </div>
+  </section>
+
+  <section class="section g2" id="funzioni" aria-labelledby="funzioni-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="funzioni-h">Le funzioni di Kilòmetro. <span class="muted">Scontrini, ricariche, scadenze e sincronizzazione.</span></h2>
         </div>
-    </header>
-
-    <!-- 1. HERO SECTION CON ICONA REALE E LE 3 SCHERMATE UFFICIALI -->
-    <section class="relative pt-28 pb-20 md:pt-36 md:pb-28 hero-pattern border-b border-slate-200/80 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-                
-                <!-- Left Column: Authentic App Store Identity -->
-                <div class="lg:col-span-6 text-center lg:text-left space-y-6">
-                    
-                    <!-- Official App Icon + Store Identity Card -->
-                    <div class="inline-flex items-center gap-4 p-2.5 pr-5 rounded-3xl bg-white border border-slate-200/90 shadow-md shadow-slate-200/50">
-                        <picture class="shrink-0">
-                            <source srcset="img/icona.webp" type="image/webp">
-                            <img src="img/icona.jpg" 
-                                 alt="Kilòmetro App Icon" 
-                                 class="w-16 h-16 rounded-2xl app-icon-shadow object-cover">
-                        </picture>
-                        <div class="text-left">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs font-bold uppercase tracking-wider text-kilo-royal">App Ufficiale</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-kilo-emerald"></span>
-                                <span class="text-xs font-semibold text-emerald-600">Gratuita</span>
-                            </div>
-                            <div class="font-display font-extrabold text-lg text-slate-900 leading-snug">Kilòmetro – spese auto e moto</div>
-                            <div class="text-xs text-slate-500 font-medium">Costi, consumi e ricariche</div>
-                        </div>
-                    </div>
-
-                    <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-[54px] tracking-tight text-slate-900 leading-[1.12]">
-                        Costi, consumi e ricariche <span class="text-transparent bg-clip-text bg-gradient-to-r from-kilo-blue via-kilo-royal to-kilo-emerald">sotto controllo.</span>
-                    </h1>
-
-                    <p class="text-lg sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                        Registra rifornimenti di carburante, ricariche elettriche, manutenzioni e scadenze. Analizza il costo reale al chilometro (TCO), i consumi medi e l'andamento dei prezzi con le schermate chiare e immediate di <strong>Kilòmetro</strong>.
-                    </p>
-
-                    <!-- Official Store Download CTAs -->
-                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                        <a href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597" target="_blank" rel="noopener noreferrer"
-                           class="w-full sm:w-auto flex items-center justify-center gap-3.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold px-7 py-4 rounded-2xl shadow-xl shadow-slate-900/15 transition-all hover:scale-[1.02]">
-                            <svg class="w-7 h-7 fill-current shrink-0" viewBox="0 0 24 24">
-                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/>
-                            </svg>
-                            <div class="text-left">
-                                <div class="text-[11px] uppercase tracking-wider text-slate-300 leading-none">Scarica su</div>
-                                <div class="text-lg font-bold leading-tight">App Store</div>
-                            </div>
-                        </a>
-
-                        <a href="https://play.google.com/store/apps/details?id=it.kilometro.app" target="_blank" rel="noopener noreferrer"
-                           class="w-full sm:w-auto flex items-center justify-center gap-3.5 bg-white hover:bg-slate-50 text-slate-900 font-semibold px-7 py-4 rounded-2xl border-2 border-slate-200 hover:border-kilo-cyan shadow-lg shadow-slate-200/50 transition-all hover:scale-[1.02]">
-                            <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none">
-                                <path d="M3.609 1.814L13.792 12 3.61 22.186a1.96 1.96 0 01-.497-1.314V3.128c0-.505.19-.964.496-1.314z" fill="#06B6D4"/>
-                                <path d="M17.256 8.536L13.792 12l3.464 3.464 3.903-2.23c.79-.451.79-1.565 0-2.017l-3.903-2.681z" fill="#FBBF24"/>
-                                <path d="M13.792 12L3.61 22.186c.445.494 1.176.623 1.825.252l11.821-6.974L13.792 12z" fill="#F43F5E"/>
-                                <path d="M17.256 8.536L5.435 1.562C4.785 1.19 4.054 1.32 3.61 1.814L13.792 12l3.464-3.464z" fill="#10B981"/>
-                            </svg>
-                            <div class="text-left">
-                                <div class="text-[11px] uppercase tracking-wider text-kilo-emerald font-bold leading-none">Disponibile su</div>
-                                <div class="text-lg font-bold leading-tight">Google Play</div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Authentic App Store Specs -->
-                    <div class="pt-4 grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 border-t border-slate-200">
-                        <div>
-                            <div class="text-lg sm:text-xl font-display font-extrabold text-kilo-blue">Auto & Moto</div>
-                            <div class="text-xs text-slate-500 font-medium">Termico, Ibrido, EV</div>
-                        </div>
-                        <div>
-                            <div class="text-lg sm:text-xl font-display font-extrabold text-kilo-cyan">TCO & Report</div>
-                            <div class="text-xs text-slate-500 font-medium">Statistiche e €/km</div>
-                        </div>
-                        <div>
-                            <div class="text-lg sm:text-xl font-display font-extrabold text-kilo-emerald">Dati tuoi</div>
-                            <div class="text-xs text-slate-500 font-medium">iCloud o Google Drive</div>
-                        </div>
-                    </div>
+        <div class="grid">
+          <article class="card card--row card--open m-nolift span-6">
+            <h3>Legge lo scontrino da una foto</h3>
+            <p>Scatta la foto: fornitore, litri, prezzo e totale sono già compilati, da controllare prima di salvare. In abbonamento, con prova gratuita.</p>
+            <div class="panel">
+              <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:40px;--ay-sm:16px">
+                <div class="ui ui-panel km" role="img" aria-label="Un rifornimento compilato dalla foto dello scontrino: Q8 Tangenziale Ovest, 42,09 litri a 1,625 €, 68,40 € in tutto">
+                  <div class="km-pad" aria-hidden="true">
+                    <div class="km-ai"><span class="km-ai__dot">✦</span><div><b>Compilato dall'AI · controlla e salva</b><span class="km-mono">Fornitore · litri · prezzo · totale · data</span></div></div>
+                    <dl class="km-rows">
+                      <div><dt class="km-mono">Fornitore ✦</dt><dd>Q8 Tangenziale Ovest</dd></div>
+                      <div class="km-three"><div><dt class="km-mono">Prezzo €/L ✦</dt><dd>1,625</dd></div><div><dt class="km-mono">Totale € ✦</dt><dd>68,40</dd></div><div><dt class="km-mono">Litri ✦</dt><dd>42,09</dd></div></div>
+                      <div><dt class="km-mono">Data ✦</dt><dd>5 set 2026 · 18:42</dd></div>
+                      <div><dt class="km-mono">Contachilom.</dt><dd>148.560 km</dd></div>
+                    </dl>
+                  </div>
                 </div>
-
-                <!-- Right Column: Real App Screenshots Showcase in iPhone Frames -->
-                <div class="lg:col-span-6 relative">
-                    <!-- Pillole: portano in primo piano un dispositivo (da 640 px, dove i dispositivi si sovrappongono) -->
-                    <div class="hidden sm:flex justify-center mb-5">
-                        <div class="inline-flex bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm gap-1">
-                            <button onclick="highlightHeroScreen(0)" data-hero="0" aria-pressed="false" class="hero-pill px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">
-                                Android
-                            </button>
-                            <button onclick="highlightHeroScreen(1)" data-hero="1" data-active aria-pressed="true" class="hero-pill px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">
-                                iPhone Duo
-                            </button>
-                            <button onclick="highlightHeroScreen(2)" data-hero="2" aria-pressed="false" class="hero-pill px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all">
-                                iPhone
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Composizione: Android a sinistra, iPhone Duo aperto al centro, iPhone a destra -->
-                    <div class="hero-stage">
-                        <div onclick="highlightHeroScreen(0)" data-hero="0" class="hero-device hero-android phone-frame">
-                            <div class="phone-screen">
-                                <img src="img/report-android.jpg" width="600" height="1333"
-                                     alt="Report di Kilòmetro su Android: spesa totale, costo al km e consumi dell'ultimo anno"
-                                     class="w-full h-auto block select-none">
-                            </div>
-                        </div>
-
-                        <div onclick="highlightHeroScreen(1)" data-hero="1" data-active class="hero-device hero-duo phone-frame duo-frame">
-                            <div class="phone-screen">
-                                <img src="img/storia-iphone-duo.jpg" width="1200" height="844"
-                                     alt="Storia di Kilòmetro su iPhone Duo aperto: le spese a sinistra, i totali e le scadenze a destra"
-                                     class="w-full h-auto block select-none">
-                            </div>
-                        </div>
-
-                        <div onclick="highlightHeroScreen(2)" data-hero="2" class="hero-device hero-iphone phone-frame">
-                            <div class="phone-screen">
-                                <img src="img/prezzi-iphone.jpg" width="600" height="1304"
-                                     alt="Prezzi di Kilòmetro su iPhone: mappa dei distributori con il prezzo del gasolio"
-                                     class="w-full h-auto block select-none">
-                            </div>
-                        </div>
-                    </div>
-                    <p class="hidden sm:block text-center text-xs text-slate-500 mt-4">
-                        👆 Clicca su una schermata per portarla in primo piano
-                    </p>
-                </div>
-
+              </div></div>
             </div>
+          </article>
+          <article class="card card--row card--open m-nolift span-6">
+            <h3>Registra le ricariche elettriche</h3>
+            <p>Per elettriche e plug-in: kWh, prezzo e percentuali della batteria, a casa o alla colonnina. Il Report calcola i kWh ogni 100 km.</p>
+            <div class="panel">
+              <div class="stage stage--fade-b"><div class="at-corner fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:40px;--ay-sm:16px">
+                <div class="ui ui-panel km" role="img" aria-label="Due ricariche nella Storia: a casa 4,9 kWh a 0,280 € al kWh, dal 20 al 100 per cento, 1,37 €">
+                  <div aria-hidden="true">
+                    <div class="km-event">
+                      <div class="km-event__top"><span class="km-glyph"><svg viewBox="0 0 16 16"><path d="M9 1.5 3.5 9H8l-1 5.5L12.5 7H8z"/></svg></span><span class="km-event__name">Ricarica a casa</span><span class="km-event__sum">1,37 €<small>12 nov 2026</small></span></div>
+                      <div class="km-chips"><span>4,9 kWh</span><span>0,280 €/kWh</span><span>20 → 100%</span></div>
+                    </div>
+                    <div class="km-event">
+                      <div class="km-event__top"><span class="km-glyph"><svg viewBox="0 0 16 16"><path d="M9 1.5 3.5 9H8l-1 5.5L12.5 7H8z"/></svg></span><span class="km-event__name">Ricarica alla colonnina</span><span class="km-event__sum">2,34 €<small>8 nov 2026</small></span></div>
+                      <div class="km-chips"><span>3,6 kWh</span><span>0,650 €/kWh</span><span>35 → 95%</span></div>
+                    </div>
+                    <div class="km-event">
+                      <div class="km-event__top"><span class="km-glyph"><svg viewBox="0 0 16 16"><path d="M9 1.5 3.5 9H8l-1 5.5L12.5 7H8z"/></svg></span><span class="km-event__name">Ricarica a casa</span><span class="km-event__sum">1,20 €<small>3 nov 2026</small></span></div>
+                      <div class="km-chips"><span>4,3 kWh</span><span>0,280 €/kWh</span><span>30 → 100%</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div></div>
+            </div>
+          </article>
         </div>
-    </section>
-
-    <!-- 2. GALLERIA DELLE SCHERMATE UFFICIALI DELL'APP -->
-    <section id="schermate" class="py-20 bg-white border-b border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-blue-50 text-kilo-royal border border-blue-200">
-                    Interfaccia Reale dell'App
-                </span>
-                <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 mt-3">
-                    Esplora le schermate ufficiali di Kilòmetro
-                </h2>
-                <p class="text-slate-600 mt-3 text-base sm:text-lg">
-                    Un design pulito, leggibile e progettato per darti subito i numeri che contano: dalla cronologia eventi ai report di telemetria fino al monitoraggio dei prezzi alla pompa o alla colonnina.
-                </p>
+      </div>
+      <div class="grid">
+          <article class="card card--row card--open m-nolift span-6">
+            <h3>Ricorda revisione, bollo e assicurazione</h3>
+            <p>I promemoria avvisano con una notifica prima di ogni scadenza. A dicembre l'app segnala bollo e assicurazione non ancora registrati.</p>
+            <div class="panel">
+              <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:56px;--ay-sm:24px">
+                <div class="ui ui-panel km" role="img" aria-label="I promemoria di un veicolo: la revisione in scadenza il 17 settembre 2026, poi bollo e assicurazione">
+                  <div aria-hidden="true">
+                    <div class="km-due km-due--now"><span class="km-glyph"><svg viewBox="0 0 16 16"><path d="M8 4v5M8 11.5v.5"/></svg></span><div><b>Revisione in scadenza</b><span class="km-mono">Scad. 17 set 2026</span></div><span class="km-see">VEDI</span></div>
+                    <div class="km-due"><span class="km-glyph"><svg viewBox="0 0 16 16"><path d="M3 3.5h10v10H3zM3 6.5h10M6 2v3M10 2v3"/></svg></span><div><b>Bollo</b><span class="km-mono">Scad. 31 gen 2027</span></div></div>
+                    <div class="km-due"><span class="km-glyph"><svg viewBox="0 0 16 16"><path d="M3 3.5h10v10H3zM3 6.5h10M6 2v3M10 2v3"/></svg></span><div><b>Assicurazione</b><span class="km-mono">Scad. 4 mar 2027</span></div></div>
+                    <div class="km-due"><span class="km-glyph"><svg viewBox="0 0 16 16"><path d="M3 3.5h10v10H3zM3 6.5h10M6 2v3M10 2v3"/></svg></span><div><b>Cambio gomme</b><span class="km-mono">Scad. 15 apr 2027</span></div></div>
+                  </div>
+                </div>
+              </div></div>
             </div>
+          </article>
+          <article class="card card--row card--open m-nolift span-6">
+            <h3>Sincronizza iPhone e Android</h3>
+            <p>Il registro resta sul telefono e nel tuo iCloud o Google Drive. Con lo stesso Drive, lo storico è uguale su ogni telefono.</p>
+            <div class="panel"><div class="dg" data-diagram='{"layout":"sync","alt":"iPhone e Android tengono allineati spese, veicoli e promemoria attraverso Google Drive.","left":{"label":"iPhone","icon":"apple","rows":[{"label":"Spese","meta":"214"},{"label":"Veicoli","meta":"2"},{"label":"Promemoria","meta":"5"}]},"link":{"label":"Google Drive","icon":"google-drive"},"right":{"label":"Android","icon":"android","rows":[{"label":"Spese","meta":"214"},{"label":"Veicoli","meta":"2"},{"label":"Promemoria","meta":"5"}]}}'></div></div>
+          </article>
+      </div>
+    </div>
+  </section>
 
-            <!-- Galleria: Storia sul Duo aperto a tutta larghezza, sotto Report (Android) e Prezzi (iPhone) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-
-                <!-- Storia: iPhone Duo aperto -->
-                <div class="md:col-span-2 bg-slate-50 rounded-3xl p-6 border border-slate-200/90 hover:border-kilo-royal/50 transition-all shadow-sm hover:shadow-xl flex flex-col items-center text-center">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/80 text-kilo-blue text-xs font-bold mb-5">
-                        <span>01</span> • Cronologia & Diario
-                    </div>
-                    <div class="phone-frame duo-frame w-full max-w-[640px] mb-6">
-                        <div class="phone-screen">
-                            <img src="img/storia-iphone-duo.jpg" width="1200" height="844"
-                                 alt="Storia di Kilòmetro su iPhone Duo aperto: le spese a sinistra, i totali e le scadenze a destra"
-                                 class="w-full h-auto block" loading="lazy">
-                        </div>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Storia Spese, Rifornimenti e Ricariche</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed max-w-2xl">
-                        Visualizza tutti gli eventi del tuo veicolo in ordine cronologico: pieni di carburante, ricariche kWh, manutenzioni, bollo e costi fissi con chilometraggio sempre aggiornato.
-                    </p>
-                </div>
-
-                <!-- Report: Android -->
-                <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200/90 hover:border-kilo-cyan/50 transition-all shadow-sm hover:shadow-xl flex flex-col items-center text-center">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100/80 text-cyan-800 text-xs font-bold mb-5">
-                        <span>02</span> • Report & Telemetria
-                    </div>
-                    <div class="phone-frame w-[240px] sm:w-[260px] mb-6">
-                        <div class="phone-screen">
-                            <img src="img/report-android.jpg" width="600" height="1333"
-                                 alt="Report di Kilòmetro su Android: spesa totale, costo al km e consumi dell'ultimo anno"
-                                 class="w-full h-auto block" loading="lazy">
-                        </div>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Report, Consumi e Costo al Km (TCO)</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Grafici chiari su efficienza energetica, ripartizione tra costi operativi e fissi, spesa media mensile e costo reale per ogni chilometro percorso.
-                    </p>
-                </div>
-
-                <!-- Prezzi: iPhone -->
-                <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200/90 hover:border-kilo-emerald/50 transition-all shadow-sm hover:shadow-xl flex flex-col items-center text-center">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-800 text-xs font-bold mb-5">
-                        <span>03</span> • Andamento Prezzi
-                    </div>
-                    <div class="phone-frame w-[240px] sm:w-[260px] mb-6">
-                        <div class="phone-screen">
-                            <img src="img/prezzi-iphone.jpg" width="600" height="1304"
-                                 alt="Prezzi di Kilòmetro su iPhone: mappa dei distributori con il prezzo del gasolio"
-                                 class="w-full h-auto block" loading="lazy">
-                        </div>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Monitoraggio Prezzi Carburante & kWh</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Confronta quanto paghi al litro o al kWh nel tempo, individua i distributori o le colonnine più convenienti e ottimizza la spesa energetica.
-                    </p>
-                </div>
-
-            </div>
+  <section class="section" id="calcolatore" aria-labelledby="calc-h">
+    <div class="wrap grid grid--top">
+      <div class="span-6">
+        <div class="section-head">
+          <h2 id="calc-h">Calcola il tuo costo al chilometro</h2>
+          <p>Il conto somma un anno di carburante o ricariche e le spese fisse. L'app fa lo stesso calcolo sulle spese che registri.</p>
         </div>
-    </section>
+        <form class="calc" id="calc" onsubmit="return false">
+          <fieldset class="calc__mode">
+            <legend class="sr-only">Alimentazione</legend>
+            <label><input type="radio" name="mode" value="fuel" checked>Benzina, diesel o gas</label>
+            <label><input type="radio" name="mode" value="ev">Elettrica</label>
+          </fieldset>
+          <div class="calc__row"><label for="c-km">Chilometri in un anno</label><output for="c-km" id="o-km">15.000 km</output><input id="c-km" type="range" min="3000" max="50000" step="1000" value="15000"></div>
+          <div class="calc__row"><label for="c-eff" id="l-eff">Consumo medio</label><output for="c-eff" id="o-eff">16,0 km/l</output><input id="c-eff" type="range" min="8" max="30" step="0.5" value="16"></div>
+          <div class="calc__row"><label for="c-price" id="l-price">Prezzo del carburante</label><output for="c-price" id="o-price">1,80 €/l</output><input id="c-price" type="range" min="0.7" max="3" step="0.05" value="1.8"></div>
+          <div class="calc__row"><label for="c-fixed">Assicurazione, bollo e manutenzione</label><output for="c-fixed" id="o-fixed">1.350 € l'anno</output><input id="c-fixed" type="range" min="300" max="4500" step="50" value="1350"></div>
+        </form>
+      </div>
+      <div class="calc-out span-6 start-7" data-visual aria-live="polite">
+        <p class="calc-out__big"><span id="r-km">0,20 €</span> <small>al chilometro</small></p>
+        <dl>
+          <div><dt>Al mese</dt><dd id="r-month">253 €</dd></div>
+          <div><dt>In un anno</dt><dd id="r-year">3.038 €</dd></div>
+        </dl>
+        <div class="calc-bar" aria-hidden="true"><i id="b-fuel" style="width:56%"></i><i id="b-fixed" style="width:44%"></i></div>
+        <div class="calc-key"><span><span id="k-fuel">Carburante</span> <b id="r-fuel">1.688 €</b></span><span>Spese fisse <b id="r-fixed">1.350 €</b></span></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- 3. FUNZIONALITÀ PRINCIPALI -->
-    <section id="funzionalita" class="py-20 bg-slate-50 border-b border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-14">
-                <span class="text-xs font-bold uppercase tracking-widest text-kilo-royal">Progettata per chi guida</span>
-                <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 mt-2">
-                    Tutte le voci di spesa del tuo garage in un'unica app
-                </h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm">
-                    <div class="w-12 h-12 rounded-2xl bg-blue-50 text-kilo-royal flex items-center justify-center font-bold text-xl mb-4">
-                        ⛽
-                    </div>
-                    <h3 class="font-display font-bold text-lg text-slate-900 mb-2">Termico, Ibrido ed Elettrico</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Gestisci rifornimenti di benzina, diesel, GPL, metano e ricariche elettriche (AC/DC in kWh) con calcolo automatico dell'efficienza.
-                    </p>
-                </div>
-
-                <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm">
-                    <div class="w-12 h-12 rounded-2xl bg-cyan-50 text-kilo-cyan flex items-center justify-center font-bold text-xl mb-4">
-                        📊
-                    </div>
-                    <h3 class="font-display font-bold text-lg text-slate-900 mb-2">Report e Costo al Km</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Scopri il vero TCO (Total Cost of Ownership) sommando carburante, assicurazione, bollo, tagliandi, gomme e pedaggi.
-                    </p>
-                </div>
-
-                <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-kilo-emerald flex items-center justify-center font-bold text-xl mb-4">
-                        🔔
-                    </div>
-                    <h3 class="font-display font-bold text-lg text-slate-900 mb-2">Scadenze & Manutenzioni</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Tieni traccia di revisione, bollo, assicurazione RCA e tagliandi periodici per non dimenticare mai un appuntamento.
-                    </p>
-                </div>
-
-                <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm">
-                    <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center font-bold text-xl mb-4">
-                        🏍️
-                    </div>
-                    <h3 class="font-display font-bold text-lg text-slate-900 mb-2">Auto e Moto insieme</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
-                        Passa rapidamente dall'auto di famiglia alla moto o allo scooter, mantenendo bilanci e statistiche dedicati per ciascun mezzo.
-                    </p>
-                </div>
-            </div>
+  <section class="section" id="domande" aria-labelledby="domande-h">
+    <div class="wrap grid grid--top">
+      <div class="span-6">
+        <div class="section-head">
+          <h2 id="domande-h">Domande</h2>
+          <p>Le regole complete sono nelle Condizioni d'uso.</p>
         </div>
-    </section>
+        <p><a class="link" href="termini.html">Leggi le Condizioni d'uso</a></p>
+      </div>
+      <div class="faq span-6 start-7">
+        <div class="faq__item"><h3>Quali veicoli e spese si registrano?</h3><p>Auto, moto e scooter a benzina, diesel, GPL, metano, ibridi ed elettrici. Rifornimenti, ricariche, manutenzione, gomme, bollo, assicurazione e pedaggi.</p></div>
+        <div class="faq__item"><h3>Posso fotografare lo scontrino o la pompa?</h3><p>Lo scontrino sì, con l'abbonamento e la sua prova gratuita, e alle colonnine la ricevuta della ricarica. Il display della pompa non viene letto.</p></div>
+        <div class="faq__item"><h3>Posso registrare un veicolo elettrico?</h3><p>Sì. Per elettriche e ibride plug-in si registrano le ricariche in kWh, a casa o alla colonnina, con le percentuali della batteria.</p></div>
+        <div class="faq__item"><h3>Va bene per chi usa un furgone?</h3><p>Sì, se è un veicolo personale o di famiglia: tra le categorie c'è Furgone. Kilòmetro non gestisce flotte né mezzi aziendali.</p></div>
+        <div class="faq__item"><h3>Si vede bene su iPhone Duo?</h3><p>Sì. Chiuso mostra una colonna; aperto in orizzontale divide lo schermo in due colonne sulla piega.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
 
-    <!-- 4. CALCOLATORE INTERATTIVO COSTO AL KM (STILE LIGHT-MODE KILÒMETRO) -->
-    <section id="calcolatore" class="py-20 bg-white border-b border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-14">
-                <span class="text-xs font-bold uppercase tracking-widest text-kilo-emerald">Simulatore TCO</span>
-                <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 mt-2">
-                    Calcola subito quanto ti costa ogni chilometro
-                </h2>
-                <p class="text-slate-600 mt-3 text-base sm:text-lg">
-                    Prova qui sotto una simulazione rapida ispirata ai report di <strong>Kilòmetro</strong>, poi scarica l'app per registrare i tuoi dati reali.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                
-                <!-- Sliders Card -->
-                <div class="lg:col-span-7 bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200/90 space-y-6">
-                    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200">
-                        <span class="text-sm font-bold text-slate-700">Tipo di Alimentazione:</span>
-                        <div class="inline-flex rounded-xl bg-white p-1 border border-slate-200 shadow-sm">
-                            <button onclick="setCalcMode('termico')" id="calc-mode-termico" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-kilo-royal text-white transition-all">
-                                ⛽ Benzina / Diesel / GPL
-                            </button>
-                            <button onclick="setCalcMode('ev')" id="calc-mode-ev" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all">
-                                ⚡ Elettrica (kWh)
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Slider 1: Km / Anno -->
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-sm">
-                            <label for="slider-km" class="font-semibold text-slate-700">Percorrenza annua</label>
-                            <span id="val-km" class="font-display font-extrabold whitespace-nowrap text-kilo-royal">15.000 km</span>
-                        </div>
-                        <input id="slider-km" type="range" min="3000" max="50000" step="1000" value="15000" class="w-full" oninput="updateCalculator()">
-                    </div>
-
-                    <!-- Slider 2: Consumo -->
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-sm">
-                            <label id="label-efficiency" for="slider-eff" class="font-semibold text-slate-700">Consumo medio del veicolo (km/L)</label>
-                            <span id="val-eff" class="font-display font-extrabold whitespace-nowrap text-kilo-emerald">16,0 km/L</span>
-                        </div>
-                        <input id="slider-eff" type="range" min="8" max="30" step="0.5" value="16" class="w-full" oninput="updateCalculator()">
-                    </div>
-
-                    <!-- Slider 3: Prezzo Carburante / kWh -->
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-sm">
-                            <label id="label-price" for="slider-price" class="font-semibold text-slate-700">Prezzo medio carburante (€/L)</label>
-                            <span id="val-price" class="font-display font-extrabold whitespace-nowrap text-kilo-cyan">1,80 €/L</span>
-                        </div>
-                        <input id="slider-price" type="range" min="0.70" max="3.00" step="0.05" value="1.80" class="w-full" oninput="updateCalculator()">
-                    </div>
-
-                    <!-- Slider 4: Costi Fissi -->
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-sm">
-                            <label for="slider-fixed" class="font-semibold text-slate-700">Spese fisse e manutenzione (RCA, Bollo, Tagliandi)</label>
-                            <span id="val-fixed" class="font-display font-extrabold whitespace-nowrap text-slate-900">1.350 €/anno</span>
-                        </div>
-                        <input id="slider-fixed" type="range" min="300" max="4500" step="50" value="1350" class="w-full" oninput="updateCalculator()">
-                    </div>
-                </div>
-
-                <!-- Results Card -->
-                <div class="lg:col-span-5 bg-gradient-to-br from-kilo-blue via-kilo-royal to-kilo-cyan rounded-3xl p-6 sm:p-8 text-white flex flex-col justify-between shadow-xl shadow-blue-900/15">
-                    <div>
-                        <span class="text-xs font-bold uppercase tracking-wider text-cyan-100">Costo Totale per Chilometro</span>
-                        <div class="mt-2 flex items-baseline gap-2">
-                            <span id="res-cost-km" class="font-display font-extrabold text-5xl sm:text-6xl">0,20 €</span>
-                            <span class="text-lg text-cyan-100 font-medium">/ km</span>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-3 mt-6">
-                            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-3.5 rounded-2xl">
-                                <span class="text-xs text-cyan-100 block">Spesa Mensile</span>
-                                <span id="res-monthly" class="font-display font-bold text-xl text-white">253 € / mese</span>
-                            </div>
-                            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-3.5 rounded-2xl">
-                                <span class="text-xs text-cyan-100 block">Totale Annuo</span>
-                                <span id="res-yearly" class="font-display font-bold text-xl text-emerald-300">3.038 € / anno</span>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 space-y-2">
-                            <div class="flex justify-between text-xs font-semibold text-cyan-50">
-                                <span>Carburante/Ricariche (<span id="pct-fuel">56%</span>)</span>
-                                <span>Spese Fisse (<span id="pct-fixed">44%</span>)</span>
-                            </div>
-                            <div class="w-full h-3 bg-slate-950/30 rounded-full overflow-hidden flex p-0.5">
-                                <div id="bar-fuel-pct" class="bg-emerald-400 h-full rounded-l-full transition-all duration-300" style="width: 56%"></div>
-                                <div id="bar-fixed-pct" class="bg-white h-full rounded-r-full transition-all duration-300" style="width: 44%"></div>
-                            </div>
-                            <div class="flex justify-between text-xs text-cyan-100 pt-1">
-                                <span id="val-fuel-year">1.688 € / anno</span>
-                                <span id="val-fixed-year">1.350 € / anno</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 pt-5 border-t border-white/20">
-                        <p class="text-xs text-cyan-50 mb-3 font-medium">
-                            Monitora i tuoi veri rifornimenti e ottieni report dettagliati scaricando l'app ufficiale:
-                        </p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                            <a href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597" target="_blank" rel="noopener noreferrer"
-                               class="py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all">
-                                <span>App Store (iOS)</span>
-                            </a>
-                            <a href="https://play.google.com/store/apps/details?id=it.kilometro.app" target="_blank" rel="noopener noreferrer"
-                               class="py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-950 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all">
-                                <span>Google Play</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+<footer class="footer closing footer--statement" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Scarica Kilòmetro, è gratis</h2>
+        <p>Per iPhone e per Android. <a class="link" href="https://play.google.com/store/apps/details?id=it.kilometro.app">Scarica per Android</a></p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="#top"><img src="img/icona.webp" alt="" width="28" height="28" loading="lazy">Kilòmetro</a>
+          <p class="footer__lede">Il registro delle spese di auto, moto e scooter. Sviluppata da Daniele Crucitti.</p>
         </div>
-    </section>
+        <div class="span-2 start-7 footer__col"><h3>App</h3><ul><li><a href="#schermate">Schermate</a></li><li><a href="#funzioni">Funzioni</a></li><li><a href="#calcolatore">Calcolatore</a></li><li><a href="#domande">Domande</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Store</h3><ul><li><a href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">App Store</a></li><li><a href="https://play.google.com/store/apps/details?id=it.kilometro.app">Google Play</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Note legali</h3><ul><li><a href="privacy.html">Privacy</a></li><li><a href="termini.html">Condizioni d'uso</a></li><li><a href="cancellazione.html">Cancellazione dei dati</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Daniele Crucitti</span>
+        <div class="socials"></div>
+        <span class="credits">I nomi e i loghi dei prodotti sono marchi dei rispettivi proprietari.</span>
+      </div>
+    </div>
+  </div>
+</footer>
 
-    <!-- 5. FAQ SECTION -->
-    <section id="faq" class="py-20 bg-slate-50 border-b border-slate-200/80">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <span class="text-xs font-bold uppercase tracking-widest text-kilo-royal">Domande Frequenti</span>
-                <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 mt-2">
-                    Tutto su Kilòmetro
-                </h2>
-            </div>
-
-            <div class="space-y-4">
-                <div class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm">
-                    <button onclick="toggleFaq(1)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
-                        <span class="font-display font-bold text-base sm:text-lg text-slate-900">Quali spese e veicoli posso tracciare con Kilòmetro?</span>
-                        <span id="faq-icon-1" class="text-kilo-royal font-bold text-xl transition-transform">−</span>
-                    </button>
-                    <div id="faq-content-1" class="px-6 pb-5 text-sm text-slate-600 leading-relaxed">
-                        Con Kilòmetro puoi tracciare auto e moto di qualsiasi alimentazione (benzina, diesel, GPL, metano, ibride ed elettriche), registrando rifornimenti, ricariche, manutenzioni, tagliandi, cambio gomme, bollo e assicurazione.
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm">
-                    <button onclick="toggleFaq(2)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
-                        <span class="font-display font-bold text-base sm:text-lg text-slate-900">Cosa mostrano le sezioni Storia, Report e Prezzi dell'app?</span>
-                        <span id="faq-icon-2" class="text-kilo-royal font-bold text-xl transition-transform">+</span>
-                    </button>
-                    <div id="faq-content-2" class="hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed">
-                        La sezione <strong>Storia</strong> raccoglie il diario completo di tutte le spese e i rifornimenti; la sezione <strong>Report</strong> calcola automaticamente il costo al chilometro, i consumi medi e la ripartizione dei costi; la sezione <strong>Prezzi</strong> ti aiuta a tenere sotto controllo le variazioni del costo del carburante e dell'energia.
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm">
-                    <button onclick="toggleFaq(3)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
-                        <span class="font-display font-bold text-base sm:text-lg text-slate-900">L'app è disponibile sia per iPhone che per Android?</span>
-                        <span id="faq-icon-3" class="text-kilo-royal font-bold text-xl transition-transform">+</span>
-                    </button>
-                    <div id="faq-content-3" class="hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed">
-                        Sì! Puoi scaricare gratuitamente <strong>Kilòmetro – spese auto e moto</strong> sia su Apple App Store (per iOS) sia su Google Play Store (per dispositivi Android).
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm">
-                    <button onclick="toggleFaq(4)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
-                        <span class="font-display font-bold text-base sm:text-lg text-slate-900">Posso fotografare lo scontrino o il display del distributore?</span>
-                        <span id="faq-icon-4" class="text-kilo-royal font-bold text-xl transition-transform">+</span>
-                    </button>
-                    <div id="faq-content-4" class="hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed">
-                        Lo scontrino sì. Con l'abbonamento alla lettura dello scontrino basta scattare una foto, o sceglierla dalla galleria: Kilòmetro compila importo, litri, prezzo e distributore, da controllare prima di salvare. La prova è gratuita. Alle colonnine si legge allo stesso modo la ricevuta della ricarica. Il display della pompa invece non viene letto.
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm">
-                    <button onclick="toggleFaq(5)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
-                        <span class="font-display font-bold text-base sm:text-lg text-slate-900">Posso tracciare anche un'auto o uno scooter elettrico?</span>
-                        <span id="faq-icon-5" class="text-kilo-royal font-bold text-xl transition-transform">+</span>
-                    </button>
-                    <div id="faq-content-5" class="hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed">
-                        Sì. Per le elettriche e le ibride plug-in si registrano le ricariche in kWh, a casa o alla colonnina, con le percentuali della batteria. Per le ricariche a casa Kilòmetro stima i kWh dalla batteria e usa il prezzo della corrente impostato. Il Report mostra i kWh/100 km e il costo per chilometro. Nella tab Prezzi si trovano anche le colonnine vicine.
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm">
-                    <button onclick="toggleFaq(6)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
-                        <span class="font-display font-bold text-base sm:text-lg text-slate-900">Va bene per chi usa un furgone?</span>
-                        <span id="faq-icon-6" class="text-kilo-royal font-bold text-xl transition-transform">+</span>
-                    </button>
-                    <div id="faq-content-6" class="hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed">
-                        Sì, se il furgone è un veicolo personale o di famiglia: alla creazione del veicolo si sceglie la categoria Furgone. Kilòmetro è pensata per l'uso privato, non per gestire flotte o mezzi aziendali.
-                    </div>
-                </div>
-                <div class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm">
-                    <button onclick="toggleFaq(7)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors">
-                        <span class="font-display font-bold text-base sm:text-lg text-slate-900">Si vede bene anche su iPhone Duo?</span>
-                        <span id="faq-icon-7" class="text-kilo-royal font-bold text-xl transition-transform">+</span>
-                    </button>
-                    <div id="faq-content-7" class="hidden px-6 pb-5 text-sm text-slate-600 leading-relaxed">
-                        Sì. Kilòmetro è adattata a tutti e due i display di iPhone Duo. Da chiuso, sul display esterno, mostra una colonna come su un iPhone normale. Aperto in orizzontale divide lo schermo in due colonne sulla piega, per esempio nella Storia l'elenco delle spese a sinistra e i numeri principali a destra; aperto in verticale tiene una colonna centrata.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. CTA BANNER FINALE CON ICONA UFFICIALE -->
-    <section class="py-16 bg-white">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="rounded-3xl bg-gradient-to-r from-kilo-navy via-kilo-blue to-kilo-royal p-8 sm:p-12 text-center text-white shadow-2xl relative overflow-hidden">
-                <div class="relative z-10 max-w-2xl mx-auto space-y-6 flex flex-col items-center">
-                    <picture>
-                        <source srcset="img/icona.webp" type="image/webp">
-                        <img src="img/icona.jpg" 
-                             alt="Kilòmetro Official App Icon" 
-                             class="w-20 h-20 rounded-3xl shadow-2xl border-2 border-white/20">
-                    </picture>
-                    <div class="space-y-2">
-                        <h2 class="font-display font-extrabold text-3xl sm:text-4xl">
-                            Kilòmetro – spese auto e moto
-                        </h2>
-                        <p class="text-cyan-200 font-semibold text-base sm:text-lg">
-                            Costi, consumi e ricariche sempre a portata di mano
-                        </p>
-                    </div>
-                    <div class="pt-2 flex flex-col sm:flex-row justify-center items-center gap-4 w-full">
-                        <a href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597" target="_blank" rel="noopener noreferrer"
-                           class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold px-7 py-4 rounded-2xl shadow-xl transition-transform hover:scale-105">
-                            <svg class="w-6 h-6 fill-current shrink-0" viewBox="0 0 24 24">
-                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/>
-                            </svg>
-                            <span>Scarica su App Store</span>
-                        </a>
-                        <a href="https://play.google.com/store/apps/details?id=it.kilometro.app" target="_blank" rel="noopener noreferrer"
-                           class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-slate-950 hover:bg-slate-900 text-white border border-white/15 font-bold px-7 py-4 rounded-2xl shadow-xl transition-transform hover:scale-105">
-                            <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none">
-                                <path d="M3.609 1.814L13.792 12 3.61 22.186a1.96 1.96 0 01-.497-1.314V3.128c0-.505.19-.964.496-1.314z" fill="#06B6D4"/>
-                                <path d="M17.256 8.536L13.792 12l3.464 3.464 3.903-2.23c.79-.451.79-1.565 0-2.017l-3.903-2.681z" fill="#FBBF24"/>
-                                <path d="M13.792 12L3.61 22.186c.445.494 1.176.623 1.825.252l11.821-6.974L13.792 12z" fill="#F43F5E"/>
-                                <path d="M17.256 8.536L5.435 1.562C4.785 1.19 4.054 1.32 3.61 1.814L13.792 12l3.464-3.464z" fill="#10B981"/>
-                            </svg>
-                            <span>Scarica su Google Play</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. FOOTER UFFICIALE -->
-    <footer class="border-t border-slate-200 bg-slate-100 py-12 text-sm text-slate-600">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-3.5">
-                <img src="img/icona.jpg" 
-                     alt="Icona Kilòmetro" 
-                     class="w-9 h-9 rounded-xl shadow-sm object-cover">
-                <div>
-                    <span class="font-display font-bold text-slate-900 block">Kilòmetro – spese auto e moto</span>
-                    <span class="text-xs text-slate-500">Sviluppata da Daniele Crucitti</span>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap justify-center gap-6 text-xs font-semibold">
-                <a href="#schermate" class="hover:text-kilo-royal transition-colors">Schermate</a>
-                <a href="#funzionalita" class="hover:text-kilo-royal transition-colors">Funzionalità</a>
-                <a href="#calcolatore" class="hover:text-kilo-royal transition-colors">Calcolatore €/Km</a>
-                <a href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597" target="_blank" rel="noopener noreferrer" class="text-kilo-royal hover:underline">App Store (iOS)</a>
-                <a href="https://play.google.com/store/apps/details?id=it.kilometro.app" target="_blank" rel="noopener noreferrer" class="text-emerald-700 hover:underline">Google Play (Android)</a>
-                <a href="privacy.html" class="hover:text-kilo-royal transition-colors">Privacy</a>
-                <a href="termini.html" class="hover:text-kilo-royal transition-colors">Condizioni d'uso</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Interactive JavaScript -->
-    <script>
-        // 1. Hero: porta in primo piano il dispositivo scelto (pillola e dispositivo condividono data-hero)
-        function highlightHeroScreen(activeIndex) {
-            document.querySelectorAll('[data-hero]').forEach(el => {
-                const on = el.dataset.hero === String(activeIndex);
-                el.toggleAttribute('data-active', on);
-                if (el.tagName === 'BUTTON') el.setAttribute('aria-pressed', on);
-            });
-        }
-
-        // 2. Interactive Cost per Km Calculator
-        let calcMode = 'termico';
-
-        function setCalcMode(mode) {
-            calcMode = mode;
-            const btnTermico = document.getElementById('calc-mode-termico');
-            const btnEv = document.getElementById('calc-mode-ev');
-            const sliderEff = document.getElementById('slider-eff');
-            const sliderPrice = document.getElementById('slider-price');
-
-            if (mode === 'termico') {
-                btnTermico.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-kilo-royal text-white transition-all';
-                btnEv.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all';
-                document.getElementById('label-efficiency').textContent = 'Consumo medio del veicolo (km/L)';
-                sliderEff.min = 8; sliderEff.max = 30; sliderEff.step = 0.5; sliderEff.value = 16;
-                document.getElementById('label-price').textContent = 'Prezzo medio carburante (€/L)';
-                sliderPrice.min = 0.70; sliderPrice.max = 3.00; sliderPrice.step = 0.05; sliderPrice.value = 1.80;
-            } else {
-                btnEv.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-kilo-emerald text-white transition-all';
-                btnTermico.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all';
-                document.getElementById('label-efficiency').textContent = 'Consumo medio elettrico (kWh/100km)';
-                sliderEff.min = 11; sliderEff.max = 26; sliderEff.step = 0.5; sliderEff.value = 15.5;
-                document.getElementById('label-price').textContent = 'Costo ricarica medio (€/kWh)';
-                sliderPrice.min = 0.20; sliderPrice.max = 0.90; sliderPrice.step = 0.05; sliderPrice.value = 0.45;
-            }
-            updateCalculator();
-        }
-
-        function updateCalculator() {
-            const km = parseFloat(document.getElementById('slider-km').value);
-            const eff = parseFloat(document.getElementById('slider-eff').value);
-            const price = parseFloat(document.getElementById('slider-price').value);
-            const fixed = parseFloat(document.getElementById('slider-fixed').value);
-
-            document.getElementById('val-km').textContent = km.toLocaleString('it-IT') + ' km';
-            document.getElementById('val-fixed').textContent = fixed.toLocaleString('it-IT') + ' €/anno';
-
-            let yearlyFuelCost = 0;
-            if (calcMode === 'termico') {
-                document.getElementById('val-eff').textContent = eff.toFixed(1).replace('.', ',') + ' km/L';
-                document.getElementById('val-price').textContent = price.toFixed(2).replace('.', ',') + ' €/L';
-                yearlyFuelCost = (km / eff) * price;
-            } else {
-                document.getElementById('val-eff').textContent = eff.toFixed(1).replace('.', ',') + ' kWh/100km';
-                document.getElementById('val-price').textContent = price.toFixed(2).replace('.', ',') + ' €/kWh';
-                yearlyFuelCost = (km / 100) * eff * price;
-            }
-
-            const totalYearly = yearlyFuelCost + fixed;
-            const monthly = totalYearly / 12;
-            const costPerKm = totalYearly / km;
-
-            const fuelPct = Math.round((yearlyFuelCost / totalYearly) * 100);
-            const fixedPct = 100 - fuelPct;
-
-            document.getElementById('res-cost-km').textContent = costPerKm.toFixed(2).replace('.', ',') + ' €';
-            document.getElementById('res-monthly').textContent = Math.round(monthly).toLocaleString('it-IT') + ' € / mese';
-            document.getElementById('res-yearly').textContent = Math.round(totalYearly).toLocaleString('it-IT') + ' € / anno';
-
-            document.getElementById('pct-fuel').textContent = fuelPct + '%';
-            document.getElementById('pct-fixed').textContent = fixedPct + '%';
-            document.getElementById('bar-fuel-pct').style.width = fuelPct + '%';
-            document.getElementById('bar-fixed-pct').style.width = fixedPct + '%';
-
-            document.getElementById('val-fuel-year').textContent = Math.round(yearlyFuelCost).toLocaleString('it-IT') + ' € / anno';
-            document.getElementById('val-fixed-year').textContent = Math.round(fixed).toLocaleString('it-IT') + ' € / anno';
-        }
-
-        // 3. FAQ Accordion
-        function toggleFaq(index) {
-            const content = document.getElementById('faq-content-' + index);
-            const icon = document.getElementById('faq-icon-' + index);
-            const isHidden = content.classList.contains('hidden');
-
-            if (isHidden) {
-                content.classList.remove('hidden');
-                icon.textContent = '−';
-            } else {
-                content.classList.add('hidden');
-                icon.textContent = '+';
-            }
-        }
-
-        window.onload = function () {
-            updateCalculator();
-        };
-    </script>
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
+<script type="module" src="assets/diagrams/mount.js"></script>
+<!-- the calculator: the page's own content, not a kit part -->
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('calc'); if (!form) return;
+  var it = function (n, d) { var p = n.toFixed(d).split('.'); return p[0].replace(/\B(?=(\d{3})+$)/g, '.') + (p[1] ? ',' + p[1] : ''); };
+  var eur = function (n) { return it(Math.round(n), 0) + ' €'; };
+  var eff = $('c-eff'), price = $('c-price');
+  function mode() { return form.elements.mode.value; }
+  function setMode() {
+    var ev = mode() === 'ev';
+    eff.min = ev ? 11 : 8; eff.max = ev ? 26 : 30; eff.value = ev ? 15.5 : 16;
+    price.min = ev ? 0.2 : 0.7; price.max = ev ? 0.9 : 3; price.value = ev ? 0.45 : 1.8;
+    $('l-price').textContent = ev ? 'Prezzo della corrente' : 'Prezzo del carburante';
+    $('k-fuel').textContent = ev ? 'Ricariche' : 'Carburante';
+    update();
+  }
+  function update() {
+    var ev = mode() === 'ev', km = +$('c-km').value, e = +eff.value, p = +price.value, fixed = +$('c-fixed').value;
+    var fuel = ev ? km / 100 * e * p : km / e * p, year = fuel + fixed, share = Math.round(fuel / year * 100);
+    $('o-km').textContent = it(km, 0) + ' km';
+    $('o-eff').textContent = it(e, 1) + (ev ? ' kWh/100 km' : ' km/l');
+    $('o-price').textContent = it(p, 2) + (ev ? ' €/kWh' : ' €/l');
+    $('o-fixed').textContent = it(fixed, 0) + " € l'anno";
+    $('r-km').textContent = it(year / km, 2) + ' €';
+    $('r-month').textContent = eur(year / 12); $('r-year').textContent = eur(year);
+    $('r-fuel').textContent = eur(fuel); $('r-fixed').textContent = eur(fixed);
+    $('b-fuel').style.width = share + '%'; $('b-fixed').style.width = (100 - share) + '%';
+  }
+  form.addEventListener('input', function (ev) { if (ev.target.name === 'mode') setMode(); else update(); });
+  update();
+})();
+</script>
 </body>
 </html>
