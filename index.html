@@ -46,6 +46,10 @@
 <link rel="modulepreload" href="assets/moments/moments.js">
 <link rel="modulepreload" href="assets/moments/lib.js">
 <link rel="modulepreload" href="assets/moments/pinned-chapters/moment.js">
+<link rel="modulepreload" href="assets/moments/cursor-spotlight/moment.js">
+<script>document.documentElement.classList.add('sc-js');setTimeout(()=>document.documentElement.classList.add('sc-safe'),2500)</script>
+<link rel="stylesheet" href="assets/scenes/scenes.css">
+<link rel="stylesheet" href="assets/scenes/letter-physics/scene.css">
 <!-- page CSS: only what sits inside a visual, and one --p-h per card group -->
 <style>
   .nav__logo > img { width: 28px; height: 28px; border-radius: 7px; }
@@ -132,19 +136,20 @@
 <!-- type: software
      deal: hero centred, nav nav-centre (nav-cards dealt first: one product, no line-up to show), close close-type,
            footer footer-statement, rhythm space, buttons solid, mark the client's own icon, ground sky,
-           effect grain-gradient in the hero's frame, card grounds the lit ground plain (no card effect fits)
+           effect: the big scene letter-physics in #conto; grounds bg-halo (#calcolatore), bg-dots (#faq), dealt again without #schermate (the pinned moment);
+           card grounds the lit ground plain
      palette: the app's own colours (start.mjs brand): #f5f5f7 ground, #1d1d1f ink, the app's blue for actions
-     moments: pinned-chapters in #schermate -->
+     moments: cursor-spotlight in the hero frame, pinned-chapters in #schermate -->
 
 <header class="nav nav--centre">
   <div class="wrap nav__bar">
     <a class="skip-link" href="#top">Vai al contenuto</a>
     <a class="nav__logo" href="#top"><img src="img/icona.webp" alt="" width="28" height="28">Kilòmetro</a>
     <nav class="nav__links" aria-label="Principale">
-      <div class="nav__item"><a class="nav__link" href="#schermate">Schermate</a></div>
       <div class="nav__item"><a class="nav__link" href="#funzioni">Funzioni</a></div>
-      <div class="nav__item"><a class="nav__link" href="#faq">Domande</a></div>
+      <div class="nav__item"><a class="nav__link" href="#schermate">Schermate</a></div>
       <div class="nav__item"><a class="nav__link" href="#calcolatore">Calcolatore</a></div>
+      <div class="nav__item"><a class="nav__link" href="#faq">Domande</a></div>
     </nav>
     <div class="nav__actions">
       <a class="btn btn--primary" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone</a>
@@ -164,32 +169,10 @@
         <p class="hero__lead">Kilòmetro registra rifornimenti, ricariche, manutenzioni e scadenze e calcola il costo di ogni chilometro. Gratis su iPhone e Android, in quattro lingue.</p>
         <div class="btn-row"><a class="btn btn--primary" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone</a><a class="btn btn--secondary" href="https://play.google.com/store/apps/details?id=it.kilometro.app">Scarica per Android</a></div>
       </div>
-      <div class="hero__window" data-fx="grain-gradient" data-fx-seed="7" role="img" aria-label="La Storia di Kilòmetro su iPhone Duo aperto: l'elenco delle spese a sinistra, i totali dell'anno e le scadenze a destra">
+      <div class="hero__window" data-moment="cursor-spotlight" data-moment-opts='{"rest": [0.74, 0.26], "radius": 460}' role="img" aria-label="La Storia di Kilòmetro su iPhone Duo aperto: l'elenco delle spese a sinistra, i totali dell'anno e le scadenze a destra">
         <div class="ly-piece device" aria-hidden="true"><img src="img/storia-iphone-duo.jpg" alt="" width="1200" height="844" fetchpriority="high"></div>
       </div>
     </div></div>
-  </section>
-
-  <!-- pinned-chapters: two screens, one step per screen of the app -->
-  <section class="section" id="schermate" style="--h: 2" data-moment="pinned-chapters" aria-labelledby="schermate-h">
-    <div class="wrap mo-pc__grid">
-      <div class="mo-pc__text">
-        <h2 id="schermate-h">Report e prezzi dei carburanti</h2>
-        <ol class="mo-pc__steps">
-          <li class="mo-pc__step">
-            <h3>Il Report conta ogni chilometro</h3>
-            <p>Spesa totale, chilometri, consumo e costo al chilometro, per mese, trimestre o anno. Il grafico indica il mese migliore e il peggiore.</p>
-            <figure class="mo-pc__visual mo-pc__visual--lit"><div class="device"><img src="img/report-android.jpg" alt="Il Report su Android: 2.262 € in un anno, 10.077 km, 0,218 € al chilometro" width="600" height="1333" loading="lazy"></div></figure>
-          </li>
-          <li class="mo-pc__step">
-            <h3>I Prezzi mostrano i distributori vicini</h3>
-            <p>La mappa riporta i prezzi di benzina, diesel, GPL e metano intorno a te, dai dati pubblici del ministero. Verde dove costa meno.</p>
-            <figure class="mo-pc__visual mo-pc__visual--lit"><div class="device"><img src="img/prezzi-iphone.jpg" alt="La mappa dei Prezzi su iPhone: i distributori di Roma con il prezzo del diesel" width="600" height="1304" loading="lazy"></div></figure>
-          </li>
-        </ol>
-      </div>
-      <div class="mo-pc__visuals frame"></div>
-    </div>
   </section>
 
   <section class="section g2" id="funzioni" aria-labelledby="funzioni-h">
@@ -270,26 +253,29 @@
     </div>
   </section>
 
-  <section class="section" id="faq" aria-labelledby="domande-h">
-    <div class="wrap grid grid--top">
-      <div class="span-6">
-        <div class="section-head">
-          <h2 id="domande-h">Domande</h2>
-          <p class="faq-intro">Le regole complete sono nelle Condizioni d'uso.</p>
-        </div>
-        <p class="faq-intro"><a class="link" href="termini.html">Leggi le Condizioni d'uso</a></p>
+  <!-- pinned-chapters: two screens, one step per screen of the app -->
+  <section class="section" id="schermate" style="--h: 2" data-moment="pinned-chapters" aria-labelledby="schermate-h">
+    <div class="wrap mo-pc__grid">
+      <div class="mo-pc__text">
+        <h2 id="schermate-h">Report e prezzi dei carburanti</h2>
+        <ol class="mo-pc__steps">
+          <li class="mo-pc__step">
+            <h3>Il Report conta ogni chilometro</h3>
+            <p>Spesa totale, chilometri, consumo e costo al chilometro, per mese, trimestre o anno. Il grafico indica il mese migliore e il peggiore.</p>
+            <figure class="mo-pc__visual mo-pc__visual--lit"><div class="device"><img src="img/report-android.jpg" alt="Il Report su Android: 2.262 € in un anno, 10.077 km, 0,218 € al chilometro" width="600" height="1333" loading="lazy"></div></figure>
+          </li>
+          <li class="mo-pc__step">
+            <h3>I Prezzi mostrano i distributori vicini</h3>
+            <p>La mappa riporta i prezzi di benzina, diesel, GPL e metano intorno a te, dai dati pubblici del ministero. Verde dove costa meno.</p>
+            <figure class="mo-pc__visual mo-pc__visual--lit"><div class="device"><img src="img/prezzi-iphone.jpg" alt="La mappa dei Prezzi su iPhone: i distributori di Roma con il prezzo del diesel" width="600" height="1304" loading="lazy"></div></figure>
+          </li>
+        </ol>
       </div>
-      <div class="faq span-6 start-7">
-        <div class="faq__item"><h3>Quali veicoli e spese si registrano?</h3><p>Auto, moto e scooter di ogni alimentazione. Rifornimenti, ricariche, manutenzione, bollo, assicurazione e pedaggi.</p></div>
-        <div class="faq__item"><h3>Posso fotografare lo scontrino o la pompa?</h3><p>Lo scontrino sì, in abbonamento con prova gratuita. Il display della pompa non viene letto.</p></div>
-        <div class="faq__item"><h3>Posso registrare un veicolo elettrico?</h3><p>Sì. Le ricariche si registrano in kWh, a casa o alla colonnina, con le percentuali della batteria.</p></div>
-        <div class="faq__item"><h3>Va bene per chi usa un furgone?</h3><p>Sì, se è un veicolo personale: tra le categorie c'è Furgone. Kilòmetro non gestisce flotte aziendali.</p></div>
-        <div class="faq__item"><h3>Si vede bene su iPhone Duo?</h3><p>Sì. Chiuso mostra una colonna; aperto in orizzontale ne mostra due, divise sulla piega.</p></div>
-      </div>
+      <div class="mo-pc__visuals frame"></div>
     </div>
   </section>
 
-  <section class="section" id="calcolatore" aria-labelledby="calc-h">
+  <section class="section bg-halo" id="calcolatore" aria-labelledby="calc-h">
     <div class="wrap grid grid--top">
       <div class="span-6">
         <div class="section-head">
@@ -320,6 +306,32 @@
       </div>
     </div>
   </section>
+
+  <section class="sc ground-inverse" id="conto" data-big-scene="letter-physics" data-big-scene-opts='{"hold": 1}' style="--h: 1" aria-labelledby="conto-h">
+    <div class="sc__stage">
+      <h2 class="lp__a" id="conto-h">Il pieno non è tutto il conto.</h2>
+      <p class="lp__b">Kilòmetro somma anche bollo, gomme e tagliandi.</p>
+    </div>
+  </section>
+
+  <section class="section bg-dots" id="faq" aria-labelledby="domande-h">
+    <div class="wrap grid grid--top">
+      <div class="span-6">
+        <div class="section-head">
+          <h2 id="domande-h">Domande</h2>
+          <p class="faq-intro">Le regole complete sono nelle Condizioni d'uso.</p>
+        </div>
+        <p class="faq-intro"><a class="link" href="termini.html">Leggi le Condizioni d'uso</a></p>
+      </div>
+      <div class="faq span-6 start-7">
+        <div class="faq__item"><h3>Quali veicoli e spese si registrano?</h3><p>Auto, moto e scooter di ogni alimentazione. Rifornimenti, ricariche, manutenzione, bollo, assicurazione e pedaggi.</p></div>
+        <div class="faq__item"><h3>Posso fotografare lo scontrino o la pompa?</h3><p>Lo scontrino sì, in abbonamento con prova gratuita. Il display della pompa non viene letto.</p></div>
+        <div class="faq__item"><h3>Posso registrare un veicolo elettrico?</h3><p>Sì. Le ricariche si registrano in kWh, a casa o alla colonnina, con le percentuali della batteria.</p></div>
+        <div class="faq__item"><h3>Va bene per chi usa un furgone?</h3><p>Sì, se è un veicolo personale: tra le categorie c'è Furgone. Kilòmetro non gestisce flotte aziendali.</p></div>
+        <div class="faq__item"><h3>Si vede bene su iPhone Duo?</h3><p>Sì. Chiuso mostra una colonna; aperto in orizzontale ne mostra due, divise sulla piega.</p></div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="footer closing footer--statement" id="contact" aria-labelledby="close-h">
@@ -338,8 +350,8 @@
           <a class="nav__logo" href="#top"><img src="img/icona.webp" alt="" width="28" height="28" loading="lazy">Kilòmetro</a>
           <p class="footer__lede">Il registro delle spese di auto, moto e scooter. Sviluppata da Daniele Crucitti.</p>
         </div>
-        <div class="span-2 footer__col footer__col--app"><h3>App</h3><ul><li><a href="#schermate">Schermate</a></li><li><a href="#funzioni">Funzioni</a></li></ul></div>
-        <div class="span-2 footer__col footer__col--app"><h3>Guida</h3><ul><li><a href="#faq">Domande</a></li><li><a href="#calcolatore">Calcolatore</a></li></ul></div>
+        <div class="span-2 footer__col footer__col--app"><h3>App</h3><ul><li><a href="#funzioni">Funzioni</a></li><li><a href="#schermate">Schermate</a></li></ul></div>
+        <div class="span-2 footer__col footer__col--app"><h3>Guida</h3><ul><li><a href="#calcolatore">Calcolatore</a></li><li><a href="#faq">Domande</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Store</h3><ul><li><a href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">App Store</a></li><li><a href="https://play.google.com/store/apps/details?id=it.kilometro.app">Google Play</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Note legali</h3><ul><li><a href="privacy.html">Privacy</a></li><li><a href="termini.html">Condizioni d'uso</a></li><li><a href="cancellazione.html">Cancellazione dei dati</a></li></ul></div>
       </div>
@@ -356,6 +368,7 @@
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
 <script type="module" src="assets/diagrams/mount.js"></script>
+<script type="module" src="assets/scenes/scenes.js"></script>
 <!-- the calculator: the page's own content, not a kit part -->
 <script>
 (function () {
