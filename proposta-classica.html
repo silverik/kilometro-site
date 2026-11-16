@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kilòmetro: l'app per le spese di auto e moto</title>
+<meta name="description" content="Kilòmetro registra rifornimenti, ricariche, manutenzioni e scadenze di auto, moto e scooter e calcola quanto costa ogni chilometro. Gratis e senza pubblicità, su iPhone e Android.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kilòmetro: l'app per le spese di auto e moto">
+<meta property="og:description" content="Rifornimenti, ricariche, manutenzioni e scadenze in un registro solo, con il costo di ogni chilometro. Gratis e senza pubblicità.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.png" type="image/png">
+<meta name="theme-color" content="#ffffff">
+<link rel="canonical" href="https://kilometroapp.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --soft: #f5f5f7;          /* il fondo dell'app */
+  --ink: #1d1d1f;           /* l'inchiostro dell'app */
+  --muted: #6e6e73;
+  --rule: #d2d2d7;
+  --blue: #0071e3;          /* il blu dell'app, scurito per il testo bianco dei pulsanti */
+  --blue-ink: #0066cc;
+  --font: "Geist", system-ui, sans-serif;
+  --mono: "Geist Mono", ui-monospace, monospace;
+  --gut: clamp(20px, 5vw, 80px);
+  --bar: 56px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: calc(var(--bar) + 16px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.5 var(--font); -webkit-font-smoothing: antialiased; caret-color: var(--blue); }
+::selection { background: #cfe3ff; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--blue-ink); text-underline-offset: .2em; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { margin: 0; font-weight: 650; letter-spacing: -.025em; text-wrap: balance; }
+p { margin: 0; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; border-radius: 8px; background: var(--ink); color: #fff; }
+.skip:focus { top: 12px; }
+.icons { position: absolute; width: 0; height: 0; }
+
+.bar { position: sticky; top: 0; z-index: 20; height: var(--bar); display: flex; align-items: center; gap: 28px; padding: 0 var(--gut);
+  background: rgb(255 255 255 / .94); border-bottom: 1px solid #e5e5ea; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 650; font-size: 19px; letter-spacing: -.01em; }
+.brand img { width: 28px; height: 28px; border-radius: 7px; }
+.bar nav { display: flex; gap: 26px; margin-left: auto; }
+.bar nav a { color: #424245; text-decoration: none; font-size: 14px; }
+.bar nav a:hover { color: var(--ink); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 0 24px; border-radius: 999px; font: 550 17px/1 var(--font);
+  text-decoration: none; color: #fff; background: var(--ink); transition: background-color .2s, transform .15s; }
+.btn svg { width: 20px; height: 20px; flex: none; fill: currentColor; }
+.btn:hover { background: #3a3a3c; }
+.btn:active { transform: scale(.98); }
+.btn--blue { background: var(--blue); }
+.btn--blue:hover { background: #005bbf; }
+.bar .btn { min-height: 34px; padding: 0 14px; font-size: 14px; }
+.stores { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+.hero { padding: clamp(40px, 5vw, 72px) var(--gut) 0; text-align: center; background: linear-gradient(var(--bg) 70%, var(--soft)); overflow: hidden; }
+.hero__icon { width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 18px; box-shadow: 0 10px 24px -10px rgb(0 0 0 / .35); }
+h1 { font-size: clamp(42px, 6vw, 84px); line-height: 1.02; max-width: 16ch; margin: 0 auto; }
+.lead { max-width: 46ch; margin: 22px auto 30px; font-size: clamp(19px, 1.7vw, 23px); line-height: 1.4; color: #424245; }
+.devices { display: grid; grid-template-columns: .8fr 2.7fr .8fr; align-items: end; gap: 0; max-width: 1180px; margin: clamp(40px, 5vw, 64px) auto 0; }
+.device { position: relative; margin: 0; background: #1d1d1f; box-shadow: inset 0 0 0 2px #3a3a3c, 0 30px 60px -30px rgb(0 0 0 / .4);
+  animation: rise .9s var(--ease) backwards; }
+.device img { width: 100%; }
+.device--phone { padding: 9px; border-radius: 40px; z-index: 1; margin-bottom: 0; }
+.device--phone img { border-radius: 31px; }
+.device--duo { padding: 12px; border-radius: 30px; z-index: 2; margin-bottom: -2px; animation-delay: .08s; }
+.device--duo img { border-radius: 20px; }
+.devices .device--phone:first-child { margin-right: -48px; animation-delay: .16s; }
+.devices .device--phone:last-child { margin-left: -48px; animation-delay: .22s; }
+@keyframes rise { from { opacity: 0; transform: translateY(40px); } }
+
+.sec { padding: clamp(80px, 10vw, 140px) var(--gut); }
+.sec--soft { background: var(--soft); }
+.wrap { max-width: 1120px; margin: 0 auto; }
+.sec__head { max-width: 46ch; margin: 0 auto 56px; text-align: center; display: grid; gap: 16px; }
+h2 { font-size: clamp(36px, 4.4vw, 60px); line-height: 1.04; }
+.sub { font-size: 20px; line-height: 1.45; color: #424245; }
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+.row + .row { margin-top: clamp(80px, 10vw, 140px); }
+.row--flip > :first-child { order: 2; }
+.row h2 { font-size: clamp(30px, 3.2vw, 44px); line-height: 1.08; margin-bottom: 16px; }
+.row p { font-size: 19px; color: #424245; }
+.row ul { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.row li { padding-left: 26px; position: relative; color: var(--ink); }
+.row li::before { content: ""; position: absolute; left: 0; top: .45em; width: 14px; height: 8px; border-left: 2px solid var(--blue); border-bottom: 2px solid var(--blue); transform: rotate(-45deg); }
+.row .device { justify-self: center; animation: none; }
+.row .device--phone { width: min(300px, 80%); margin: 0; }
+.chip { display: inline-flex; gap: 6px; align-items: center; padding: 4px 10px; border-radius: 999px; background: var(--soft); font: 500 14px/1.4 var(--mono); }
+
+.grid6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.card { padding: 30px; border-radius: 24px; background: var(--bg); display: grid; gap: 10px; align-content: start; }
+.card svg { width: 30px; height: 30px; fill: none; stroke: var(--c, var(--blue)); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 6px; }
+.card h3 { font-size: 22px; letter-spacing: -.015em; }
+.card p { color: #424245; font-size: 16px; }
+
+.band { background: var(--ink); color: #f5f5f7; text-align: center; }
+.band .sub { color: #c7c7cc; }
+.band .wrap { display: grid; gap: 18px; justify-items: center; max-width: 52ch; }
+
+.calc { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; }
+.panel { padding: clamp(24px, 3vw, 40px); border-radius: 28px; background: var(--bg); }
+.mode { display: inline-flex; gap: 4px; padding: 4px; border: 0; margin: 0 0 18px; border-radius: 999px; background: var(--soft); }
+.mode legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.mode label { position: relative; display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; cursor: pointer; font-weight: 500; color: #424245; }
+.mode input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.mode label:has(input:checked) { background: var(--bg); color: var(--ink); box-shadow: 0 1px 4px rgb(0 0 0 / .14); }
+.mode label:has(input:focus-visible) { outline: 2px solid var(--blue); outline-offset: 2px; }
+.ctl { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; align-items: baseline; padding: 14px 0; border-top: 1px solid #e5e5ea; }
+.ctl label { font-weight: 500; }
+.ctl output { font: 500 16px/1 var(--mono); }
+.ctl input { grid-column: 1 / -1; width: 100%; height: 40px; margin: 0; accent-color: var(--blue); cursor: pointer; }
+.result { display: grid; align-content: start; gap: 20px; }
+.result .big { font-size: clamp(52px, 6vw, 80px); font-weight: 650; letter-spacing: -.04em; line-height: 1; }
+.result .big small { display: block; margin-top: 8px; font-size: 18px; font-weight: 500; letter-spacing: 0; color: var(--muted); }
+.result dl { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.result dl div { padding: 16px; border-radius: 16px; background: var(--soft); }
+.result dt { font-size: 14px; color: var(--muted); }
+.result dd { margin: 4px 0 0; font-size: 22px; font-weight: 600; letter-spacing: -.01em; }
+.split { height: 8px; border-radius: 99px; background: #e5e5ea; overflow: hidden; }
+.split i { display: block; height: 100%; width: calc(var(--share, .55) * 100%); background: var(--blue); transition: width .5s var(--ease); }
+
+.faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; }
+.faq div { padding: 26px 0; border-top: 1px solid var(--rule); }
+.faq h3 { font-size: 21px; letter-spacing: -.01em; margin-bottom: 8px; }
+.faq p { color: #424245; }
+
+.close { text-align: center; }
+.close img { width: 96px; height: 96px; margin: 0 auto 28px; border-radius: 22px; box-shadow: 0 14px 30px -12px rgb(0 0 0 / .35); }
+.foot { display: flex; flex-wrap: wrap; gap: 14px 40px; justify-content: space-between; padding: 28px var(--gut) 40px; background: var(--soft); color: var(--muted); font-size: 13px; border-top: 1px solid #e5e5ea; }
+.foot nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.foot a { color: #424245; text-decoration: none; }
+.foot a:hover { text-decoration: underline; }
+
+@media (max-width: 1023px) {
+  .row, .calc { grid-template-columns: 1fr; }
+  .row--flip > :first-child { order: 0; }
+  .grid6 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .bar nav { display: none; }
+  .bar .btn { margin-left: auto; }
+  .stores .btn { flex: 1 1 100%; }
+  .devices { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .device--duo { grid-column: 1 / -1; order: -1; margin-bottom: 0; }
+  .devices .device--phone:first-child, .devices .device--phone:last-child { margin: 0; }
+  .hero { padding-bottom: 32px; }
+  .grid6, .faq { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Vai al contenuto</a>
+<svg class="icons" aria-hidden="true">
+  <symbol id="i-fuel" viewBox="0 0 24 24"><path d="M3 22h12M4 9h10M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0V9.8a2 2 0 0 0-.6-1.4L18 5"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4ZM2 22l3-3M7.5 13.5 10 11M10.5 16.5 13 14M18 3l-4 4h6l-4 4"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8Z"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1ZM16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 17.5v-11"/></symbol>
+  <symbol id="i-duo" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M12 5v14"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M3.6 1.8 13.8 12 3.6 22.2a2 2 0 0 1-.5-1.3V3.1c0-.5.2-1 .5-1.3ZM17.3 8.5 13.8 12l3.5 3.5 3.9-2.2c.8-.5.8-1.6 0-2ZM13.8 12 3.6 22.2c.4.5 1.2.6 1.8.3l11.9-7ZM17.3 8.5 5.4 1.6C4.8 1.2 4 1.3 3.6 1.8L13.8 12Z"/></symbol>
+</svg>
+
+<header class="bar">
+  <a class="brand" href="#top"><img src="img/icona.webp" alt="" width="28" height="28">Kilòmetro</a>
+  <nav aria-label="Principale">
+    <a href="#storia">Storia</a><a href="#funzioni">Funzioni</a><a href="#calcolatore">Calcolatore</a><a href="#domande">Domande</a>
+  </nav>
+  <a class="btn btn--blue" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica</a>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="h1">
+    <img class="hero__icon" src="img/icona.webp" alt="" width="64" height="64">
+    <h1 id="h1">Le spese di auto e moto, in un'app.</h1>
+    <p class="lead">Kilòmetro registra rifornimenti, ricariche, manutenzioni e scadenze e calcola quanto costa ogni chilometro. Gratis e senza pubblicità.</p>
+    <div class="stores">
+      <a class="btn" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597"><svg aria-hidden="true"><use href="#i-apple"/></svg>Scarica per iPhone</a>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=it.kilometro.app"><svg aria-hidden="true"><use href="#i-play"/></svg>Scarica per Android</a>
+    </div>
+    <div class="devices">
+      <figure class="device device--phone"><img src="img/report-android.jpg" alt="Il Report su Android: 2.262 euro in un anno, 10.077 km, 0,218 euro al chilometro" width="600" height="1333"></figure>
+      <figure class="device device--duo"><img src="img/storia-iphone-duo.jpg" alt="La Storia su iPhone Duo aperto: le spese in fila per chilometri a sinistra, i totali e le scadenze a destra" width="1200" height="844" fetchpriority="high"></figure>
+      <figure class="device device--phone"><img src="img/prezzi-iphone.jpg" alt="La mappa dei Prezzi su iPhone: i distributori di Roma con il prezzo del diesel" width="600" height="1304"></figure>
+    </div>
+  </section>
+
+  <section class="sec" id="storia" aria-labelledby="h-storia">
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <h2 id="h-storia">Ogni spesa al suo chilometro</h2>
+          <p>Nella Storia rifornimenti, ricariche e tagliandi stanno in fila per contachilometri. Fra un pieno e l'altro Kilòmetro scrive i chilometri della tratta e il consumo.</p>
+          <ul>
+            <li>Le tratte anomale vengono segnalate e si correggono dalla Storia.</li>
+            <li>Su iPhone Duo aperto, spese a sinistra e totali a destra.</li>
+          </ul>
+        </div>
+        <figure class="device device--duo"><img src="img/storia-iphone-duo.jpg" alt="" width="1200" height="844" loading="lazy"></figure>
+      </div>
+      <div class="row row--flip">
+        <div>
+          <h2>Un solo costo al chilometro</h2>
+          <p>Il Report somma carburante, ricariche e spese fisse e confronta i mesi, i trimestri o gli anni. Il costo al chilometro è lo stesso in ogni schermata.</p>
+          <ul>
+            <li>Il grafico indica il mese migliore e il peggiore.</li>
+            <li>Una previsione per i prossimi dodici mesi.</li>
+          </ul>
+        </div>
+        <figure class="device device--phone"><img src="img/report-android.jpg" alt="" width="600" height="1333" loading="lazy"></figure>
+      </div>
+      <div class="row">
+        <div>
+          <h2>I prezzi dei distributori vicini</h2>
+          <p>La mappa mostra benzina, diesel, GPL e metano intorno a te, dai dati pubblici del ministero. Il verde indica dove costa meno.</p>
+        </div>
+        <figure class="device device--phone"><img src="img/prezzi-iphone.jpg" alt="" width="600" height="1304" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--soft" id="funzioni" aria-labelledby="h-funzioni">
+    <div class="wrap">
+      <div class="sec__head"><h2 id="h-funzioni">Tutto quello che costa il tuo veicolo</h2></div>
+      <div class="grid6">
+        <div class="card"><svg aria-hidden="true"><use href="#i-receipt"/></svg><h3>Legge lo scontrino</h3><p>Da una foto compila fornitore, litri, prezzo e totale, da controllare prima di salvare. In abbonamento, con prova gratuita.</p></div>
+        <div class="card"><svg style="--c:#248a3d" aria-hidden="true"><use href="#i-plug"/></svg><h3>Segue le elettriche</h3><p>Ricariche in kWh a casa o alla colonnina, con le percentuali della batteria.</p></div>
+        <div class="card"><svg style="--c:#c25e00" aria-hidden="true"><use href="#i-wrench"/></svg><h3>Ricorda le scadenze</h3><p>Revisione, bollo e assicurazione, con una notifica prima della data.</p></div>
+        <div class="card"><svg aria-hidden="true"><use href="#i-cloud"/></svg><h3>Sincronizza i telefoni</h3><p>Con lo stesso iCloud o Google Drive lo storico è uguale su iPhone e Android.</p></div>
+        <div class="card"><svg style="--c:var(--ink)" aria-hidden="true"><use href="#i-fuel"/></svg><h3>Ogni alimentazione</h3><p>Auto, moto e scooter a benzina, diesel, GPL, metano, ibridi ed elettrici.</p></div>
+        <div class="card"><svg style="--c:var(--ink)" aria-hidden="true"><use href="#i-duo"/></svg><h3>Fatta per iPhone Duo</h3><p>Una colonna sul display chiuso, due colonne sul display aperto.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band" aria-labelledby="h-band">
+    <div class="wrap">
+      <h2 id="h-band">Gratis e senza pubblicità</h2>
+      <p class="sub">Kilòmetro non mostra pubblicità e non usa servizi di analisi. Il registro resta sul telefono e nel tuo iCloud o Google Drive.</p>
+    </div>
+  </section>
+
+  <section class="sec sec--soft" id="calcolatore" aria-labelledby="h-calc">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 id="h-calc">Calcola il tuo costo al chilometro</h2>
+        <p class="sub">Il conto somma un anno di carburante o ricariche e le spese fisse. L'app fa lo stesso calcolo sulle spese che registri.</p>
+      </div>
+      <div class="calc" id="calc">
+        <div class="panel">
+          <fieldset class="mode">
+            <legend>Alimentazione</legend>
+            <label><input type="radio" name="mode" value="fuel" checked>Benzina, diesel o gas</label>
+            <label><input type="radio" name="mode" value="ev">Elettrica</label>
+          </fieldset>
+          <div class="ctl"><label for="c-km">Chilometri in un anno</label><output for="c-km" id="o-km">15.000 km</output><input id="c-km" type="range" min="3000" max="50000" step="1000" value="15000"></div>
+          <div class="ctl"><label for="c-eff">Consumo medio</label><output for="c-eff" id="o-eff">16,0 km/l</output><input id="c-eff" type="range" min="8" max="30" step="0.5" value="16"></div>
+          <div class="ctl"><label for="c-price" id="l-price">Prezzo del carburante</label><output for="c-price" id="o-price">1,80 €/l</output><input id="c-price" type="range" min="0.7" max="3" step="0.05" value="1.8"></div>
+          <div class="ctl"><label for="c-fixed">Assicurazione, bollo e manutenzione</label><output for="c-fixed" id="o-fixed">1.350 € l'anno</output><input id="c-fixed" type="range" min="300" max="4500" step="50" value="1350"></div>
+        </div>
+        <div class="panel result">
+          <p class="big" aria-live="polite"><span id="r-km">0,20 €</span><small>al chilometro</small></p>
+          <dl>
+            <div><dt>Al mese</dt><dd id="r-month">253 €</dd></div>
+            <div><dt>In un anno</dt><dd id="r-year">3.038 €</dd></div>
+            <div><dt id="k-fuel">Carburante</dt><dd id="r-fuel">1.688 €</dd></div>
+            <div><dt>Spese fisse</dt><dd id="r-fixed">1.350 €</dd></div>
+          </dl>
+          <div class="split" aria-hidden="true"><i></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="domande" aria-labelledby="h-domande">
+    <div class="wrap">
+      <div class="sec__head"><h2 id="h-domande">Domande</h2></div>
+      <div class="faq">
+        <div><h3>È gratis?</h3><p>Sì. Kilòmetro è gratis e senza pubblicità. Solo la lettura dello scontrino è in abbonamento, con una prova gratuita.</p></div>
+        <div><h3>Quali veicoli e spese si registrano?</h3><p>Auto, moto e scooter di ogni alimentazione. Rifornimenti, ricariche, manutenzione, bollo, assicurazione e pedaggi.</p></div>
+        <div><h3>Posso fotografare lo scontrino o la pompa?</h3><p>Lo scontrino sì, con l'abbonamento; alle colonnine anche la ricevuta della ricarica. Il display della pompa non viene letto.</p></div>
+        <div><h3>Posso registrare un veicolo elettrico?</h3><p>Sì. Le ricariche si registrano in kWh, a casa o alla colonnina, con le percentuali della batteria.</p></div>
+        <div><h3>Va bene per chi usa un furgone?</h3><p>Sì, se è un veicolo personale: tra le categorie c'è Furgone. Kilòmetro non gestisce flotte aziendali.</p></div>
+        <div><h3>Si vede bene su iPhone Duo?</h3><p>Sì. Chiuso mostra una colonna; aperto in orizzontale ne mostra due, divise sulla piega.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--soft close" id="scarica" aria-labelledby="h-scarica">
+    <div class="wrap">
+      <img src="img/icona.webp" alt="" width="96" height="96" loading="lazy">
+      <div class="sec__head">
+        <h2 id="h-scarica">Scarica Kilòmetro</h2>
+        <p class="sub">Gratis e senza pubblicità, su iPhone e Android, in italiano, inglese, francese e spagnolo.</p>
+      </div>
+      <div class="stores">
+        <a class="btn" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597"><svg aria-hidden="true"><use href="#i-apple"/></svg>Scarica per iPhone</a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=it.kilometro.app"><svg aria-hidden="true"><use href="#i-play"/></svg>Scarica per Android</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>Kilòmetro, sviluppata da Daniele Crucitti. © 2026</span>
+  <nav aria-label="Note legali"><a href="privacy.html">Privacy</a><a href="termini.html">Condizioni d'uso</a><a href="cancellazione.html">Cancellazione dei dati</a></nav>
+  <span>I nomi e i loghi dei prodotti sono marchi dei rispettivi proprietari.</span>
+</footer>
+
+<script src="calcolatore.js"></script>
+</body>
+</html>

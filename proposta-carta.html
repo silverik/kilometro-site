@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kilòmetro: le spese di auto e moto, tappa per tappa</title>
+<meta name="description" content="Kilòmetro registra rifornimenti, ricariche, manutenzioni e scadenze di auto, moto e scooter e calcola quanto costa ogni chilometro. Gratis e senza pubblicità, su iPhone e Android.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kilòmetro: le spese di auto e moto, tappa per tappa">
+<meta property="og:description" content="Rifornimenti, ricariche, manutenzioni e scadenze in un registro solo, con il costo di ogni chilometro. Gratis e senza pubblicità.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.png" type="image/png">
+<meta name="theme-color" content="#f6f7f3">
+<link rel="canonical" href="https://kilometroapp.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..800;1,62..125,400..800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f6f7f3;        /* la carta stampata */
+  --land: #e3ecd5;         /* pianura */
+  --hill: #ece6d4;         /* colline */
+  --water: #b8dcf1;
+  --water-ink: #1f5f91;
+  --red: #d7261b;          /* strada statale */
+  --red-edge: #8b140e;
+  --yellow: #f1c40f;       /* provinciale */
+  --yellow-edge: #8f7300;
+  --green: #0b7a43;        /* autostrada e cartelli */
+  --route: #007aff;        /* il tuo percorso: il blu dell'app */
+  --route-ink: #005bc4;    /* lo stesso blu per le scritte, a 4,5:1 sulla carta */
+  --go: #0071e3;           /* il blu dei pulsanti, a 4,5:1 col bianco */
+  --ink: #1d1d1f;
+  --muted: #55565b;
+  --rule: #c9cbc3;
+  --font: "Archivo", sans-serif;
+  --gut: clamp(20px, 5vw, 80px);
+  --bar: 64px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: calc(var(--bar) + 16px); scrollbar-color: #b9bbb3 var(--paper); }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.55 var(--font); font-stretch: 100%; -webkit-font-smoothing: antialiased; caret-color: var(--route); }
+::selection { background: var(--yellow); color: var(--ink); }
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--ink); text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: .22em; }
+:focus-visible { outline: 3px solid var(--route); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { margin: 0; font-weight: 750; font-stretch: 78%; letter-spacing: -.01em; text-wrap: balance; }
+p { margin: 0; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 30; padding: 10px 14px; background: var(--ink); color: #fff; }
+.skip:focus { top: 12px; }
+.icons { position: absolute; width: 0; height: 0; }
+.caps { text-transform: uppercase; letter-spacing: .08em; font-stretch: 85%; font-weight: 650; }
+
+.bar { position: sticky; top: 0; z-index: 20; height: var(--bar); display: flex; align-items: center; gap: 28px; padding: 0 var(--gut);
+  background: var(--paper); border-bottom: 2px solid var(--ink); }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 750 22px/1 var(--font); font-stretch: 80%; }
+.brand img { width: 28px; height: 28px; border-radius: 7px; }
+.bar nav { display: flex; gap: 26px; margin-left: auto; }
+.bar nav a { text-decoration: none; font-weight: 550; font-size: 16px; }
+.bar nav a:hover { text-decoration: underline; text-decoration-color: var(--red); }
+
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; border-radius: 4px; font: 650 17px/1 var(--font);
+  text-decoration: none; color: var(--ink); background: #fff; box-shadow: inset 0 0 0 2px var(--ink); transition: transform .15s, background-color .15s; }
+.btn svg { width: 20px; height: 20px; flex: none; fill: currentColor; }
+.btn:hover { background: #fff8d6; }
+.btn:active { transform: translateY(1px); }
+.btn--go { background: var(--go); color: #fff; box-shadow: none; }
+.btn--go:hover { background: #005bbf; }
+.bar .btn { min-height: 40px; font-size: 15px; padding: 0 16px; }
+.stores { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* il foglio della carta, con il cartiglio del titolo e la legenda */
+.sheet { position: relative; margin: 32px var(--gut) 0; border: 2px solid var(--ink); background: var(--paper); overflow: hidden; }
+.sheet::after { content: ""; position: absolute; inset: 5px; border: 1px solid var(--ink); pointer-events: none; }
+.map { display: block; width: 100%; height: clamp(540px, 74svh, 700px); }
+.cartiglio { position: absolute; left: 40px; top: 40px; width: min(540px, 44%); padding: 30px 32px 32px; background: #fff; border: 2px solid var(--ink);
+  box-shadow: 0 0 0 5px #fff, 0 0 0 6px var(--ink), 0 18px 40px -24px rgb(0 0 0 / .45); display: grid; gap: 18px; }
+h1 { font-size: clamp(40px, 4.4vw, 64px); line-height: .98; }
+.lead { color: #34353a; font-size: 18px; }
+.legenda { position: absolute; right: 40px; bottom: 40px; width: 300px; padding: 18px 20px; background: #fff; border: 1px solid var(--ink); font-size: 14px; line-height: 1.35; }
+.legenda h2 { font-size: 13px; margin-bottom: 10px; }
+.legenda ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.legenda li { display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: center; }
+.legenda svg { width: 40px; height: 16px; overflow: visible; }
+.legenda .note { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); color: var(--muted); font-style: italic; }
+
+/* la strada a striscia: il puntino blu resta fermo mentre la pagina scorre, come sul navigatore */
+main { position: relative; }
+.road { position: absolute; left: var(--gut); top: 0; bottom: 0; width: 14px; pointer-events: none;
+  background: linear-gradient(90deg, var(--red-edge) 0 2px, var(--red) 2px 12px, var(--red-edge) 12px 14px); }
+.car { position: sticky; top: calc(50svh - 10px); display: block; width: 20px; height: 20px; margin-left: -3px; border-radius: 50%; background: var(--route);
+  box-shadow: 0 0 0 4px #fff, 0 0 0 5px rgb(0 0 0 / .18), 0 0 0 22px rgb(0 122 255 / .14); }
+.sec { position: relative; padding: clamp(80px, 9vw, 128px) var(--gut) clamp(80px, 9vw, 128px) calc(var(--gut) + 72px); }
+.sec::before { content: ""; position: absolute; left: calc(var(--gut) - 4px); top: calc(clamp(80px, 9vw, 128px) + 14px); width: 14px; height: 14px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 0 3px var(--ink); }
+.wrap { max-width: 1200px; }
+.sec__head { display: grid; gap: 16px; max-width: 62ch; margin-bottom: 48px; }
+h2 { font-size: clamp(34px, 3.8vw, 52px); line-height: 1; }
+.sub { font-size: 19px; color: #34353a; }
+
+.storia { display: grid; grid-template-columns: 4fr 7fr; gap: clamp(24px, 4vw, 64px); align-items: start; }
+.storia ol { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.storia li { display: grid; grid-template-columns: 76px 1fr auto; gap: 4px 14px; padding: 14px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.storia .k { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 15px; }
+.storia b { font-weight: 650; }
+.storia .e { font-variant-numeric: tabular-nums; font-weight: 650; }
+.storia .leg { grid-column: 2 / -1; color: var(--red); font-size: 15px; font-weight: 600; }
+.storia .leg span { color: var(--route-ink); }
+.frame { margin: 0; padding: 8px; background: #fff; border: 2px solid var(--ink); }
+.frame img { border: 1px solid var(--rule); }
+
+.insets { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); }
+.inset { margin: 0; border: 2px solid var(--ink); background: #fff; display: grid; grid-template-rows: auto 1fr; }
+.inset header { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 2px solid var(--ink); background: var(--land); }
+.inset header h3 { font-size: 24px; }
+.inset header span { color: var(--muted); font-size: 15px; align-self: center; }
+.inset__body { display: grid; grid-template-columns: minmax(0, 220px) 1fr; gap: 20px; padding: 20px; align-items: start; }
+.inset__body img { border-radius: 18px; border: 6px solid var(--ink); }
+.inset__body p { color: #34353a; }
+
+.legend-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; border-top: 2px solid var(--ink); }
+.legend-list li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 18px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+.sym { grid-row: span 2; width: 56px; height: 40px; display: grid; place-items: center; }
+.sym svg { width: 30px; height: 30px; fill: none; stroke: var(--c, var(--ink)); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.legend-list h3 { font-size: 24px; line-height: 1.1; }
+.legend-list p { color: #34353a; font-size: 16px; }
+
+.planner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 64px); align-items: start; }
+.mode { display: flex; flex-wrap: wrap; gap: 8px; border: 0; padding: 0; margin: 0 0 24px; }
+.mode legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.mode label { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 4px; cursor: pointer; font-weight: 600;
+  box-shadow: inset 0 0 0 2px var(--ink); background: #fff; }
+.mode input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.mode label:has(input:checked) { background: var(--ink); color: #fff; }
+.mode label:has(input:focus-visible) { outline: 3px solid var(--route); outline-offset: 3px; }
+.ctl { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; align-items: baseline; padding: 14px 0; border-top: 1px solid var(--rule); }
+.ctl label { font-weight: 600; }
+.ctl output { font-weight: 700; font-variant-numeric: tabular-nums; }
+.ctl input { grid-column: 1 / -1; width: 100%; height: 40px; margin: 0; accent-color: var(--red); cursor: pointer; }
+/* il risultato su un cartello verde, come le distanze sull'autostrada */
+.sign { padding: 10px; border-radius: 14px; background: var(--green); color: #fff; box-shadow: 0 20px 40px -26px rgb(0 0 0 / .5); }
+.sign__in { border: 3px solid #fff; border-radius: 9px; padding: 22px 26px; display: grid; gap: 4px; }
+.sign__row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px 0; font-stretch: 85%; }
+.sign__row + .sign__row { border-top: 1px solid rgb(255 255 255 / .35); }
+.sign__row span { font-size: 22px; font-weight: 600; }
+.sign__row b { font-size: 26px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.sign__row--big span { font-size: 26px; }
+.sign__row--big b { font-size: clamp(44px, 4.4vw, 64px); line-height: 1; }
+
+.faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; border-top: 2px solid var(--ink); }
+.faq div { padding: 24px 0; border-bottom: 1px solid var(--rule); }
+.faq h3 { font-size: 24px; line-height: 1.15; margin-bottom: 8px; }
+.faq p { color: #34353a; }
+
+.arrivo::before { width: 26px; height: 26px; left: calc(var(--gut) - 10px); background: var(--red); box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--ink); }
+.foot { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: space-between; align-items: center; padding: 32px var(--gut) 44px;
+  border-top: 2px solid var(--ink); background: var(--paper); color: var(--muted); font-size: 15px; }
+.foot nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.foot a { color: var(--ink); }
+
+@media (max-width: 1023px) {
+  .storia, .planner, .insets { grid-template-columns: 1fr; }
+  .legenda { display: none; }
+  .cartiglio { width: min(560px, calc(100% - 80px)); }
+}
+@media (max-width: 760px) {
+  :root { --bar: 56px; }
+  .bar { gap: 14px; }
+  .bar nav { display: none; }
+  .bar .btn { margin-left: auto; }
+  .sheet { margin: 16px 12px 0; display: flex; flex-direction: column; }
+  .cartiglio { order: -1; }
+  .cartiglio { position: static; width: auto; margin: 14px; box-shadow: none; padding: 22px 20px; }
+  .map { height: 420px; width: 791px; max-width: none; margin-left: -365px; } /* sul telefono la carta mostra il tratto con le tre tappe */
+  .stores .btn { flex: 1 1 100%; justify-content: center; }
+  .sec { padding-left: calc(var(--gut) + 40px); }
+  .legend-list, .faq { grid-template-columns: 1fr; }
+  .inset__body { grid-template-columns: 120px 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Vai al contenuto</a>
+<svg class="icons" aria-hidden="true">
+  <symbol id="i-fuel" viewBox="0 0 24 24"><path d="M3 22h12M4 9h10M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0V9.8a2 2 0 0 0-.6-1.4L18 5"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4ZM2 22l3-3M7.5 13.5 10 11M10.5 16.5 13 14M18 3l-4 4h6l-4 4"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8Z"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1ZM16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 17.5v-11"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M3.6 1.8 13.8 12 3.6 22.2a2 2 0 0 1-.5-1.3V3.1c0-.5.2-1 .5-1.3ZM17.3 8.5 13.8 12l3.5 3.5 3.9-2.2c.8-.5.8-1.6 0-2ZM13.8 12 3.6 22.2c.4.5 1.2.6 1.8.3l11.9-7ZM17.3 8.5 5.4 1.6C4.8 1.2 4 1.3 3.6 1.8L13.8 12Z"/></symbol>
+</svg>
+
+<header class="bar">
+  <a class="brand" href="#top"><img src="img/icona.webp" alt="" width="28" height="28">Kilòmetro</a>
+  <nav aria-label="Principale">
+    <a href="#storia">Storia</a><a href="#funzioni">Funzioni</a><a href="#calcolatore">Calcolatore</a><a href="#domande">Domande</a>
+  </nav>
+  <a class="btn btn--go" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica</a>
+</header>
+
+<section class="sheet" id="top" aria-labelledby="h1">
+  <svg class="map" viewBox="0 0 1280 680" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Carta stradale di esempio: il percorso di una Golf 7 da Eni Via Emilia ad Autolavaggio Bea, 415 km, poi a Q8 Tangenziale Ovest, 314 km, con 17,3 km con un litro">
+    <rect width="1280" height="680" fill="#f6f7f3"/>
+    <path d="M0 0h1280v330c-90 30-150 90-170 150-30 90-20 150 10 200H0Z" fill="#e3ecd5"/>
+    <path d="M0 0h560c-40 60-150 70-220 120-80 60-190 40-340 30Z" fill="#ece6d4"/>
+    <path d="M380 0C400 80 360 160 420 240C470 300 440 380 500 440C540 480 520 560 560 690" fill="none" stroke="#7fb8dd" stroke-width="4"/>
+    <path d="M1280 330c-90 30-150 90-170 150-30 90-20 150 10 200h160Z" fill="#b8dcf1"/>
+    <path d="M1280 330c-90 30-150 90-170 150-30 90-20 150 10 200" fill="none" stroke="#7fb3d4" stroke-width="2"/>
+    <text x="1180" y="560" fill="#1f5f91" font-style="italic" font-size="22" font-weight="500" letter-spacing="3" text-anchor="middle">MARE</text>
+    <text x="548" y="620" fill="#1f5f91" font-style="italic" font-size="15" transform="rotate(72 548 620)">fiume</text>
+    <!-- autostrada -->
+    <path d="M-20 150C220 170 420 120 640 150s420 60 660 20" fill="none" stroke="#0a5a31" stroke-width="12"/>
+    <path d="M-20 150C220 170 420 120 640 150s420 60 660 20" fill="none" stroke="#0b7a43" stroke-width="8"/>
+    <path d="M-20 150C220 170 420 120 640 150s420 60 660 20" fill="none" stroke="#e8f3ec" stroke-width="1.5"/>
+    <!-- provinciali -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M480 700C530 640 580 580 620 520" stroke="#8f7300" stroke-width="8"/>
+      <path d="M480 700C530 640 580 580 620 520" stroke="#f1c40f" stroke-width="5"/>
+      <path d="M780 360c-60-20-150-40-250-110" stroke="#8f7300" stroke-width="8"/>
+      <path d="M780 360c-60-20-150-40-250-110" stroke="#f1c40f" stroke-width="5"/>
+      <path d="M950 230c-20-50-10-110 30-160" stroke="#8f7300" stroke-width="8"/>
+      <path d="M950 230c-20-50-10-110 30-160" stroke="#f1c40f" stroke-width="5"/>
+    </g>
+    <!-- statale, con il percorso in blu sopra -->
+    <path d="M-20 610C250 600 460 570 620 520C700 495 740 410 780 360C830 300 880 255 950 230C1040 200 1160 190 1300 186" fill="none" stroke="#8b140e" stroke-width="13"/>
+    <path d="M-20 610C250 600 460 570 620 520C700 495 740 410 780 360C830 300 880 255 950 230C1040 200 1160 190 1300 186" fill="none" stroke="#d7261b" stroke-width="9"/>
+    <path d="M620 520C700 495 740 410 780 360C830 300 880 255 950 230" fill="none" stroke="#007aff" stroke-width="5" stroke-linecap="round"/>
+    <!-- tappe -->
+    <g stroke="#1d1d1f" stroke-width="3" fill="#fff">
+      <circle cx="620" cy="520" r="10"/><circle cx="780" cy="360" r="10"/><circle cx="950" cy="230" r="10"/>
+    </g>
+    <g font-stretch="80%">
+      <text x="638" y="556" font-size="16" font-weight="700" letter-spacing="1.5" fill="#1d1d1f">ENI VIA EMILIA</text>
+      <text x="638" y="577" font-size="15" fill="#55565b">147.591 km · 63,15 €</text>
+      <text x="798" y="394" font-size="16" font-weight="700" letter-spacing="1.5" fill="#1d1d1f">AUTOLAVAGGIO BEA</text>
+      <text x="798" y="415" font-size="15" fill="#55565b">148.006 km · 12,00 €</text>
+      <text x="968" y="262" font-size="16" font-weight="700" letter-spacing="1.5" fill="#1d1d1f">Q8 TANGENZIALE OVEST</text>
+      <text x="968" y="283" font-size="15" fill="#55565b">148.320 km · 68,69 €</text>
+      <text x="968" y="304" font-size="15" font-weight="600" fill="#005bc4">tratta 729 km · 17,3 km/l</text>
+      <text x="676" y="440" text-anchor="end" font-size="20" font-weight="700" fill="#d7261b">415</text>
+      <text x="836" y="292" text-anchor="end" font-size="20" font-weight="700" fill="#d7261b">314</text>
+    </g>
+  </svg>
+  <div class="cartiglio">
+    <h1 id="h1">Le spese di auto e moto, tappa per tappa.</h1>
+    <p class="lead">Kilòmetro registra rifornimenti, ricariche, manutenzioni e scadenze e calcola quanto costa ogni chilometro. Gratis e senza pubblicità, su iPhone e Android.</p>
+    <div class="stores">
+      <a class="btn btn--go" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597"><svg aria-hidden="true"><use href="#i-apple"/></svg>Scarica per iPhone</a>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=it.kilometro.app"><svg aria-hidden="true"><use href="#i-play"/></svg>Scarica per Android</a>
+    </div>
+  </div>
+  <aside class="legenda" aria-label="Legenda">
+    <h2 class="caps">Legenda</h2>
+    <ul>
+      <li><svg viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h36" stroke="#8b140e" stroke-width="9"/><path d="M2 8h36" stroke="#d7261b" stroke-width="6"/><path d="M2 8h36" stroke="#007aff" stroke-width="3"/></svg>Il percorso della tua auto</li>
+      <li><svg viewBox="0 0 40 16" aria-hidden="true"><circle cx="20" cy="8" r="6" fill="#fff" stroke="#1d1d1f" stroke-width="2.5"/></svg>Una spesa, al suo chilometro</li>
+      <li><svg viewBox="0 0 40 16" aria-hidden="true"><text x="20" y="13" text-anchor="middle" font-size="14" font-weight="700" fill="#d7261b">314</text></svg>Chilometri fra due spese</li>
+    </ul>
+    <p class="note">Dati di esempio: Golf 7 1.6 TDI.</p>
+  </aside>
+</section>
+
+<main id="main">
+  <div class="road" aria-hidden="true"><span class="car"></span></div>
+
+  <section class="sec" id="storia" aria-labelledby="h-storia">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 id="h-storia">Ogni spesa al suo chilometro</h2>
+        <p class="sub">Nella Storia rifornimenti, ricariche e tagliandi stanno in fila per contachilometri. Fra un pieno e l'altro Kilòmetro scrive i chilometri della tratta e il consumo.</p>
+      </div>
+      <div class="storia">
+        <ol aria-label="La Storia di esempio della Golf 7">
+          <li><span class="k">148.320</span><b>Q8 Tangenziale Ovest</b><span class="e">68,69 €</span><span class="leg">+ 314 km <span>· 17,3 km/l sulla tratta</span></span></li>
+          <li><span class="k">148.006</span><b>Autolavaggio Bea</b><span class="e">12,00 €</span><span class="leg">+ 415 km</span></li>
+          <li><span class="k">147.591</span><b>Eni Via Emilia</b><span class="e">63,15 €</span><span class="leg">+ 248 km <span>· 19,7 km/l sulla tratta</span></span></li>
+          <li><span class="k">147.343</span><b>Tagliando 145.000</b><span class="e">289,00 €</span></li>
+        </ol>
+        <figure class="frame"><img src="img/storia-iphone-duo.jpg" alt="La Storia su iPhone Duo aperto: le spese in fila per chilometri a sinistra, i totali e le scadenze a destra" width="1200" height="844" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="report" aria-labelledby="h-report">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 id="h-report">Report e prezzi</h2>
+      </div>
+      <div class="insets">
+        <figure class="inset">
+          <header><h3>Report</h3><span>su Android</span></header>
+          <div class="inset__body"><img src="img/report-android.jpg" alt="Il Report su Android: 2.262 euro in un anno, 10.077 km, 0,218 euro al chilometro" width="600" height="1333" loading="lazy">
+            <p>Spesa totale, chilometri, consumo e costo al chilometro per mese, trimestre o anno. Il grafico indica il mese migliore e il peggiore.</p></div>
+        </figure>
+        <figure class="inset">
+          <header><h3>Prezzi</h3><span>su iPhone, a Roma</span></header>
+          <div class="inset__body"><img src="img/prezzi-iphone.jpg" alt="La mappa dei Prezzi su iPhone: i distributori di Roma con il prezzo del diesel" width="600" height="1304" loading="lazy">
+            <p>I distributori vicini con il prezzo di benzina, diesel, GPL e metano, dai dati pubblici del ministero. In verde dove costa meno.</p></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="funzioni" aria-labelledby="h-funzioni">
+    <div class="wrap">
+      <div class="sec__head"><h2 id="h-funzioni">Le funzioni</h2></div>
+      <ul class="legend-list">
+        <li><span class="sym"><svg style="--c:var(--route)" aria-hidden="true"><use href="#i-receipt"/></svg></span><h3>Legge lo scontrino</h3><p>Da una foto compila fornitore, litri, prezzo e totale, da controllare prima di salvare. In abbonamento, con prova gratuita.</p></li>
+        <li><span class="sym"><svg style="--c:var(--green)" aria-hidden="true"><use href="#i-plug"/></svg></span><h3>Segue le elettriche</h3><p>Ricariche in kWh a casa o alla colonnina, con le percentuali della batteria e i kWh ogni 100 km.</p></li>
+        <li><span class="sym"><svg style="--c:var(--red)" aria-hidden="true"><use href="#i-wrench"/></svg></span><h3>Ricorda le scadenze</h3><p>Revisione, bollo e assicurazione, con una notifica prima della data.</p></li>
+        <li><span class="sym"><svg style="--c:var(--water-ink)" aria-hidden="true"><use href="#i-cloud"/></svg></span><h3>Tiene i dati tuoi</h3><p>Il registro resta sul telefono e nel tuo iCloud o Google Drive. Con lo stesso Drive lo storico è uguale su iPhone e Android.</p></li>
+        <li><span class="sym"><svg style="--c:var(--red)" aria-hidden="true"><use href="#i-pin"/></svg></span><h3>Mostra i prezzi vicini</h3><p>Benzina, diesel, GPL e metano dei distributori intorno a te.</p></li>
+        <li><span class="sym"><svg style="--c:var(--ink)" aria-hidden="true"><use href="#i-fuel"/></svg></span><h3>Vale per ogni veicolo</h3><p>Auto, moto e scooter a benzina, diesel, GPL, metano, ibridi ed elettrici.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="calcolatore" aria-labelledby="h-calc">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 id="h-calc">Calcola il tuo costo al chilometro</h2>
+        <p class="sub">Il conto somma un anno di carburante o ricariche e le spese fisse. L'app fa lo stesso calcolo sulle spese che registri.</p>
+      </div>
+      <div class="planner" id="calc">
+        <div>
+          <fieldset class="mode">
+            <legend>Alimentazione</legend>
+            <label><input type="radio" name="mode" value="fuel" checked>Benzina, diesel o gas</label>
+            <label><input type="radio" name="mode" value="ev">Elettrica</label>
+          </fieldset>
+          <div class="ctl"><label for="c-km">Chilometri in un anno</label><output for="c-km" id="o-km">15.000 km</output><input id="c-km" type="range" min="3000" max="50000" step="1000" value="15000"></div>
+          <div class="ctl"><label for="c-eff">Consumo medio</label><output for="c-eff" id="o-eff">16,0 km/l</output><input id="c-eff" type="range" min="8" max="30" step="0.5" value="16"></div>
+          <div class="ctl"><label for="c-price" id="l-price">Prezzo del carburante</label><output for="c-price" id="o-price">1,80 €/l</output><input id="c-price" type="range" min="0.7" max="3" step="0.05" value="1.8"></div>
+          <div class="ctl"><label for="c-fixed">Assicurazione, bollo e manutenzione</label><output for="c-fixed" id="o-fixed">1.350 € l'anno</output><input id="c-fixed" type="range" min="300" max="4500" step="50" value="1350"></div>
+        </div>
+        <div class="sign" aria-live="polite">
+          <div class="sign__in">
+            <div class="sign__row sign__row--big"><span>Al chilometro</span><b id="r-km">0,20 €</b></div>
+            <div class="sign__row"><span>Al mese</span><b id="r-month">253 €</b></div>
+            <div class="sign__row"><span>In un anno</span><b id="r-year">3.038 €</b></div>
+            <div class="sign__row"><span id="k-fuel">Carburante</span><b id="r-fuel">1.688 €</b></div>
+            <div class="sign__row"><span>Spese fisse</span><b id="r-fixed">1.350 €</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="domande" aria-labelledby="h-domande">
+    <div class="wrap">
+      <div class="sec__head"><h2 id="h-domande">Domande</h2></div>
+      <div class="faq">
+        <div><h3>È gratis?</h3><p>Sì. Kilòmetro è gratis e senza pubblicità. Solo la lettura dello scontrino è in abbonamento, con una prova gratuita.</p></div>
+        <div><h3>Quali veicoli e spese si registrano?</h3><p>Auto, moto e scooter di ogni alimentazione. Rifornimenti, ricariche, manutenzione, bollo, assicurazione e pedaggi.</p></div>
+        <div><h3>Posso fotografare lo scontrino o la pompa?</h3><p>Lo scontrino sì, con l'abbonamento; alle colonnine anche la ricevuta della ricarica. Il display della pompa non viene letto.</p></div>
+        <div><h3>Posso registrare un veicolo elettrico?</h3><p>Sì. Le ricariche si registrano in kWh, a casa o alla colonnina, con le percentuali della batteria.</p></div>
+        <div><h3>Va bene per chi usa un furgone?</h3><p>Sì, se è un veicolo personale: tra le categorie c'è Furgone. Kilòmetro non gestisce flotte aziendali.</p></div>
+        <div><h3>Si vede bene su iPhone Duo?</h3><p>Sì. Chiuso mostra una colonna; aperto in orizzontale ne mostra due, divise sulla piega.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec arrivo" id="scarica" aria-labelledby="h-scarica">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 id="h-scarica">Scarica Kilòmetro</h2>
+        <p class="sub">Gratis e senza pubblicità, su iPhone e Android, in italiano, inglese, francese e spagnolo.</p>
+      </div>
+      <div class="stores">
+        <a class="btn btn--go" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597"><svg aria-hidden="true"><use href="#i-apple"/></svg>Scarica per iPhone</a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=it.kilometro.app"><svg aria-hidden="true"><use href="#i-play"/></svg>Scarica per Android</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>Kilòmetro, sviluppata da Daniele Crucitti. © 2026</span>
+  <nav aria-label="Note legali"><a href="privacy.html">Privacy</a><a href="termini.html">Condizioni d'uso</a><a href="cancellazione.html">Cancellazione dei dati</a></nav>
+  <span>I nomi e i loghi dei prodotti sono marchi dei rispettivi proprietari.</span>
+</footer>
+
+<script src="calcolatore.js"></script>
+</body>
+</html>

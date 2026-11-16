@@ -1,0 +1,33 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "proposta-classica.html",
+          "proposta-quadro.html"
+        ],
+        "createdAt": "2026-11-16T23:31:13.909Z",
+        "reason": "Agent: falso positivo, il rilevatore non risolve clamp(); in Chromium a 1440 px .sec ha padding 140px 72px, .mfd 24px, .panel 24-40px"
+      },
+      {
+        "rule": "nested-cards",
+        "value": "*",
+        "files": [
+          "proposta-quadro.html"
+        ],
+        "createdAt": "2026-11-16T23:31:13.922Z",
+        "reason": "Agent: mondo del quadro strumenti, quadranti e display stanno nella plancia come in un cruscotto vero; le caselle del contachilometri sono il componente dell'app"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "createdAt": "2026-11-16T23:31:13.934Z",
+        "reason": "Agent: Geist è il carattere dell'app Android di Kilòmetro (KmType in kilometro-android), la proposta classica lo riprende"
+      }
+    ]
+  }
+}
