@@ -49,6 +49,7 @@
 <!-- page CSS: only what sits inside a visual, and one --p-h per card group -->
 <style>
   .nav__logo > img { width: 28px; height: 28px; border-radius: 7px; }
+  @media (max-width: 359px) { .nav__actions > .btn { display: none; } }
   /* the app's own screens, in a device edge */
   .device { padding: 8px; border-radius: 30px; background: #1d1d1f; box-shadow: 0 24px 48px -24px rgb(29 29 31 / .45); }
   .device > img { display: block; width: 100%; height: auto; border-radius: 22px; }
@@ -142,8 +143,8 @@
     <nav class="nav__links" aria-label="Principale">
       <div class="nav__item"><a class="nav__link" href="#schermate">Schermate</a></div>
       <div class="nav__item"><a class="nav__link" href="#funzioni">Funzioni</a></div>
-      <div class="nav__item"><a class="nav__link" href="#calcolatore">Calcolatore</a></div>
       <div class="nav__item"><a class="nav__link" href="#faq">Domande</a></div>
+      <div class="nav__item"><a class="nav__link" href="#calcolatore">Calcolatore</a></div>
     </nav>
     <div class="nav__actions">
       <a class="btn btn--primary" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone</a>
@@ -269,6 +270,25 @@
     </div>
   </section>
 
+  <section class="section" id="faq" aria-labelledby="domande-h">
+    <div class="wrap grid grid--top">
+      <div class="span-6">
+        <div class="section-head">
+          <h2 id="domande-h">Domande</h2>
+          <p class="faq-intro">Le regole complete sono nelle Condizioni d'uso.</p>
+        </div>
+        <p class="faq-intro"><a class="link" href="termini.html">Leggi le Condizioni d'uso</a></p>
+      </div>
+      <div class="faq span-6 start-7">
+        <div class="faq__item"><h3>Quali veicoli e spese si registrano?</h3><p>Auto, moto e scooter di ogni alimentazione. Rifornimenti, ricariche, manutenzione, bollo, assicurazione e pedaggi.</p></div>
+        <div class="faq__item"><h3>Posso fotografare lo scontrino o la pompa?</h3><p>Lo scontrino sì, in abbonamento con prova gratuita. Il display della pompa non viene letto.</p></div>
+        <div class="faq__item"><h3>Posso registrare un veicolo elettrico?</h3><p>Sì. Le ricariche si registrano in kWh, a casa o alla colonnina, con le percentuali della batteria.</p></div>
+        <div class="faq__item"><h3>Va bene per chi usa un furgone?</h3><p>Sì, se è un veicolo personale: tra le categorie c'è Furgone. Kilòmetro non gestisce flotte aziendali.</p></div>
+        <div class="faq__item"><h3>Si vede bene su iPhone Duo?</h3><p>Sì. Chiuso mostra una colonna; aperto in orizzontale ne mostra due, divise sulla piega.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="calcolatore" aria-labelledby="calc-h">
     <div class="wrap grid grid--top">
       <div class="span-6">
@@ -288,33 +308,15 @@
           <div class="calc__row"><label for="c-fixed">Assicurazione, bollo e manutenzione</label><output for="c-fixed" id="o-fixed">1.350 € l'anno</output><input id="c-fixed" type="range" min="300" max="4500" step="50" value="1350"></div>
         </div>
       </div>
-      <div class="ui calc-out span-6 start-7" data-visual aria-live="polite">
-        <p class="calc-out__big"><span id="r-km">0,20 €</span> <small>al chilometro</small></p>
+      <div class="ui ui-calc calc-out span-6 start-7" data-visual>
+        <p class="calc-out__big" aria-live="polite"><span id="r-km">0,20 €</span> <small>al chilometro</small></p>
         <dl>
           <div><dt>Al mese</dt><dd id="r-month">253 €</dd></div>
           <div><dt>In un anno</dt><dd id="r-year">3.038 €</dd></div>
         </dl>
         <div class="calc-bar" aria-hidden="true"><i id="b-fuel" style="width:56%"></i><i id="b-fixed" style="width:44%"></i></div>
         <div class="calc-key"><span><span id="k-fuel">Carburante</span> <b id="r-fuel">1.688 €</b></span><span>Spese fisse <b id="r-fixed">1.350 €</b></span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="faq" aria-labelledby="domande-h">
-    <div class="wrap grid grid--top">
-      <div class="span-6">
-        <div class="section-head">
-          <h2 id="domande-h">Domande</h2>
-          <p class="faq-intro">Le regole complete sono nelle Condizioni d'uso.</p>
-        </div>
-        <p class="faq-intro"><a class="link" href="termini.html">Leggi le Condizioni d'uso</a></p>
-      </div>
-      <div class="faq span-6 start-7">
-        <div class="faq__item"><h3>Quali veicoli e spese si registrano?</h3><p>Auto, moto e scooter di ogni alimentazione. Rifornimenti, ricariche, manutenzione, bollo, assicurazione e pedaggi.</p></div>
-        <div class="faq__item"><h3>Posso fotografare lo scontrino o la pompa?</h3><p>Lo scontrino sì, in abbonamento con prova gratuita. Il display della pompa non viene letto.</p></div>
-        <div class="faq__item"><h3>Posso registrare un veicolo elettrico?</h3><p>Sì. Le ricariche si registrano in kWh, a casa o alla colonnina, con le percentuali della batteria.</p></div>
-        <div class="faq__item"><h3>Va bene per chi usa un furgone?</h3><p>Sì, se è un veicolo personale: tra le categorie c'è Furgone. Kilòmetro non gestisce flotte aziendali.</p></div>
-        <div class="faq__item"><h3>Si vede bene su iPhone Duo?</h3><p>Sì. Chiuso mostra una colonna; aperto in orizzontale ne mostra due, divise sulla piega.</p></div>
+        <p><a class="link" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone</a></p>
       </div>
     </div>
   </section>
@@ -337,7 +339,7 @@
           <p class="footer__lede">Il registro delle spese di auto, moto e scooter. Sviluppata da Daniele Crucitti.</p>
         </div>
         <div class="span-2 footer__col footer__col--app"><h3>App</h3><ul><li><a href="#schermate">Schermate</a></li><li><a href="#funzioni">Funzioni</a></li></ul></div>
-        <div class="span-2 footer__col footer__col--app"><h3>Guida</h3><ul><li><a href="#calcolatore">Calcolatore</a></li><li><a href="#faq">Domande</a></li></ul></div>
+        <div class="span-2 footer__col footer__col--app"><h3>Guida</h3><ul><li><a href="#faq">Domande</a></li><li><a href="#calcolatore">Calcolatore</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Store</h3><ul><li><a href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">App Store</a></li><li><a href="https://play.google.com/store/apps/details?id=it.kilometro.app">Google Play</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Note legali</h3><ul><li><a href="privacy.html">Privacy</a></li><li><a href="termini.html">Condizioni d'uso</a></li><li><a href="cancellazione.html">Cancellazione dei dati</a></li></ul></div>
       </div>
