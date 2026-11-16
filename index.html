@@ -58,7 +58,9 @@
   #schermate .mo-pc__visual--lit { align-items: flex-start; padding-bottom: 0; overflow: hidden; }
   #schermate .mo-pc__visual--lit > .device { width: min(300px, 62%); }
   #funzioni .panel { --p-h: 300px; }
-  @media (max-width: 639px) { #funzioni .panel { --p-h: 156px; } #funzioni .stage { --fade-h: 40px; } }
+  @media (min-width: 640px) and (max-width: 1023px) { #funzioni .panel { --p-h: 480px; } }
+  @media (max-width: 639px) { #schermate .mo-pc__visual--lit { aspect-ratio: 2 / 1; } .footer__col--app, .footer__lede { display: none; }
+    #funzioni .panel { --p-h: 132px; } #funzioni .stage { --fade-h: 40px; } }
   /* the app's own UI, drawn live (the kit's .ui tokens) */
   .km { --u-accent: #007aff; font-family: var(--font-text); }
   .km-pad { display: grid; gap: 12px; padding: 14px; }
@@ -117,7 +119,12 @@
   .calc-bar > i + i { background: var(--p-accent); }
   .calc-key { display: flex; justify-content: space-between; gap: var(--s-4); font-size: var(--t-small); }
   @media (max-width: 1023px) { .calc-out { margin-top: var(--s-6); padding: var(--s-6); } }
-  @media (max-width: 639px) { .calc { gap: var(--s-3); margin-top: var(--s-5); } .calc-out { padding: var(--s-5); gap: var(--s-4); } }
+  .hero--centred .hero__lead { color: var(--ink); }
+  @media (min-width: 640px) and (max-width: 1023px) { #calcolatore .section-head p { display: none; } .calc { gap: var(--s-3); margin-top: var(--s-5); } .calc-out { margin-top: var(--s-5); padding: var(--s-5); gap: var(--s-4); } }
+  @media (max-width: 639px) {
+    .calc { gap: var(--s-2); margin-top: var(--s-4); } .calc-out { padding: var(--s-5); gap: var(--s-3); margin-top: var(--s-4); }
+    #calcolatore .section-head p, .calc-out dl, .faq-intro, #funzioni-h .muted, .hero--centred .pill .muted { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -136,7 +143,7 @@
       <div class="nav__item"><a class="nav__link" href="#schermate">Schermate</a></div>
       <div class="nav__item"><a class="nav__link" href="#funzioni">Funzioni</a></div>
       <div class="nav__item"><a class="nav__link" href="#calcolatore">Calcolatore</a></div>
-      <div class="nav__item"><a class="nav__link" href="#domande">Domande</a></div>
+      <div class="nav__item"><a class="nav__link" href="#faq">Domande</a></div>
     </nav>
     <div class="nav__actions">
       <a class="btn btn--primary" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone</a>
@@ -151,7 +158,7 @@
   <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
     <div class="wrap"><div class="hero-text">
       <div class="hero__c">
-        <a class="pill" href="#domande"><span>iPhone Duo</span><span class="muted">Due colonne sul display aperto</span></a>
+        <a class="pill" href="#faq"><span>iPhone Duo</span><span class="muted">Due colonne sul display aperto</span></a>
         <h1 id="hero-h">Le spese di auto e moto in un'app</h1>
         <p class="hero__lead">Kilòmetro registra rifornimenti, ricariche, manutenzioni e scadenze e calcola il costo di ogni chilometro. Gratis su iPhone e Android, in quattro lingue.</p>
         <div class="btn-row"><a class="btn btn--primary" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone</a><a class="btn btn--secondary" href="https://play.google.com/store/apps/details?id=it.kilometro.app">Scarica per Android</a></div>
@@ -269,7 +276,7 @@
           <h2 id="calc-h">Calcola il tuo costo al chilometro</h2>
           <p>Il conto somma un anno di carburante o ricariche e le spese fisse. L'app fa lo stesso calcolo sulle spese che registri.</p>
         </div>
-        <form class="calc" id="calc" onsubmit="return false">
+        <div class="calc" id="calc" role="group" aria-labelledby="calc-h">
           <fieldset class="calc__mode">
             <legend class="sr-only">Alimentazione</legend>
             <label><input type="radio" name="mode" value="fuel" checked>Benzina, diesel o gas</label>
@@ -279,9 +286,9 @@
           <div class="calc__row"><label for="c-eff" id="l-eff">Consumo medio</label><output for="c-eff" id="o-eff">16,0 km/l</output><input id="c-eff" type="range" min="8" max="30" step="0.5" value="16"></div>
           <div class="calc__row"><label for="c-price" id="l-price">Prezzo del carburante</label><output for="c-price" id="o-price">1,80 €/l</output><input id="c-price" type="range" min="0.7" max="3" step="0.05" value="1.8"></div>
           <div class="calc__row"><label for="c-fixed">Assicurazione, bollo e manutenzione</label><output for="c-fixed" id="o-fixed">1.350 € l'anno</output><input id="c-fixed" type="range" min="300" max="4500" step="50" value="1350"></div>
-        </form>
+        </div>
       </div>
-      <div class="calc-out span-6 start-7" data-visual aria-live="polite">
+      <div class="ui calc-out span-6 start-7" data-visual aria-live="polite">
         <p class="calc-out__big"><span id="r-km">0,20 €</span> <small>al chilometro</small></p>
         <dl>
           <div><dt>Al mese</dt><dd id="r-month">253 €</dd></div>
@@ -293,21 +300,21 @@
     </div>
   </section>
 
-  <section class="section" id="domande" aria-labelledby="domande-h">
+  <section class="section" id="faq" aria-labelledby="domande-h">
     <div class="wrap grid grid--top">
       <div class="span-6">
         <div class="section-head">
           <h2 id="domande-h">Domande</h2>
-          <p>Le regole complete sono nelle Condizioni d'uso.</p>
+          <p class="faq-intro">Le regole complete sono nelle Condizioni d'uso.</p>
         </div>
-        <p><a class="link" href="termini.html">Leggi le Condizioni d'uso</a></p>
+        <p class="faq-intro"><a class="link" href="termini.html">Leggi le Condizioni d'uso</a></p>
       </div>
       <div class="faq span-6 start-7">
-        <div class="faq__item"><h3>Quali veicoli e spese si registrano?</h3><p>Auto, moto e scooter a benzina, diesel, GPL, metano, ibridi ed elettrici. Rifornimenti, ricariche, manutenzione, gomme, bollo, assicurazione e pedaggi.</p></div>
-        <div class="faq__item"><h3>Posso fotografare lo scontrino o la pompa?</h3><p>Lo scontrino sì, con l'abbonamento e la sua prova gratuita, e alle colonnine la ricevuta della ricarica. Il display della pompa non viene letto.</p></div>
-        <div class="faq__item"><h3>Posso registrare un veicolo elettrico?</h3><p>Sì. Per elettriche e ibride plug-in si registrano le ricariche in kWh, a casa o alla colonnina, con le percentuali della batteria.</p></div>
-        <div class="faq__item"><h3>Va bene per chi usa un furgone?</h3><p>Sì, se è un veicolo personale o di famiglia: tra le categorie c'è Furgone. Kilòmetro non gestisce flotte né mezzi aziendali.</p></div>
-        <div class="faq__item"><h3>Si vede bene su iPhone Duo?</h3><p>Sì. Chiuso mostra una colonna; aperto in orizzontale divide lo schermo in due colonne sulla piega.</p></div>
+        <div class="faq__item"><h3>Quali veicoli e spese si registrano?</h3><p>Auto, moto e scooter di ogni alimentazione. Rifornimenti, ricariche, manutenzione, bollo, assicurazione e pedaggi.</p></div>
+        <div class="faq__item"><h3>Posso fotografare lo scontrino o la pompa?</h3><p>Lo scontrino sì, in abbonamento con prova gratuita. Il display della pompa non viene letto.</p></div>
+        <div class="faq__item"><h3>Posso registrare un veicolo elettrico?</h3><p>Sì. Le ricariche si registrano in kWh, a casa o alla colonnina, con le percentuali della batteria.</p></div>
+        <div class="faq__item"><h3>Va bene per chi usa un furgone?</h3><p>Sì, se è un veicolo personale: tra le categorie c'è Furgone. Kilòmetro non gestisce flotte aziendali.</p></div>
+        <div class="faq__item"><h3>Si vede bene su iPhone Duo?</h3><p>Sì. Chiuso mostra una colonna; aperto in orizzontale ne mostra due, divise sulla piega.</p></div>
       </div>
     </div>
   </section>
@@ -318,7 +325,8 @@
     <div class="closing__cta close--type">
       <div class="section-head">
         <h2 id="close-h">Scarica Kilòmetro, è gratis</h2>
-        <p>Per iPhone e per Android. <a class="link" href="https://play.google.com/store/apps/details?id=it.kilometro.app">Scarica per Android</a></p>
+        <p>Per iPhone e per Android, in quattro lingue.</p>
+        <p><a class="link" href="https://play.google.com/store/apps/details?id=it.kilometro.app">Apri Google Play</a></p>
       </div>
       <a class="btn btn--primary btn--xl btn--wide" href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">Scarica per iPhone<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
     </div>
@@ -328,7 +336,8 @@
           <a class="nav__logo" href="#top"><img src="img/icona.webp" alt="" width="28" height="28" loading="lazy">Kilòmetro</a>
           <p class="footer__lede">Il registro delle spese di auto, moto e scooter. Sviluppata da Daniele Crucitti.</p>
         </div>
-        <div class="span-2 start-7 footer__col"><h3>App</h3><ul><li><a href="#schermate">Schermate</a></li><li><a href="#funzioni">Funzioni</a></li><li><a href="#calcolatore">Calcolatore</a></li><li><a href="#domande">Domande</a></li></ul></div>
+        <div class="span-2 footer__col footer__col--app"><h3>App</h3><ul><li><a href="#schermate">Schermate</a></li><li><a href="#funzioni">Funzioni</a></li></ul></div>
+        <div class="span-2 footer__col footer__col--app"><h3>Guida</h3><ul><li><a href="#calcolatore">Calcolatore</a></li><li><a href="#faq">Domande</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Store</h3><ul><li><a href="https://apps.apple.com/it/app/kil%C3%B2metro-spese-auto-e-moto/id6820212597">App Store</a></li><li><a href="https://play.google.com/store/apps/details?id=it.kilometro.app">Google Play</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Note legali</h3><ul><li><a href="privacy.html">Privacy</a></li><li><a href="termini.html">Condizioni d'uso</a></li><li><a href="cancellazione.html">Cancellazione dei dati</a></li></ul></div>
       </div>
@@ -353,7 +362,7 @@
   var it = function (n, d) { var p = n.toFixed(d).split('.'); return p[0].replace(/\B(?=(\d{3})+$)/g, '.') + (p[1] ? ',' + p[1] : ''); };
   var eur = function (n) { return it(Math.round(n), 0) + ' €'; };
   var eff = $('c-eff'), price = $('c-price');
-  function mode() { return form.elements.mode.value; }
+  function mode() { return form.querySelector('input[name=mode]:checked').value; }
   function setMode() {
     var ev = mode() === 'ev';
     eff.min = ev ? 11 : 8; eff.max = ev ? 26 : 30; eff.value = ev ? 15.5 : 16;
